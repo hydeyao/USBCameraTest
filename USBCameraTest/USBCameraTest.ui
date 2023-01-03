@@ -1,28 +1,85 @@
-<UI version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>USBCameraTestClass</class>
- <widget class="QMainWindow" name="USBCameraTestClass" >
-  <property name="objectName" >
-   <string notr="true">USBCameraTestClass</string>
-  </property>
-  <property name="geometry" >
+ <widget class="QMainWindow" name="USBCameraTestClass">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>790</width>
+    <height>612</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>USBCameraTest</string>
-  </property>  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QOpenGLWidget" name="openGLWidget"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>790</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuDevices">
+    <property name="title">
+     <string>Devices</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuOption">
+    <property name="title">
+     <string>Option</string>
+    </property>
+    <addaction name="actionVideoProperty"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuDevices"/>
+   <addaction name="menuOption"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionToolRectSet"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionVideoProperty">
+   <property name="text">
+    <string>VideoProperty</string>
+   </property>
+  </action>
+  <action name="actionToolRectSet">
+   <property name="icon">
+    <iconset resource="USBCameraTest.qrc">
+     <normaloff>:/USBCameraTest/Resourses/tools.svg</normaloff>:/USBCameraTest/Resourses/tools.svg</iconset>
+   </property>
+   <property name="text">
+    <string>ToolRectSet</string>
+   </property>
+   <property name="toolTip">
+    <string>set roi rect</string>
+   </property>
+  </action>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources>
-   <include location="USBCameraTest.qrc"/>
+  <include location="USBCameraTest.qrc"/>
  </resources>
  <connections/>
-</UI>
+</ui>

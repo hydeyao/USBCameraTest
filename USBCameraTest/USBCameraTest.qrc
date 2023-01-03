@@ -1,4 +1,7 @@
 <RCC>
-    <qresource prefix="USBCameraTest">
+    <qresource prefix="/USBCameraTest">
+        <file>Resourses/tools.svg</file>
+        <file>Resourses/fragment.fsh</file>
+        <file>Resourses/vertex.vsh</file>
     </qresource>
 </RCC>

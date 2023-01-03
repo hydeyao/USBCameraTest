@@ -84,7 +84,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -102,14 +102,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ReadThread.cpp" />
     <ClCompile Include="VideoDecode.cpp" />
+    <ClCompile Include="VideoPropDia.cpp" />
     <QtRcc Include="USBCameraTest.qrc" />
     <QtUic Include="USBCameraTest.ui" />
     <QtMoc Include="USBCameraTest.h" />
     <ClCompile Include="USBCameraTest.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="VideoPropDia.ui" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="VideoPropDia.h" />
+    <QtMoc Include="ReadThread.h" />
     <ClInclude Include="VideoDecode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

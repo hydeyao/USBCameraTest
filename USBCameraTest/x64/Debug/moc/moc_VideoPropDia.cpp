@@ -1,5 +1,5 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'USBCameraTest.h'
+** Meta object code from reading C++ file 'VideoPropDia.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.14.0)
 **
@@ -7,11 +7,11 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../../../USBCameraTest.h"
+#include "../../../VideoPropDia.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'USBCameraTest.h' doesn't include <QObject>."
+#error "The header file 'VideoPropDia.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.14.0. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -21,28 +21,27 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_USBCameraTest_t {
+struct qt_meta_stringdata_VideoPropDia_t {
     QByteArrayData data[3];
-    char stringdata0[42];
+    char stringdata0[24];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_USBCameraTest_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_VideoPropDia_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_USBCameraTest_t qt_meta_stringdata_USBCameraTest = {
+static const qt_meta_stringdata_VideoPropDia_t qt_meta_stringdata_VideoPropDia = {
     {
-QT_MOC_LITERAL(0, 0, 13), // "USBCameraTest"
-QT_MOC_LITERAL(1, 14, 26), // "slt_actionVideoPropTrigged"
-QT_MOC_LITERAL(2, 41, 0) // ""
+QT_MOC_LITERAL(0, 0, 12), // "VideoPropDia"
+QT_MOC_LITERAL(1, 13, 9), // "confirmed"
+QT_MOC_LITERAL(2, 23, 0) // ""
 
     },
-    "USBCameraTest\0slt_actionVideoPropTrigged\0"
-    ""
+    "VideoPropDia\0confirmed\0"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_USBCameraTest[] = {
+static const uint qt_meta_data_VideoPropDia[] = {
 
  // content:
        8,       // revision
@@ -53,56 +52,65 @@ static const uint qt_meta_data_USBCameraTest[] = {
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
 
- // slots: name, argc, parameters, tag, flags
-       1,    0,   19,    2, 0x08 /* Private */,
+ // signals: name, argc, parameters, tag, flags
+       1,    0,   19,    2, 0x06 /* Public */,
 
- // slots: parameters
+ // signals: parameters
     QMetaType::Void,
 
        0        // eod
 };
 
-void USBCameraTest::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void VideoPropDia::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<USBCameraTest *>(_o);
+        auto *_t = static_cast<VideoPropDia *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->slt_actionVideoPropTrigged(); break;
+        case 0: _t->confirmed(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (VideoPropDia::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&VideoPropDia::confirmed)) {
+                *result = 0;
+                return;
+            }
         }
     }
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject USBCameraTest::staticMetaObject = { {
-    QMetaObject::SuperData::link<QMainWindow::staticMetaObject>(),
-    qt_meta_stringdata_USBCameraTest.data,
-    qt_meta_data_USBCameraTest,
+QT_INIT_METAOBJECT const QMetaObject VideoPropDia::staticMetaObject = { {
+    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
+    qt_meta_stringdata_VideoPropDia.data,
+    qt_meta_data_VideoPropDia,
     qt_static_metacall,
     nullptr,
     nullptr
 } };
 
 
-const QMetaObject *USBCameraTest::metaObject() const
+const QMetaObject *VideoPropDia::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *USBCameraTest::qt_metacast(const char *_clname)
+void *VideoPropDia::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_USBCameraTest.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_VideoPropDia.stringdata0))
         return static_cast<void*>(this);
-    return QMainWindow::qt_metacast(_clname);
+    return QDialog::qt_metacast(_clname);
 }
 
-int USBCameraTest::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int VideoPropDia::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QMainWindow::qt_metacall(_c, _id, _a);
+    _id = QDialog::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
@@ -115,6 +123,12 @@ int USBCameraTest::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 1;
     }
     return _id;
+}
+
+// SIGNAL 0
+void VideoPropDia::confirmed()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE
