@@ -1,6 +1,5 @@
 #version 330 core
-
-in vec2 TexCord
+in  vec2 TexCord;
 uniform sampler2D tex_y;
 uniform sampler2D tex_u;
 uniform sampler2D tex_v;
@@ -10,7 +9,6 @@ void main()
     vec3 yuv;
     vec3 rgb;
 
-    // YUV转RGB
     yuv.x = texture2D(tex_y, TexCord).r;
     yuv.y = texture2D(tex_u, TexCord).r-0.5;
     yuv.z = texture2D(tex_v, TexCord).r-0.5;

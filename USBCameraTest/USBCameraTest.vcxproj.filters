@@ -49,6 +49,9 @@
     <ClCompile Include="VideoPropDia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VideoWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VideoDecode.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="VideoPropDia.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="VideoWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

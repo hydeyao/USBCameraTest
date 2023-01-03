@@ -4,6 +4,8 @@
 #include "ui_USBCameraTest.h"
 #include <qevent.h>
 #include <memory>
+#include "VideoWidget.h"
+#include "ReadThread.h"
 
 
 class QCameraInfo;
@@ -39,9 +41,13 @@ private:
     std::shared_ptr<VideoProp> mspVideoProp = nullptr;
     QLabel* mleftStatLable = nullptr;
     QLabel* mrightStatLable = nullptr;
+    std::shared_ptr<ReadThread> mspThRead = nullptr;
+
+    bool mb_isPlay;
 
 private slots:
-
     void slt_actionVideoPropTrigged();
+    void slt_actionPlayTrigged();
+    void on_play_stat(int stat);
 
 };

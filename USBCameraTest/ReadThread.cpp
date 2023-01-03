@@ -13,11 +13,12 @@ ReadThread::ReadThread(QObject *parent)
 ReadThread::~ReadThread()
 {}
 
-void ReadThread::open(const QString & url)
+void ReadThread::open(const QString & url, const QString& res)
 {
 	if (!this->isRunning())
 	{
 		m_url = url.startsWith("video=") ? url : "video=" % url;
+		m_res = res;
 		emit this->start();
 	}
 }
@@ -47,7 +48,7 @@ void sleepMsec(int msec)
 
 void ReadThread::run()
 {
-	bool ret = msp_videoDecode->open(m_url.toStdString());
+	bool ret = msp_videoDecode->open(m_url.toStdString(), m_res.toStdString());
 	if (ret)
 	{
 		m_play = true;

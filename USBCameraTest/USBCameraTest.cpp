@@ -6,21 +6,37 @@
 #include <qtimer.h>
 #include "VideoPropDia.h"
 
+extern "C" {        // 用C规则编译指定的代码
+#include "libavcodec/avcodec.h"
+}
+
+Q_DECLARE_METATYPE(AVFrame)
 
 USBCameraTest::USBCameraTest(QWidget *parent)
-    : QMainWindow(parent), mCurCamDevice(""), mSelCamInfo(0)
+    : QMainWindow(parent), mCurCamDevice(""), mSelCamInfo(0), mb_isPlay(false)
 {
     ui.setupUi(this);
 	connect(ui.actionVideoProperty, &QAction::triggered, this, &USBCameraTest::slt_actionVideoPropTrigged);
-
 	startTimer(16);
 	initCameraList();
 
 
+	mspThRead.reset(new ReadThread());
+	connect(mspThRead.get(), &ReadThread::repaint, ui.openGLWidget, &VideoWidget::repaint, Qt::BlockingQueuedConnection);
+	connect(mspThRead.get(), &ReadThread::play_stat, this, &USBCameraTest::on_play_stat);
+	connect(ui.actionplayVideo, &QAction::triggered, this, &USBCameraTest::slt_actionPlayTrigged);
+
 }
 
 USBCameraTest::~USBCameraTest()
-{}
+{
+	if (mspThRead)
+	{
+		disconnect(mspThRead.get(), &ReadThread::repaint, ui.openGLWidget, &VideoWidget::repaint);
+		mspThRead->close();
+		mspThRead->wait();
+	}
+}
 
 void USBCameraTest::keyPressEvent(QKeyEvent * e)
 {
@@ -84,6 +100,35 @@ void USBCameraTest::initCameraList()
 		idx++;
 	}
 
+}
+
+void USBCameraTest::slt_actionPlayTrigged()
+{
+	if (!mb_isPlay)
+	{
+		mspThRead->open(mCurCamDevice, mspVideoProp->video_resolution);
+		ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/stop.svg"));
+	}
+	else
+	{
+		mspThRead->close();
+		ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/play.svg"));
+	}
+
+}
+
+void USBCameraTest::on_play_stat(int stat)
+{
+	if (stat == play)
+	{
+		ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/stop.svg"));
+		mb_isPlay = true;
+	}
+	else
+	{
+		ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/play.svg"));
+		mb_isPlay = false;
+	}
 }
 
 void USBCameraTest::slt_actionVideoPropTrigged()

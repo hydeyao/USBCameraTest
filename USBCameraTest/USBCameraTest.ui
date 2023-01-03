@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>790</width>
-    <height>612</height>
+    <width>966</width>
+    <height>694</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QOpenGLWidget" name="openGLWidget"/>
+     <widget class="VideoWidget" name="openGLWidget"/>
     </item>
    </layout>
   </widget>
@@ -25,7 +25,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>790</width>
+     <width>966</width>
      <height>22</height>
     </rect>
    </property>
@@ -43,6 +43,8 @@
     <property name="title">
      <string>Option</string>
     </property>
+    <addaction name="actionPreview"/>
+    <addaction name="separator"/>
     <addaction name="actionVideoProperty"/>
    </widget>
    <addaction name="menuFile"/>
@@ -56,6 +58,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionplayVideo"/>
+   <addaction name="separator"/>
    <addaction name="actionToolRectSet"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -76,8 +80,35 @@
     <string>set roi rect</string>
    </property>
   </action>
+  <action name="actionPreview">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Preview</string>
+   </property>
+  </action>
+  <action name="actionplayVideo">
+   <property name="icon">
+    <iconset resource="USBCameraTest.qrc">
+     <normaloff>:/USBCameraTest/Resourses/play.svg</normaloff>:/USBCameraTest/Resourses/play.svg</iconset>
+   </property>
+   <property name="text">
+    <string>playVideo</string>
+   </property>
+   <property name="toolTip">
+    <string>play video</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>VideoWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header>VideoWidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="USBCameraTest.qrc"/>
  </resources>

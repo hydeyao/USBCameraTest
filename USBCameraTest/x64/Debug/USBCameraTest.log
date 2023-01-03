@@ -1,18 +1,5 @@
-﻿  Reading Qt configuration (C:/Qt/Qt5.14.0/5.14.0/msvc2017_64/bin/qmake)
-  uic USBCameraTest.ui
-  uic VideoPropDia.ui
-  rcc USBCameraTest.qrc
-  moc USBCameraTest.h
-  moc VideoPropDia.h
-  moc ReadThread.h
-  ReadThread.cpp
-  VideoDecode.cpp
-  VideoPropDia.cpp
-  USBCameraTest.cpp
-  main.cpp
-D:\QtProjecs\USBCameraTest\ffmpeg512\include\libavutil\rational.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 VideoDecode.cpp)
-  qrc_USBCameraTest.cpp
-  moc_USBCameraTest.cpp
-  moc_VideoPropDia.cpp
-  moc_ReadThread.cpp
-  USBCameraTest.vcxproj -> D:\QtProjecs\USBCameraTest\x64\Debug\USBCameraTest.exe
+﻿  USBCameraTest.cpp
+  VideoWidget.cpp
+E:\QtProject\USBCameraTest\ffmpeg512\include\libavutil\rational.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 VideoWidget.cpp)
+E:\QtProject\USBCameraTest\ffmpeg512\include\libavutil\rational.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 USBCameraTest.cpp)
+  USBCameraTest.vcxproj -> E:\QtProject\USBCameraTest\x64\Debug\USBCameraTest.exe

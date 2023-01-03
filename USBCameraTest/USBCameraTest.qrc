@@ -3,5 +3,7 @@
         <file>Resourses/tools.svg</file>
         <file>Resourses/fragment.fsh</file>
         <file>Resourses/vertex.vsh</file>
+        <file>Resourses/play.svg</file>
+        <file>Resourses/stop.svg</file>
     </qresource>
 </RCC>

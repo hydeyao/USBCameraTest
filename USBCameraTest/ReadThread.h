@@ -22,10 +22,10 @@ class ReadThread  : public QThread
 	Q_OBJECT
 
 public:
-	explicit ReadThread(QObject *parent);
+	explicit ReadThread(QObject *parent = nullptr);
 	~ReadThread() override;
 
-	void open(const QString& url = QString());
+	void open(const QString& url = QString(),const QString& res = QString());
 	void pause(bool flag);
 	void close();
 	const QString& url();
@@ -40,6 +40,7 @@ signals:
 private:
 	std::shared_ptr<VideoDecode> msp_videoDecode = nullptr;
 	QString m_url;
+	QString m_res;
 	bool m_play = false;
 
 };
