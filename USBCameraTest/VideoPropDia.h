@@ -25,6 +25,8 @@ public:
 	void initDiaUI();
 	void Prop(VideoProp * prop);
 
+	static QStringList camResolutions(QCamera* cam);
+	static QString maxResolution(QCamera* cam);
 signals:
 	void confirmed();
 

@@ -121,6 +121,7 @@ bool VideoDecode::open(const std::string& url, const std::string& resolution)
 	}
 
 	m_frame = av_frame_alloc();
+	m_RGBframe = av_frame_alloc();
 	if (!m_frame)
 	{
 		cout << "Av frame Alloc Failed\n";
@@ -128,9 +129,40 @@ bool VideoDecode::open(const std::string& url, const std::string& resolution)
 		return false;
 	}
 
-	int size = av_image_get_buffer_size(AV_PIX_FMT_RGBA, msp_videoSize->width, msp_videoSize->height, 4);
+	if (!m_RGBframe)
+	{
+		cout << "Av RGB frame Alloc Failed\n";
+		free();
+		return false;
+	}
 
+
+	m_swsCtx = sws_getContext(m_codeCtx->width, m_codeCtx->height, m_codeCtx->pix_fmt, \
+		m_codeCtx->width, m_codeCtx->height, AV_PIX_FMT_RGB32, SWS_BICUBIC, \
+		NULL, NULL, NULL);
+
+	if (!m_swsCtx)
+	{
+		cout << "SWS Context get Failed\n";
+		free();
+		return false;
+	}
+
+
+	int size = av_image_get_buffer_size(AV_PIX_FMT_RGBA, msp_videoSize->width, msp_videoSize->height, 4);	
 	mspRGB_Buf.reset(new uchar(size + 1000), [](uchar* p) {delete[] p; });
+
+	m_numBytes = av_image_get_buffer_size(AV_PIX_FMT_RGB32, msp_videoSize->width, msp_videoSize->height, 1);
+	mspRGB32_outBuf.reset((uchar*)av_malloc(m_numBytes * sizeof(uchar)), [](uchar* p) {av_free(p); });
+
+	ret = av_image_fill_arrays(m_RGBframe->data, m_RGBframe->linesize, mspRGB32_outBuf.get(), \
+		AV_PIX_FMT_RGB32, m_codeCtx->width, m_codeCtx->height, 1);
+
+	if (ret<0)
+	{
+		ERR_RET(ret);
+	}
+
 	m_end = false;
 
 	cout << "Open Success" << endl;
@@ -194,6 +226,7 @@ void VideoDecode::close()
 	m_obtainFrames = 0;
 	m_pts = 0;
 	m_fps = 0;
+	m_numBytes = 0;
 	msp_videoSize.reset(new VideoSize(), [](VideoSize* p) {delete p; });
 }
 
@@ -205,6 +238,13 @@ bool VideoDecode::isEnd()
 const int64_t& VideoDecode::pts()
 {
 	return m_pts;
+}
+
+QImage VideoDecode::RGBImage()
+{
+	sws_scale(m_swsCtx, m_frame->data, m_frame->linesize, 0, m_codeCtx->height, m_RGBframe->data, m_RGBframe->linesize);
+	QImage img(mspRGB32_outBuf.get(),m_codeCtx->width,m_codeCtx->height,QImage::Format_RGB32);
+	return img;
 }
 
 void VideoDecode::initFFmpeg()
@@ -257,7 +297,7 @@ void VideoDecode::clear()
 
 	 if (m_fmtCtx)
 	 {
-		 avformat_free_context(m_fmtCtx);
+		 avformat_close_input(&m_fmtCtx);
 	 }
 
 	 if (m_pkt)
@@ -270,6 +310,10 @@ void VideoDecode::clear()
 		 av_frame_free(&m_frame);
 	 }
 
+	 if (m_RGBframe)
+	 {
+		 av_frame_free(&m_RGBframe);
+	 }
 }
 
  double VideoDecode::rational2double(AVRational* rational)

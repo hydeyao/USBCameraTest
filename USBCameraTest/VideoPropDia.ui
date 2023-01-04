@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>376</width>
-    <height>316</height>
+    <width>408</width>
+    <height>322</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,12 @@
   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="4,1">
    <item>
     <widget class="QGroupBox" name="groupBox">
+     <property name="font">
+      <font>
+       <family>等线</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="title">
       <string>VidoeProperty</string>
      </property>
@@ -24,13 +30,26 @@
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <family>等线</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>VideoSize</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="videoSize_comboBox"/>
+         <widget class="QComboBox" name="videoSize_comboBox">
+          <property name="font">
+           <font>
+            <family>等线</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -38,6 +57,12 @@
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
          <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <family>等线</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>VideoFormat</string>
           </property>
@@ -45,6 +70,12 @@
         </item>
         <item>
          <widget class="QComboBox" name="videoFormat_comboBox">
+          <property name="font">
+           <font>
+            <family>等线</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
           <item>
            <property name="text">
             <string>mjpeg</string>
@@ -63,13 +94,26 @@
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
          <widget class="QLabel" name="label_4">
+          <property name="font">
+           <font>
+            <family>等线</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>FrameRate</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox"/>
+         <widget class="QSpinBox" name="spinBox">
+          <property name="font">
+           <font>
+            <family>等线</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -80,6 +124,12 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <spacer name="horizontalSpacer">
+       <property name="font">
+        <font>
+         <family>等线</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -93,6 +143,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="confirm_pushButton">
+       <property name="font">
+        <font>
+         <family>等线</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Confirm</string>
        </property>
@@ -100,6 +156,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="cancle_pushButton">
+       <property name="font">
+        <font>
+         <family>等线</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Cancle</string>
        </property>

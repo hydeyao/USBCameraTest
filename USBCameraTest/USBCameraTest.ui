@@ -47,9 +47,23 @@
     <addaction name="separator"/>
     <addaction name="actionVideoProperty"/>
    </widget>
+   <widget class="QMenu" name="menuSetting">
+    <property name="title">
+     <string>Setting</string>
+    </property>
+    <widget class="QMenu" name="menuDecode">
+     <property name="title">
+      <string>Decode</string>
+     </property>
+     <addaction name="actionOpenGLDecode"/>
+     <addaction name="actionCPUDecode"/>
+    </widget>
+    <addaction name="menuDecode"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuDevices"/>
    <addaction name="menuOption"/>
+   <addaction name="menuSetting"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -61,6 +75,7 @@
    <addaction name="actionplayVideo"/>
    <addaction name="separator"/>
    <addaction name="actionToolRectSet"/>
+   <addaction name="actionCrossLine"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionVideoProperty">
@@ -98,6 +113,34 @@
    </property>
    <property name="toolTip">
     <string>play video</string>
+   </property>
+  </action>
+  <action name="actionOpenGLDecode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>OpenGL</string>
+   </property>
+  </action>
+  <action name="actionCPUDecode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>CPU</string>
+   </property>
+  </action>
+  <action name="actionCrossLine">
+   <property name="icon">
+    <iconset resource="USBCameraTest.qrc">
+     <normaloff>:/USBCameraTest/Resourses/cross-line.svg</normaloff>:/USBCameraTest/Resourses/cross-line.svg</iconset>
+   </property>
+   <property name="text">
+    <string>CrossLine</string>
+   </property>
+   <property name="toolTip">
+    <string>show Cross Line in Widget</string>
    </property>
   </action>
  </widget>

@@ -30,6 +30,9 @@ public:
     QAction *actionToolRectSet;
     QAction *actionPreview;
     QAction *actionplayVideo;
+    QAction *actionOpenGLDecode;
+    QAction *actionCPUDecode;
+    QAction *actionCrossLine;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     VideoWidget *openGLWidget;
@@ -37,6 +40,8 @@ public:
     QMenu *menuFile;
     QMenu *menuDevices;
     QMenu *menuOption;
+    QMenu *menuSetting;
+    QMenu *menuDecode;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -60,6 +65,17 @@ public:
         QIcon icon1;
         icon1.addFile(QString::fromUtf8(":/USBCameraTest/Resourses/play.svg"), QSize(), QIcon::Normal, QIcon::Off);
         actionplayVideo->setIcon(icon1);
+        actionOpenGLDecode = new QAction(USBCameraTestClass);
+        actionOpenGLDecode->setObjectName(QString::fromUtf8("actionOpenGLDecode"));
+        actionOpenGLDecode->setCheckable(true);
+        actionCPUDecode = new QAction(USBCameraTestClass);
+        actionCPUDecode->setObjectName(QString::fromUtf8("actionCPUDecode"));
+        actionCPUDecode->setCheckable(true);
+        actionCrossLine = new QAction(USBCameraTestClass);
+        actionCrossLine->setObjectName(QString::fromUtf8("actionCrossLine"));
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/USBCameraTest/Resourses/cross-line.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        actionCrossLine->setIcon(icon2);
         centralWidget = new QWidget(USBCameraTestClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -81,6 +97,10 @@ public:
         menuDevices->setObjectName(QString::fromUtf8("menuDevices"));
         menuOption = new QMenu(menuBar);
         menuOption->setObjectName(QString::fromUtf8("menuOption"));
+        menuSetting = new QMenu(menuBar);
+        menuSetting->setObjectName(QString::fromUtf8("menuSetting"));
+        menuDecode = new QMenu(menuSetting);
+        menuDecode->setObjectName(QString::fromUtf8("menuDecode"));
         USBCameraTestClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(USBCameraTestClass);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -92,12 +112,17 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuDevices->menuAction());
         menuBar->addAction(menuOption->menuAction());
+        menuBar->addAction(menuSetting->menuAction());
         menuOption->addAction(actionPreview);
         menuOption->addSeparator();
         menuOption->addAction(actionVideoProperty);
+        menuSetting->addAction(menuDecode->menuAction());
+        menuDecode->addAction(actionOpenGLDecode);
+        menuDecode->addAction(actionCPUDecode);
         mainToolBar->addAction(actionplayVideo);
         mainToolBar->addSeparator();
         mainToolBar->addAction(actionToolRectSet);
+        mainToolBar->addAction(actionCrossLine);
 
         retranslateUi(USBCameraTestClass);
 
@@ -117,9 +142,17 @@ public:
 #if QT_CONFIG(tooltip)
         actionplayVideo->setToolTip(QCoreApplication::translate("USBCameraTestClass", "play video", nullptr));
 #endif // QT_CONFIG(tooltip)
+        actionOpenGLDecode->setText(QCoreApplication::translate("USBCameraTestClass", "OpenGL", nullptr));
+        actionCPUDecode->setText(QCoreApplication::translate("USBCameraTestClass", "CPU", nullptr));
+        actionCrossLine->setText(QCoreApplication::translate("USBCameraTestClass", "CrossLine", nullptr));
+#if QT_CONFIG(tooltip)
+        actionCrossLine->setToolTip(QCoreApplication::translate("USBCameraTestClass", "show Cross Line in Widget", nullptr));
+#endif // QT_CONFIG(tooltip)
         menuFile->setTitle(QCoreApplication::translate("USBCameraTestClass", "File", nullptr));
         menuDevices->setTitle(QCoreApplication::translate("USBCameraTestClass", "Devices", nullptr));
         menuOption->setTitle(QCoreApplication::translate("USBCameraTestClass", "Option", nullptr));
+        menuSetting->setTitle(QCoreApplication::translate("USBCameraTestClass", "Setting", nullptr));
+        menuDecode->setTitle(QCoreApplication::translate("USBCameraTestClass", "Decode", nullptr));
     } // retranslateUi
 
 };

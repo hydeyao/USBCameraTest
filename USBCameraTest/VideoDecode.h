@@ -46,6 +46,8 @@ public:
 	bool isEnd();
 	const int64_t & pts();
 
+	QImage RGBImage();
+
 private:
 	void initFFmpeg();
 	void showErr(int Err);
@@ -61,6 +63,8 @@ private:
 	SwsContext* m_swsCtx = nullptr;
 	AVPacket* m_pkt = nullptr;
 	AVFrame* m_frame = nullptr;
+	AVFrame* m_RGBframe = nullptr;
+
 	
 	int m_videoIdx = 0;
 	int64_t m_toltalTime = 0;
@@ -72,6 +76,8 @@ private:
 	std::shared_ptr<char> mspErrBuf = nullptr;
 	bool m_end = false;
 	std::shared_ptr<uchar> mspRGB_Buf = nullptr;
+	std::shared_ptr<uchar> mspRGB32_outBuf = nullptr;
+	int64_t m_numBytes = 0;
                         
 
 };

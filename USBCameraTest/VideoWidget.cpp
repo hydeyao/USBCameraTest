@@ -1,4 +1,6 @@
 #include "VideoWidget.h"
+#include <QPainter>
+#include <qmessagebox.h>
 
 extern "C" {
 #include "libavcodec/avcodec.h"
@@ -13,9 +15,9 @@ VideoWidget::VideoWidget(QWidget* parent, Qt::WindowFlags f)
 
 VideoWidget::~VideoWidget()
 {
-    if (!isValid()) return;        // Èç¹û¿Ø¼şºÍOpenGL×ÊÔ´£¨ÈçÉÏÏÂÎÄ£©ÒÑ³É¹¦³õÊ¼»¯£¬Ôò·µ»Øtrue¡£
-    this->makeCurrent(); // Í¨¹ı½«ÏàÓ¦µÄÉÏÏÂÎÄÉèÖÃÎªµ±Ç°ÉÏÏÂÎÄ²¢ÔÚ¸ÃÉÏÏÂÎÄÖĞ°ó¶¨Ö¡»º³åÇø¶ÔÏó£¬Îª³ÊÏÖ´ËĞ¡²¿¼şµÄOpenGLÄÚÈİ×ö×¼±¸¡£
-    // ÊÍ·ÅÎÆÀí
+    if (!isValid()) return;        // å¦‚æœæ§ä»¶å’ŒOpenGLèµ„æºï¼ˆå¦‚ä¸Šä¸‹æ–‡ï¼‰å·²æˆåŠŸåˆå§‹åŒ–ï¼Œåˆ™è¿”å›trueã€‚
+    this->makeCurrent(); // é€šè¿‡å°†ç›¸åº”çš„ä¸Šä¸‹æ–‡è®¾ç½®ä¸ºå½“å‰ä¸Šä¸‹æ–‡å¹¶åœ¨è¯¥ä¸Šä¸‹æ–‡ä¸­ç»‘å®šå¸§ç¼“å†²åŒºå¯¹è±¡ï¼Œä¸ºå‘ˆç°æ­¤å°éƒ¨ä»¶çš„OpenGLå†…å®¹åšå‡†å¤‡ã€‚
+    // é‡Šæ”¾çº¹ç†
     if (m_texY)
     {
         m_texY->destroy();
@@ -31,8 +33,8 @@ VideoWidget::~VideoWidget()
         m_texV->destroy();
         delete m_texV;
     }
-    this->doneCurrent();    // ÊÍ·ÅÉÏÏÂÎÄ
-    // ÊÍ·Å
+    this->doneCurrent();    // é‡Šæ”¾ä¸Šä¸‹æ–‡
+    // é‡Šæ”¾
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
     glDeleteVertexArrays(1, &VAO);
@@ -40,6 +42,8 @@ VideoWidget::~VideoWidget()
 
 void VideoWidget::repaint(AVFrame * frame)
 {
+    _useGL = true;
+
 	if (!frame || frame->width == 0 || frame->height == 0)	return;
 
 	if (frame->width != m_size.width() || frame->height != m_size.height())
@@ -60,54 +64,66 @@ void VideoWidget::repaint(AVFrame * frame)
 
 	if (!m_texY)
 	{
-		// ´´½¨2DÎÆÀí
+		// åˆ›å»º2Dçº¹ç†
 		m_texY = new QOpenGLTexture(QOpenGLTexture::Target2D);
 		m_texU = new QOpenGLTexture(QOpenGLTexture::Target2D);
 		m_texV = new QOpenGLTexture(QOpenGLTexture::Target2D);
 
-        // ÉèÖÃÎÆÀí´óĞ¡                                                //  YUV444    YUV422    YUV422
+        // è®¾ç½®çº¹ç†å¤§å°                                                //  YUV444    YUV422    YUV422
         m_texY->setSize(frame->width, frame->height);                //   w,h      w,h       w,h
         m_texU->setSize(frame->width / 2, frame->height);            //   w,h      w/2,h      w/2,h/2
         m_texV->setSize(frame->width / 2, frame->height);            //   w,h      w/2,h      w/2,h/2
 
-        // ÉèÖÃ·Å´ó¡¢ËõĞ¡¹ıÂËÆ÷
+        // è®¾ç½®æ”¾å¤§ã€ç¼©å°è¿‡æ»¤å™¨
         m_texY->setMinMagFilters(QOpenGLTexture::LinearMipMapLinear, QOpenGLTexture::Linear);
         m_texU->setMinMagFilters(QOpenGLTexture::LinearMipMapLinear, QOpenGLTexture::Linear);
         m_texV->setMinMagFilters(QOpenGLTexture::LinearMipMapLinear, QOpenGLTexture::Linear);
 
-        // ÉèÖÃÍ¼Ïñ¸ñÊ½
+        // è®¾ç½®å›¾åƒæ ¼å¼
         m_texY->setFormat(QOpenGLTexture::R8_UNorm);
         m_texU->setFormat(QOpenGLTexture::R8_UNorm);
         m_texV->setFormat(QOpenGLTexture::R8_UNorm);
 
-        // ·ÖÅäÄÚ´æ
+        // åˆ†é…å†…å­˜
         m_texY->allocateStorage();
         m_texU->allocateStorage();
         m_texV->allocateStorage();
 
-        // ¼ÇÂ¼Í¼Ïñ·Ö±æÂÊ
+        // è®°å½•å›¾åƒåˆ†è¾¨ç‡
         m_size.setWidth(frame->width);
         m_size.setHeight(frame->height);
         resizeGL(this->width(), this->height());
     }
+
+    if (!frame->data[0] || !frame->data[1] || !frame->data[2])
+    {
+        emit stopVideo();
+        av_frame_unref(frame);
+        return;
+    }
+
     m_options.setImageHeight(frame->height);
     m_options.setRowLength(frame->linesize[0]);
-    m_texY->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, static_cast<const void*>(frame->data[0]), &m_options);   // ÉèÖÃÍ¼ÏñÊı¾İ Y
+    m_texY->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, static_cast<const void*>(frame->data[0]), &m_options);   // è®¾ç½®å›¾åƒæ•°æ® Y
     m_options.setRowLength(frame->linesize[1]);
-    m_texU->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, static_cast<const void*>(frame->data[1]), &m_options);   // ÉèÖÃÍ¼ÏñÊı¾İ U
+    m_texU->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, static_cast<const void*>(frame->data[1]), &m_options);   // è®¾ç½®å›¾åƒæ•°æ® U
     m_options.setRowLength(frame->linesize[2]);
-    m_texV->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, static_cast<const void*>(frame->data[2]), &m_options);   // ÉèÖÃÍ¼ÏñÊı¾İ V
+    m_texV->setData(QOpenGLTexture::Red, QOpenGLTexture::UInt8, static_cast<const void*>(frame->data[2]), &m_options);   // è®¾ç½®å›¾åƒæ•°æ® V
+    av_frame_unref(frame);
 
-    av_frame_unref(frame);  //  È¡ÏûÒıÓÃÖ¡ÒıÓÃµÄËùÓĞ»º³åÇø²¢ÖØÖÃÖ¡×Ö¶Î¡£
+
 
     this->update();
 }
 
-static GLfloat vertices[] = {  // Ç°ÈıÁĞµã×ø±ê£¬ºóÁ½ÁĞÎªÎÆÀí×ø±ê
-     1.0f,  1.0f, 0.0f, 1.0f, 1.0f,      // ÓÒÉÏ½Ç
-     1.0f, -1.0f, 0.0f, 1.0f, 0.0f,      // ÓÒÏÂ
-    -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,      // ×óÏÂ
-    -1.0f,  1.0f, 0.0f, 0.0f, 1.0f      // ×óÉÏ
+
+
+
+static GLfloat vertices[] = {  // å‰ä¸‰åˆ—ç‚¹åæ ‡ï¼Œåä¸¤åˆ—ä¸ºçº¹ç†åæ ‡
+     1.0f,  1.0f, 0.0f, 1.0f, 1.0f,      // å³ä¸Šè§’
+     1.0f, -1.0f, 0.0f, 1.0f, 0.0f,      // å³ä¸‹
+    -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,      // å·¦ä¸‹
+    -1.0f,  1.0f, 0.0f, 0.0f, 1.0f      // å·¦ä¸Š
 };
 
 static GLuint indices[] = {
@@ -120,7 +136,7 @@ void VideoWidget::initializeGL()
 {
     initializeOpenGLFunctions();
 
-    // ¼ÓÔØshader½Å±¾³ÌĞò
+    // åŠ è½½shaderè„šæœ¬ç¨‹åº
     m_shaderProg = new QOpenGLShaderProgram(this);
 #if 1
     m_shaderProg->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/USBCameraTest/Resourses/vertex.vsh");
@@ -133,13 +149,13 @@ void VideoWidget::initializeGL()
 
     m_shaderProg->link();
 
-    // °ó¶¨YUV ±äÁ¿Öµ
+    // ç»‘å®šYUV å˜é‡å€¼
     m_shaderProg->bind();
     m_shaderProg->setUniformValue("tex_y", 0);
     m_shaderProg->setUniformValue("tex_u", 1);
     m_shaderProg->setUniformValue("tex_v", 2);
 
-    // ·µ»ØÊôĞÔÃû³ÆÔÚ´Ë×ÅÉ«Æ÷³ÌĞòµÄ²ÎÊıÁĞ±íÖĞµÄÎ»ÖÃ¡£Èç¹ûÃû³Æ²»ÊÇ´Ë×ÅÉ«Æ÷³ÌĞòµÄÓĞĞ§ÊôĞÔ£¬Ôò·µ»Ø-1¡£
+    // è¿”å›å±æ€§åç§°åœ¨æ­¤ç€è‰²å™¨ç¨‹åºçš„å‚æ•°åˆ—è¡¨ä¸­çš„ä½ç½®ã€‚å¦‚æœåç§°ä¸æ˜¯æ­¤ç€è‰²å™¨ç¨‹åºçš„æœ‰æ•ˆå±æ€§ï¼Œåˆ™è¿”å›-1ã€‚
     GLuint posAttr = GLuint(m_shaderProg->attributeLocation("aPos"));
     GLuint texCord = GLuint(m_shaderProg->attributeLocation("aTexCord"));
 
@@ -148,36 +164,36 @@ void VideoWidget::initializeGL()
 
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glGenBuffers(1, &EBO);    // ´´½¨Ò»¸öEBO
+    glGenBuffers(1, &EBO);    // åˆ›å»ºä¸€ä¸ªEBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
 
-    // Îªµ±Ç°°ó¶¨µ½µÄ»º³åÇø¶ÔÏó´´½¨Ò»¸öĞÂµÄÊı¾İ´æ´¢target¡£ÈÎºÎÔ¤ÏÈ´æÔÚµÄÊı¾İ´æ´¢¶¼½«±»É¾³ı¡£
-    glBufferData(GL_ARRAY_BUFFER,        // ÎªVBO»º³å°ó¶¨¶¥µãÊı¾İ
-        sizeof(vertices),      // Êı×é×Ö½Ú´óĞ¡
-        vertices,               // ĞèÒª°ó¶¨µÄÊı×é
-        GL_STATIC_DRAW);        // Ö¸¶¨Êı¾İ´æ´¢µÄÔ¤ÆÚÊ¹ÓÃÄ£Ê½,GL_STATIC_DRAW£º Êı¾İ¼¸ºõ²»»á¸Ä±ä
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);  // ½«¶¥µãË÷ÒıÊı×é´«ÈëEBO»º´æ
-    // ÉèÖÃ¶¥µã×ø±êÊı¾İ
-    glVertexAttribPointer(posAttr,                     // Ö¸¶¨ÒªĞŞ¸ÄµÄÍ¨ÓÃ¶¥µãÊôĞÔµÄË÷Òı
-        3,                     // Ö¸¶¨Ã¿¸öÍ¨ÓÃ¶¥µãÊôĞÔµÄ×é¼şÊı£¨Èçvec3£º3£¬vec4£º4£©
-        GL_FLOAT,              // Ö¸¶¨Êı×éÖĞÃ¿¸ö×é¼şµÄÊı¾İÀàĞÍ(Êı×éÖĞÒ»ĞĞÓĞ¼¸¸öÊı)
-        GL_FALSE,              // Ö¸¶¨ÔÚ·ÃÎÊ¶¨µãÊı¾İÖµÊ±ÊÇ·ñÓ¦¹æ·¶»¯ ( GL_TRUE) »òÖ±½Ó×ª»»Îª¶¨µãÖµ ( GL_FALSE)£¬Èç¹ûverticesÀïÃæµ¥¸öÊı³¬¹ı-1»òÕß1¿ÉÒÔÑ¡ÔñGL_TRUE
-        5 * sizeof(GLfloat),   // Ö¸¶¨Á¬ĞøÍ¨ÓÃ¶¥µãÊôĞÔÖ®¼äµÄ×Ö½ÚÆ«ÒÆÁ¿¡£
-        nullptr);              // Ö¸¶¨µ±Ç°°ó¶¨µ½Ä¿±êµÄ»º³åÇøµÄÊı¾İ´æ´¢ÖĞÊı×éÖĞµÚÒ»¸öÍ¨ÓÃ¶¥µãÊôĞÔµÄµÚÒ»¸ö×é¼şµÄÆ«ÒÆÁ¿¡£³õÊ¼ÖµÎª0 (Ò»¸öÊı×é´ÓµÚ¼¸¸ö×Ö½Ú¿ªÊ¼¶Á)
-// ÆôÓÃÍ¨ÓÃ¶¥µãÊôĞÔÊı×é
-    glEnableVertexAttribArray(posAttr);                // ÊôĞÔË÷ÒıÊÇ´Óµ÷ÓÃglGetAttribLocation½ÓÊÕµÄ£¬»òÕß´«µİ¸øglBindAttribLocation¡£
+    // ä¸ºå½“å‰ç»‘å®šåˆ°çš„ç¼“å†²åŒºå¯¹è±¡åˆ›å»ºä¸€ä¸ªæ–°çš„æ•°æ®å­˜å‚¨targetã€‚ä»»ä½•é¢„å…ˆå­˜åœ¨çš„æ•°æ®å­˜å‚¨éƒ½å°†è¢«åˆ é™¤ã€‚
+    glBufferData(GL_ARRAY_BUFFER,        // ä¸ºVBOç¼“å†²ç»‘å®šé¡¶ç‚¹æ•°æ®
+        sizeof(vertices),      // æ•°ç»„å­—èŠ‚å¤§å°
+        vertices,               // éœ€è¦ç»‘å®šçš„æ•°ç»„
+        GL_STATIC_DRAW);        // æŒ‡å®šæ•°æ®å­˜å‚¨çš„é¢„æœŸä½¿ç”¨æ¨¡å¼,GL_STATIC_DRAWï¼š æ•°æ®å‡ ä¹ä¸ä¼šæ”¹å˜
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);  // å°†é¡¶ç‚¹ç´¢å¼•æ•°ç»„ä¼ å…¥EBOç¼“å­˜
+    // è®¾ç½®é¡¶ç‚¹åæ ‡æ•°æ®
+    glVertexAttribPointer(posAttr,                     // æŒ‡å®šè¦ä¿®æ”¹çš„é€šç”¨é¡¶ç‚¹å±æ€§çš„ç´¢å¼•
+        3,                     // æŒ‡å®šæ¯ä¸ªé€šç”¨é¡¶ç‚¹å±æ€§çš„ç»„ä»¶æ•°ï¼ˆå¦‚vec3ï¼š3ï¼Œvec4ï¼š4ï¼‰
+        GL_FLOAT,              // æŒ‡å®šæ•°ç»„ä¸­æ¯ä¸ªç»„ä»¶çš„æ•°æ®ç±»å‹(æ•°ç»„ä¸­ä¸€è¡Œæœ‰å‡ ä¸ªæ•°)
+        GL_FALSE,              // æŒ‡å®šåœ¨è®¿é—®å®šç‚¹æ•°æ®å€¼æ—¶æ˜¯å¦åº”è§„èŒƒåŒ– ( GL_TRUE) æˆ–ç›´æ¥è½¬æ¢ä¸ºå®šç‚¹å€¼ ( GL_FALSE)ï¼Œå¦‚æœverticesé‡Œé¢å•ä¸ªæ•°è¶…è¿‡-1æˆ–è€…1å¯ä»¥é€‰æ‹©GL_TRUE
+        5 * sizeof(GLfloat),   // æŒ‡å®šè¿ç»­é€šç”¨é¡¶ç‚¹å±æ€§ä¹‹é—´çš„å­—èŠ‚åç§»é‡ã€‚
+        nullptr);              // æŒ‡å®šå½“å‰ç»‘å®šåˆ°ç›®æ ‡çš„ç¼“å†²åŒºçš„æ•°æ®å­˜å‚¨ä¸­æ•°ç»„ä¸­ç¬¬ä¸€ä¸ªé€šç”¨é¡¶ç‚¹å±æ€§çš„ç¬¬ä¸€ä¸ªç»„ä»¶çš„åç§»é‡ã€‚åˆå§‹å€¼ä¸º0 (ä¸€ä¸ªæ•°ç»„ä»ç¬¬å‡ ä¸ªå­—èŠ‚å¼€å§‹è¯»)
+// å¯ç”¨é€šç”¨é¡¶ç‚¹å±æ€§æ•°ç»„
+    glEnableVertexAttribArray(posAttr);                // å±æ€§ç´¢å¼•æ˜¯ä»è°ƒç”¨glGetAttribLocationæ¥æ”¶çš„ï¼Œæˆ–è€…ä¼ é€’ç»™glBindAttribLocationã€‚
 
-    // ÉèÖÃÎÆÀí×ø±êÊı¾İ
-    glVertexAttribPointer(texCord, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), reinterpret_cast<const GLvoid*>(3 * sizeof(GLfloat)));              // Ö¸¶¨µ±Ç°°ó¶¨µ½Ä¿±êµÄ»º³åÇøµÄÊı¾İ´æ´¢ÖĞÊı×éÖĞµÚÒ»¸öÍ¨ÓÃ¶¥µãÊôĞÔµÄµÚÒ»¸ö×é¼şµÄÆ«ÒÆÁ¿¡£³õÊ¼ÖµÎª0 (Ò»¸öÊı×é´ÓµÚ¼¸¸ö×Ö½Ú¿ªÊ¼¶Á)
-    // ÆôÓÃÍ¨ÓÃ¶¥µãÊôĞÔÊı×é
-    glEnableVertexAttribArray(texCord);                // ÊôĞÔË÷ÒıÊÇ´Óµ÷ÓÃglGetAttribLocation½ÓÊÕµÄ£¬»òÕß´«µİ¸øglBindAttribLocation¡£
+    // è®¾ç½®çº¹ç†åæ ‡æ•°æ®
+    glVertexAttribPointer(texCord, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), reinterpret_cast<const GLvoid*>(3 * sizeof(GLfloat)));              // æŒ‡å®šå½“å‰ç»‘å®šåˆ°ç›®æ ‡çš„ç¼“å†²åŒºçš„æ•°æ®å­˜å‚¨ä¸­æ•°ç»„ä¸­ç¬¬ä¸€ä¸ªé€šç”¨é¡¶ç‚¹å±æ€§çš„ç¬¬ä¸€ä¸ªç»„ä»¶çš„åç§»é‡ã€‚åˆå§‹å€¼ä¸º0 (ä¸€ä¸ªæ•°ç»„ä»ç¬¬å‡ ä¸ªå­—èŠ‚å¼€å§‹è¯»)
+    // å¯ç”¨é€šç”¨é¡¶ç‚¹å±æ€§æ•°ç»„
+    glEnableVertexAttribArray(texCord);                // å±æ€§ç´¢å¼•æ˜¯ä»è°ƒç”¨glGetAttribLocationæ¥æ”¶çš„ï¼Œæˆ–è€…ä¼ é€’ç»™glBindAttribLocationã€‚
 
-    // ÊÍ·Å
+    // é‡Šæ”¾
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);                        // ÉèÖÃÎªÁãÒÔÆÆ»µÏÖÓĞµÄ¶¥µãÊı×é¶ÔÏó°ó¶¨
+    glBindVertexArray(0);                        // è®¾ç½®ä¸ºé›¶ä»¥ç ´åç°æœ‰çš„é¡¶ç‚¹æ•°ç»„å¯¹è±¡ç»‘å®š
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);        // Ö¸¶¨ÑÕÉ«»º³åÇøµÄÇå³ıÖµ(±³¾°É«)
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);        // æŒ‡å®šé¢œè‰²ç¼“å†²åŒºçš„æ¸…é™¤å€¼(èƒŒæ™¯è‰²)
 
 
 }
@@ -186,11 +202,11 @@ void VideoWidget::resizeGL(int w, int h)
 {
     if (m_size.width() < 0 || m_size.height() < 0) return;
 
-    // ¼ÆËãĞèÒªÏÔÊ¾Í¼Æ¬µÄ´°¿Ú´óĞ¡£¬ÓÃÓÚÊµÏÖ³¤¿íµÈ±È×ÔÊÊÓ¦ÏÔÊ¾
+    // è®¡ç®—éœ€è¦æ˜¾ç¤ºå›¾ç‰‡çš„çª—å£å¤§å°ï¼Œç”¨äºå®ç°é•¿å®½ç­‰æ¯”è‡ªé€‚åº”æ˜¾ç¤º
     if ((double(w) / h) < (double(m_size.width()) / m_size.height()))
     {
         m_zoomSize.setWidth(w);
-        m_zoomSize.setHeight(((double(w) / m_size.width()) * m_size.height()));   // ÕâÀï²»Ê¹ÓÃQRect£¬Ê¹ÓÃQRectµÚÒ»´ÎÉèÖÃÊ±ÓĞÎó²îbug
+        m_zoomSize.setHeight(((double(w) / m_size.width()) * m_size.height()));   // è¿™é‡Œä¸ä½¿ç”¨QRectï¼Œä½¿ç”¨QRectç¬¬ä¸€æ¬¡è®¾ç½®æ—¶æœ‰è¯¯å·®bug
     }
     else
     {
@@ -205,11 +221,12 @@ void VideoWidget::resizeGL(int w, int h)
 
 void VideoWidget::paintGL()
 {
-    glClear(GL_COLOR_BUFFER_BIT);     // ½«´°¿ÚµÄÎ»Æ½ÃæÇøÓò£¨±³¾°£©ÉèÖÃÎªÏÈÇ°ÓÉglClearColor¡¢glClearDepthºÍÑ¡ÔñµÄÖµ
-    glViewport(m_pos.x(), m_pos.y(), m_zoomSize.width(), m_zoomSize.height());  // ÉèÖÃÊÓÍ¼´óĞ¡ÊµÏÖÍ¼Æ¬×ÔÊÊÓ¦
 
-    m_shaderProg->bind();               // °ó¶¨×ÅÉ«Æ÷
-    // °ó¶¨ÎÆÀí
+    glClear(GL_COLOR_BUFFER_BIT);     // å°†çª—å£çš„ä½å¹³é¢åŒºåŸŸï¼ˆèƒŒæ™¯ï¼‰è®¾ç½®ä¸ºå…ˆå‰ç”±glClearColorã€glClearDepthå’Œé€‰æ‹©çš„å€¼
+    glViewport(m_pos.x(), m_pos.y(), m_zoomSize.width(), m_zoomSize.height());  // è®¾ç½®è§†å›¾å¤§å°å®ç°å›¾ç‰‡è‡ªé€‚åº”
+
+    m_shaderProg->bind();               // ç»‘å®šç€è‰²å™¨
+    // ç»‘å®šçº¹ç†
     if (m_texY && m_texU && m_texV)
     {
         m_texY->bind(0);
@@ -217,12 +234,12 @@ void VideoWidget::paintGL()
         m_texV->bind(2);
     }
 
-    glBindVertexArray(VAO);           // °ó¶¨VAO
+    glBindVertexArray(VAO);           // ç»‘å®šVAO
 
-    glDrawElements(GL_TRIANGLES,      // »æÖÆµÄÍ¼ÔªÀàĞÍ
-        6,                 // Ö¸¶¨ÒªäÖÈ¾µÄÔªËØÊı(µãÊı)
-        GL_UNSIGNED_INT,   // Ö¸¶¨Ë÷ÒıÖĞÖµµÄÀàĞÍ(indices)
-        nullptr);          // Ö¸¶¨µ±Ç°°ó¶¨µ½GL_ELEMENT_array_bufferÄ¿±êµÄ»º³åÇøµÄÊı¾İ´æ´¢ÖĞÊı×éÖĞµÚÒ»¸öË÷ÒıµÄÆ«ÒÆÁ¿¡£
+    glDrawElements(GL_TRIANGLES,      // ç»˜åˆ¶çš„å›¾å…ƒç±»å‹
+        6,                 // æŒ‡å®šè¦æ¸²æŸ“çš„å…ƒç´ æ•°(ç‚¹æ•°)
+        GL_UNSIGNED_INT,   // æŒ‡å®šç´¢å¼•ä¸­å€¼çš„ç±»å‹(indices)
+        nullptr);          // æŒ‡å®šå½“å‰ç»‘å®šåˆ°GL_ELEMENT_array_bufferç›®æ ‡çš„ç¼“å†²åŒºçš„æ•°æ®å­˜å‚¨ä¸­æ•°ç»„ä¸­ç¬¬ä¸€ä¸ªç´¢å¼•çš„åç§»é‡ã€‚
     glBindVertexArray(0);
     if (m_texY && m_texU && m_texV)
     {
@@ -232,4 +249,40 @@ void VideoWidget::paintGL()
     }
     m_shaderProg->release();
 
+}
+
+#if 1
+void VideoWidget::paintEvent(QPaintEvent* e)
+{
+    QPainter painter(this);
+    if (!_useGL)
+    {
+        
+        painter.drawImage(0, 0, mShowImg);
+    }
+    else
+    {
+        QOpenGLWidget::paintEvent(e);
+    }   
+
+    painter.setPen(QPen(Qt::red));
+    painter.drawLine(this->rect().left(), this->rect().height() / 2, this->rect().right(), this->rect().height() / 2);
+    painter.drawLine(this->rect().width() / 2,this->rect().top(), this->rect().width() / 2, this->rect().bottom());
+}
+
+#endif
+
+void VideoWidget::show_cross_line(bool show)
+{
+
+
+}
+
+
+void VideoWidget::paint_image(QImage img)
+{
+    _useGL = false;
+    mShowImg = img.scaled(this->size());
+    mShowImg.save("D:\\test11.bmp");
+    update();
 }

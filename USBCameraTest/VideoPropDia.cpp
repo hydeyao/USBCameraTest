@@ -47,3 +47,28 @@ void VideoPropDia::Prop(VideoProp* prop)
 	prop->video_frame_rate = ui.spinBox->value();
 	prop->video_pix_fmt = ui.videoFormat_comboBox->currentText();
 }
+
+QStringList VideoPropDia::camResolutions(QCamera* cam)
+{
+	if (!cam)
+	{
+		return QStringList();
+	}
+
+	QStringList resList;
+
+	cam->load();
+	auto res = cam->supportedViewfinderResolutions();
+	cam->unload();
+
+	for each (auto var in res)
+	{
+		resList.push_back(QString::number(var.width()) % "x" % QString::number(var.height()));
+	}
+	return resList;
+}
+
+QString VideoPropDia::maxResolution(QCamera* cam)
+{
+	return camResolutions(cam).size() > 0 ? camResolutions(cam).last() : "800x600";
+}

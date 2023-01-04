@@ -3,6 +3,13 @@
 #include <qtimer.h>
 #include "VideoDecode.h"
 #include <qdebug.h>
+#include <qimage.h>
+
+extern "C"{
+#include <libswscale/swscale.h>
+
+}
+
 
 ReadThread::ReadThread(QObject *parent)
 	: QThread(parent)
@@ -25,12 +32,17 @@ void ReadThread::open(const QString & url, const QString& res)
 
 void ReadThread::pause(bool flag)
 {
-	m_play = flag;
+	m_play = !flag;
 }
 
 void ReadThread::close()
 {
 	m_play = false;
+}
+
+void ReadThread::useGL(bool use)
+{
+	mb_userGL = use;
 }
 
 const QString& ReadThread::url()
@@ -65,7 +77,18 @@ void ReadThread::run()
 		AVFrame* frame = msp_videoDecode->read();
 		if (frame)
 		{
-			emit repaint(frame);
+			if (mb_userGL)
+			{
+				emit repaint(frame);
+			}
+			else
+			{
+				QImage img = msp_videoDecode->RGBImage();
+				emit send_img(img);
+
+				QThread::msleep(30);
+			}
+			
 		}
 		else
 		{

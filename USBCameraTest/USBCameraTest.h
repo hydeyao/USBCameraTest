@@ -29,17 +29,26 @@ public:
 private:
     Ui::USBCameraTestClass ui;
     void initCameraList();
+    void playVideo(bool play);
+    void restartVideo();
+
+    void initStatLables();
+    void setStatInfos(QString fps, QString outsize);
+
+    void initSettingActions();
 
 private:
 
     QList<QCameraInfo> mCamList;
-    QList<QSize> mResSize = {};//·Ö±æÂÊÁÐ±í
+    QList<QSize> mResSize = {};//åˆ†è¾¨çŽ‡åˆ—è¡¨
     const QCameraInfo* mSelCamInfo;
-    std::shared_ptr<QCamera> msp_selCam;
+    std::shared_ptr<QCamera> msp_selCam = nullptr;
     QString mCurCamDevice;
+    QString mstrCurResolution;
     std::shared_ptr<VideoPropDia> mspVideoPropDia = nullptr;
     std::shared_ptr<VideoProp> mspVideoProp = nullptr;
     QLabel* mleftStatLable = nullptr;
+    QLabel* mleft2StatLable = nullptr;
     QLabel* mrightStatLable = nullptr;
     std::shared_ptr<ReadThread> mspThRead = nullptr;
 
@@ -49,5 +58,6 @@ private slots:
     void slt_actionVideoPropTrigged();
     void slt_actionPlayTrigged();
     void on_play_stat(int stat);
+
 
 };

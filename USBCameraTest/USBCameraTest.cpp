@@ -5,26 +5,37 @@
 #include <qcamerainfo.h>
 #include <qtimer.h>
 #include "VideoPropDia.h"
+#include <qmessagebox.h>
 
-extern "C" {        // ÓÃC¹æÔò±àÒëÖ¸¶¨µÄ´úÂë
+extern "C" {        // ç”¨Cè§„åˆ™ç¼–è¯‘æŒ‡å®šçš„ä»£ç 
 #include "libavcodec/avcodec.h"
 }
 
 Q_DECLARE_METATYPE(AVFrame)
 
 USBCameraTest::USBCameraTest(QWidget *parent)
-    : QMainWindow(parent), mCurCamDevice(""), mSelCamInfo(0), mb_isPlay(false)
+    : QMainWindow(parent), mCurCamDevice(""), mb_isPlay(false), mstrCurResolution("")
 {
     ui.setupUi(this);
 	connect(ui.actionVideoProperty, &QAction::triggered, this, &USBCameraTest::slt_actionVideoPropTrigged);
 	startTimer(16);
 	initCameraList();
-
+	initStatLables();
+	initSettingActions();
 
 	mspThRead.reset(new ReadThread());
+	
+
 	connect(mspThRead.get(), &ReadThread::repaint, ui.openGLWidget, &VideoWidget::repaint, Qt::BlockingQueuedConnection);
+	connect(mspThRead.get(), &ReadThread::send_img, ui.openGLWidget, &VideoWidget::paint_image);
+
 	connect(mspThRead.get(), &ReadThread::play_stat, this, &USBCameraTest::on_play_stat);
 	connect(ui.actionplayVideo, &QAction::triggered, this, &USBCameraTest::slt_actionPlayTrigged);
+
+	connect(ui.openGLWidget, &VideoWidget::stopVideo, this, [=]() {
+		playVideo(false);
+		QMessageBox::warning(this, "Waring", "Decode Err: Try CPU Decode");
+		});
 
 }
 
@@ -52,6 +63,10 @@ void USBCameraTest::keyPressEvent(QKeyEvent * e)
 	case Qt::Key_2:
 		tmpFrame = vDecode->read();
 		break;
+
+	case Qt::Key_3:
+		ui.openGLWidget->show_cross_line(1);
+		break;
 	default:
 		break;
 	}
@@ -70,10 +85,12 @@ void USBCameraTest::initCameraList()
 		return;
 	}
 
+	mspVideoProp.reset(new VideoProp(), [](VideoProp* p) {delete p; });
+
 	ui.menuDevices->clear();
 	mCamList = QCameraInfo::availableCameras();
 	QActionGroup* group = new QActionGroup(this);
-
+	QStringList curResList;
 	int idx = 0;
 	for each (auto cam in mCamList)
 	{
@@ -86,6 +103,7 @@ void USBCameraTest::initCameraList()
 		{
 			msp_selCam.reset(new QCamera(cam));
 			mCurCamDevice = action->text();
+			mspVideoProp->video_resolution = VideoPropDia::maxResolution(msp_selCam.get());
 			action->setChecked(true);
 		}
 
@@ -93,6 +111,7 @@ void USBCameraTest::initCameraList()
 		connect(action, &QAction::triggered, this, [=]() {
 			msp_selCam.reset(new QCamera(cam));
 			mCurCamDevice = action->text();
+			mspVideoProp->video_resolution = VideoPropDia::maxResolution(msp_selCam.get());
 			action->setChecked(true);
 			});
 
@@ -102,17 +121,104 @@ void USBCameraTest::initCameraList()
 
 }
 
+void USBCameraTest::playVideo(bool play)
+{
+	if (play)
+	{
+		if (mb_isPlay) return;
+
+		mspThRead->open(mCurCamDevice, mspVideoProp->video_resolution);
+		ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/stop.svg"));
+		mb_isPlay = true;
+	}
+	else
+	{
+		if (!mb_isPlay) return;
+		mspThRead->close();
+		ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/play.svg"));
+		mb_isPlay = false;
+	}
+
+
+	setStatInfos("20", mspVideoProp->video_resolution);
+
+}
+
+void USBCameraTest::restartVideo()
+{
+
+	if (mb_isPlay)
+	{
+		playVideo(false);
+	}
+
+	while (mspThRead->isRunning())
+	{
+		Sleep(1);
+	}
+
+	playVideo(true);
+}
+
+void USBCameraTest::initStatLables()
+{
+	if (!mleftStatLable)
+	{
+		mleftStatLable = new QLabel();
+	}
+
+	if (!mleft2StatLable)
+	{
+		mleft2StatLable = new QLabel();
+	}
+
+	ui.statusBar->addWidget(mleftStatLable);
+	ui.statusBar->addWidget(mleft2StatLable);
+
+}
+
+void USBCameraTest::setStatInfos(QString fps, QString outsize)
+{
+	QString fpsInfo = "Frame rate: " % fps % "fps";
+	QString outInfo = "Output Size: " % outsize;
+
+	mleftStatLable->setText(fpsInfo);
+	mleft2StatLable->setText(outInfo);
+}
+
+void USBCameraTest::initSettingActions()
+{
+	QActionGroup* decodeGroup = new QActionGroup(nullptr);
+	ui.actionCPUDecode->setActionGroup(decodeGroup);
+	ui.actionOpenGLDecode->setActionGroup(decodeGroup);
+
+	ui.actionOpenGLDecode->setChecked(true);
+	connect(ui.actionCPUDecode, &QAction::triggered, this, [=]() {
+		mspThRead->useGL(false);
+		restartVideo();	
+		});
+
+	connect(ui.actionOpenGLDecode, &QAction::triggered, this, [=]() {
+		mspThRead->useGL(true);
+		restartVideo();
+		});
+}
+
 void USBCameraTest::slt_actionPlayTrigged()
 {
 	if (!mb_isPlay)
 	{
-		mspThRead->open(mCurCamDevice, mspVideoProp->video_resolution);
-		ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/stop.svg"));
+
+		//mspThRead->open(mCurCamDevice, mspVideoProp->video_resolution);
+		//ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/stop.svg"));
+
+		playVideo(true);
+		setStatInfos("20", mspVideoProp->video_resolution);
+
 	}
 	else
 	{
-		mspThRead->close();
-		ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/play.svg"));
+		playVideo(false);
 	}
 
 }
@@ -138,17 +244,14 @@ void USBCameraTest::slt_actionVideoPropTrigged()
 		return;
 	}
 
-	mspVideoProp.reset(new VideoProp(), [](VideoProp* p) {delete p; });
+	mspVideoPropDia.reset(new VideoPropDia(), [](VideoPropDia* p) {delete p; });
+	connect(mspVideoPropDia.get(), &VideoPropDia::confirmed, this, [=]() {
+		mspVideoPropDia->Prop(mspVideoProp.get());
+		msp_selCam->unload();
+		mspVideoPropDia->close();
+		restartVideo();
+		});
 
-	if (!mspVideoPropDia)
-	{
-		mspVideoPropDia.reset(new VideoPropDia());
-		connect(mspVideoPropDia.get(), &VideoPropDia::confirmed, this, [=]() {
-			mspVideoPropDia->Prop(mspVideoProp.get());
-			msp_selCam->unload();
-			mspVideoPropDia->close();
-			});
-	}
 
 	msp_selCam->load();
 	mspVideoPropDia->setSelectedCam(msp_selCam.get(), mCurCamDevice);

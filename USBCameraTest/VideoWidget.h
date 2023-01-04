@@ -5,6 +5,7 @@
 #include <qopenglshaderprogram.h>
 #include <QOpenGLTexture>
 #include <qopenglpixeltransferoptions.h>
+#include <qimage.h>
 
 
 struct AVFrame;
@@ -24,6 +25,12 @@ protected:
 	virtual void resizeGL(int w, int h) override;
 	virtual void paintGL() override;
 
+	virtual void paintEvent(QPaintEvent* e) override;
+
+signals:
+	void stopVideo();
+
+
 private:
 	QOpenGLShaderProgram* m_shaderProg = nullptr;
 	QOpenGLTexture* m_texY = nullptr;
@@ -38,6 +45,13 @@ private:
 	QSize m_size;
 	QSizeF m_zoomSize;
 	QPointF m_pos;
+
+	QImage mShowImg;
+	bool _useGL = true;
+
+public slots:
+	void paint_image(QImage img);
+	void show_cross_line(bool show);
 
 
 };
