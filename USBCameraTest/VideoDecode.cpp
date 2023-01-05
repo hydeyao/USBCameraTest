@@ -138,7 +138,7 @@ bool VideoDecode::open(const std::string& url, const std::string& resolution)
 
 
 	m_swsCtx = sws_getContext(m_codeCtx->width, m_codeCtx->height, m_codeCtx->pix_fmt, \
-		m_codeCtx->width, m_codeCtx->height, AV_PIX_FMT_RGB32, SWS_BICUBIC, \
+		m_codeCtx->width, m_codeCtx->height, AV_PIX_FMT_RGBA, SWS_BICUBIC, \
 		NULL, NULL, NULL);
 
 	if (!m_swsCtx)
@@ -149,14 +149,22 @@ bool VideoDecode::open(const std::string& url, const std::string& resolution)
 	}
 
 
-	int size = av_image_get_buffer_size(AV_PIX_FMT_RGBA, msp_videoSize->width, msp_videoSize->height, 4);	
-	mspRGB_Buf.reset(new uchar(size + 1000), [](uchar* p) {delete[] p; });
+	int size = av_image_get_buffer_size(AV_PIX_FMT_RGB32, msp_videoSize->width, msp_videoSize->height, 4);
+	//mspRGB_Buf.reset(new uchar(size + 1000), [](uchar* p) {delete[] p; });
 
+#if 0
 	m_numBytes = av_image_get_buffer_size(AV_PIX_FMT_RGB32, msp_videoSize->width, msp_videoSize->height, 1);
 	mspRGB32_outBuf.reset((uchar*)av_malloc(m_numBytes * sizeof(uchar)), [](uchar* p) {av_free(p); });
-
 	ret = av_image_fill_arrays(m_RGBframe->data, m_RGBframe->linesize, mspRGB32_outBuf.get(), \
 		AV_PIX_FMT_RGB32, m_codeCtx->width, m_codeCtx->height, 1);
+#else
+	m_numBytes = size;
+	mspRGB_Buf.reset((uchar*)av_malloc(m_numBytes * sizeof(uchar)), [](uchar* p) {av_free(p); });
+	ret = av_image_fill_arrays(m_RGBframe->data, m_RGBframe->linesize, mspRGB_Buf.get(), \
+		AV_PIX_FMT_RGBA, m_codeCtx->width, m_codeCtx->height, 1);
+
+
+#endif
 
 	if (ret<0)
 	{
@@ -242,8 +250,14 @@ const int64_t& VideoDecode::pts()
 
 QImage VideoDecode::RGBImage()
 {
+#if 0
 	sws_scale(m_swsCtx, m_frame->data, m_frame->linesize, 0, m_codeCtx->height, m_RGBframe->data, m_RGBframe->linesize);
 	QImage img(mspRGB32_outBuf.get(),m_codeCtx->width,m_codeCtx->height,QImage::Format_RGB32);
+#else
+	sws_scale(m_swsCtx, m_frame->data, m_frame->linesize, 0, m_codeCtx->height, m_RGBframe->data, m_RGBframe->linesize);
+	QImage img(mspRGB_Buf.get(), m_codeCtx->width, m_codeCtx->height, QImage::Format_RGBA8888);
+#endif
+
 	return img;
 }
 

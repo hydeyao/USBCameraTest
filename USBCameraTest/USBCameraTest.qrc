@@ -6,5 +6,7 @@
         <file>Resourses/play.svg</file>
         <file>Resourses/stop.svg</file>
         <file>Resourses/cross-line.svg</file>
+        <file>Resourses/paint_frag.fsh</file>
+        <file>Resourses/paint_vertex.vsh</file>
     </qresource>
 </RCC>

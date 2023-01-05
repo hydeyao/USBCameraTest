@@ -192,7 +192,7 @@ void USBCameraTest::initSettingActions()
 	ui.actionCPUDecode->setActionGroup(decodeGroup);
 	ui.actionOpenGLDecode->setActionGroup(decodeGroup);
 
-	ui.actionOpenGLDecode->setChecked(true);
+	ui.actionCPUDecode->setChecked(true);
 	connect(ui.actionCPUDecode, &QAction::triggered, this, [=]() {
 		mspThRead->useGL(false);
 		restartVideo();	

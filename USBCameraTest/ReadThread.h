@@ -45,7 +45,7 @@ private:
 	QString m_url;
 	QString m_res;
 	bool m_play = false;
-	bool mb_userGL = true;
+	bool mb_userGL = false;
 
 
 };

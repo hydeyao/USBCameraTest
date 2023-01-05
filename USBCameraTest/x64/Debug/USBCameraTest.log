@@ -1,2 +1,7 @@
-﻿  VideoWidget.cpp
+﻿  moc VideoWidget.h
+  USBCameraTest.cpp
+  VideoWidget.cpp
+  main.cpp
+  moc_USBCameraTest.cpp
+  moc_VideoWidget.cpp
   USBCameraTest.vcxproj -> D:\QtProjecs\USBCameraTest\x64\Debug\USBCameraTest.exe

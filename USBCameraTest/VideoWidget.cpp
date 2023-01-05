@@ -1,6 +1,7 @@
 #include "VideoWidget.h"
 #include <QPainter>
 #include <qmessagebox.h>
+#include <qopenglvertexarrayobject.h>
 
 extern "C" {
 #include "libavcodec/avcodec.h"
@@ -116,6 +117,10 @@ void VideoWidget::repaint(AVFrame * frame)
     this->update();
 }
 
+void VideoWidget::use_GL(bool use)
+{
+    _useGL = use;
+}
 
 
 
@@ -135,20 +140,20 @@ static GLuint indices[] = {
 void VideoWidget::initializeGL()
 {
     initializeOpenGLFunctions();
-
     // 加载shader脚本程序
     m_shaderProg = new QOpenGLShaderProgram(this);
 #if 1
     m_shaderProg->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/USBCameraTest/Resourses/vertex.vsh");
     m_shaderProg->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/USBCameraTest/Resourses/fragment.fsh");
+
 #else
     m_shaderProg->addShaderFromSourceFile(QOpenGLShader::Vertex, "E:\\QtProject\\USBCameraTest\\USBCameraTest\\Resourses\\vertex.vsh");
     m_shaderProg->addShaderFromSourceFile(QOpenGLShader::Fragment, "E:\\QtProject\\USBCameraTest\\USBCameraTest\\Resourses\\fragment.fsh");
 #endif
 
+    initDrawShader();
 
     m_shaderProg->link();
-
     // 绑定YUV 变量值
     m_shaderProg->bind();
     m_shaderProg->setUniformValue("tex_y", 0);
@@ -221,33 +226,42 @@ void VideoWidget::resizeGL(int w, int h)
 
 void VideoWidget::paintGL()
 {
-
-    glClear(GL_COLOR_BUFFER_BIT);     // 将窗口的位平面区域（背景）设置为先前由glClearColor、glClearDepth和选择的值
-    glViewport(m_pos.x(), m_pos.y(), m_zoomSize.width(), m_zoomSize.height());  // 设置视图大小实现图片自适应
-
-    m_shaderProg->bind();               // 绑定着色器
-    // 绑定纹理
-    if (m_texY && m_texU && m_texV)
+    if (!_useGL)
     {
-        m_texY->bind(0);
-        m_texU->bind(1);
-        m_texV->bind(2);
+        QOpenGLWidget::paintGL();
+    }
+    else
+    {
+        glClear(GL_COLOR_BUFFER_BIT);     // 将窗口的位平面区域（背景）设置为先前由glClearColor、glClearDepth和选择的值
+        glViewport(m_pos.x(), m_pos.y(), m_zoomSize.width(), m_zoomSize.height());  // 设置视图大小实现图片自适应
+
+        m_shaderProg->bind();               // 绑定着色器
+        // 绑定纹理
+        if (m_texY && m_texU && m_texV)
+        {
+            m_texY->bind(0);
+            m_texU->bind(1);
+            m_texV->bind(2);
+        }
+
+        glBindVertexArray(VAO);           // 绑定VAO
+
+        glDrawElements(GL_TRIANGLES,      // 绘制的图元类型
+            6,                 // 指定要渲染的元素数(点数)
+            GL_UNSIGNED_INT,   // 指定索引中值的类型(indices)
+            nullptr);          // 指定当前绑定到GL_ELEMENT_array_buffer目标的缓冲区的数据存储中数组中第一个索引的偏移量。
+        glBindVertexArray(0);
+        if (m_texY && m_texU && m_texV)
+        {
+            m_texY->release();
+            m_texU->release();
+            m_texV->release();
+        }
+        m_shaderProg->release();
+
+        paint_with_shader();
     }
 
-    glBindVertexArray(VAO);           // 绑定VAO
-
-    glDrawElements(GL_TRIANGLES,      // 绘制的图元类型
-        6,                 // 指定要渲染的元素数(点数)
-        GL_UNSIGNED_INT,   // 指定索引中值的类型(indices)
-        nullptr);          // 指定当前绑定到GL_ELEMENT_array_buffer目标的缓冲区的数据存储中数组中第一个索引的偏移量。
-    glBindVertexArray(0);
-    if (m_texY && m_texU && m_texV)
-    {
-        m_texY->release();
-        m_texU->release();
-        m_texV->release();
-    }
-    m_shaderProg->release();
 
 }
 
@@ -256,18 +270,17 @@ void VideoWidget::paintEvent(QPaintEvent* e)
 {
     QPainter painter(this);
     if (!_useGL)
-    {
-        
+    {  
         painter.drawImage(0, 0, mShowImg);
+        painter.setPen(QPen(Qt::red));
+        painter.drawLine(this->rect().left(), this->rect().height() / 2, this->rect().right(), this->rect().height() / 2);
+        painter.drawLine(this->rect().width() / 2, this->rect().top(), this->rect().width() / 2, this->rect().bottom());
     }
     else
     {
         QOpenGLWidget::paintEvent(e);
     }   
 
-    painter.setPen(QPen(Qt::red));
-    painter.drawLine(this->rect().left(), this->rect().height() / 2, this->rect().right(), this->rect().height() / 2);
-    painter.drawLine(this->rect().width() / 2,this->rect().top(), this->rect().width() / 2, this->rect().bottom());
 }
 
 #endif
@@ -278,11 +291,67 @@ void VideoWidget::show_cross_line(bool show)
 
 }
 
+void VideoWidget::initDrawShader()
+{
+    if (!m_paintProg)
+    {
+        m_paintProg = new QOpenGLShaderProgram(this);
+    }
+
+    m_paintProg->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/USBCameraTest/Resourses/paint_vertex.vsh");
+    m_paintProg->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/USBCameraTest/Resourses/paint_frag.fsh");
+
+    m_paintProg->link();
+
+
+    float rect[] = {
+        0.25f, 0.25f, 0.0f,   // 右上角
+        0.25f, -0.25f, 0.0f,  // 右下角
+        -0.25f, -0.25f, 0.0f, // 左下角
+        -0.25f, 0.25f, 0.0f  // 左上角
+    };
+ 
+#if 1
+    glGenVertexArrays(1, &PAINT_VAO);
+    glBindVertexArray(PAINT_VAO);
+
+    glGenBuffers(1, &PAINT_VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, PAINT_VBO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, PAINT_VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(rect), rect, GL_STATIC_DRAW);
+
+    m_paintProg->bind();
+
+    GLuint attr = m_paintProg->attributeLocation("dPos");
+    m_paintProg->setAttributeValue("dFragColor", QColor(255, 0, 0,255));
+
+    glVertexAttribPointer(attr, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    
+    m_paintProg->enableAttributeArray(attr);
+    m_paintProg->release();
+#endif
+
+
+}
+
+void VideoWidget::paint_with_shader()
+{
+    m_shaderProg->bind();
+    glBindVertexArray(PAINT_VAO);
+
+    glPolygonMode(GL_BACK, GL_LINE);
+    glDrawArrays(GL_LINE_LOOP, 0, 4);
+
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    m_shaderProg->release();
+}
+
 
 void VideoWidget::paint_image(QImage img)
 {
     _useGL = false;
     mShowImg = img.scaled(this->size());
-    mShowImg.save("D:\\test11.bmp");
     update();
 }

@@ -20,6 +20,8 @@ public:
 
 	void repaint(AVFrame* frame);
 
+	void use_GL(bool use);
+
 protected:
 	virtual void initializeGL() override;
 	virtual void resizeGL(int w, int h) override;
@@ -33,6 +35,7 @@ signals:
 
 private:
 	QOpenGLShaderProgram* m_shaderProg = nullptr;
+	QOpenGLShaderProgram* m_paintProg = nullptr;
 	QOpenGLTexture* m_texY = nullptr;
 	QOpenGLTexture* m_texU = nullptr;
 	QOpenGLTexture* m_texV = nullptr;
@@ -42,16 +45,24 @@ private:
 	GLuint VAO = 0;
 	GLuint EBO = 0;
 
+	GLuint PAINT_VAO = 0;
+	GLuint PAINT_VBO = 0;
+
+
 	QSize m_size;
 	QSizeF m_zoomSize;
 	QPointF m_pos;
 
 	QImage mShowImg;
-	bool _useGL = true;
+	bool _useGL = false;
 
 public slots:
 	void paint_image(QImage img);
 	void show_cross_line(bool show);
 
+
+private:
+	void initDrawShader();
+	void paint_with_shader();
 
 };
