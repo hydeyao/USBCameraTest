@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_VideoWidget_t {
-    QByteArrayData data[7];
-    char stringdata0[60];
+    QByteArrayData data[5];
+    char stringdata0[39];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,13 +36,11 @@ QT_MOC_LITERAL(0, 0, 11), // "VideoWidget"
 QT_MOC_LITERAL(1, 12, 9), // "stopVideo"
 QT_MOC_LITERAL(2, 22, 0), // ""
 QT_MOC_LITERAL(3, 23, 11), // "paint_image"
-QT_MOC_LITERAL(4, 35, 3), // "img"
-QT_MOC_LITERAL(5, 39, 15), // "show_cross_line"
-QT_MOC_LITERAL(6, 55, 4) // "show"
+QT_MOC_LITERAL(4, 35, 3) // "img"
 
     },
     "VideoWidget\0stopVideo\0\0paint_image\0"
-    "img\0show_cross_line\0show"
+    "img"
 };
 #undef QT_MOC_LITERAL
 
@@ -52,7 +50,7 @@ static const uint qt_meta_data_VideoWidget[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -60,18 +58,16 @@ static const uint qt_meta_data_VideoWidget[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x06 /* Public */,
+       1,    0,   24,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       3,    1,   30,    2, 0x0a /* Public */,
-       5,    1,   33,    2, 0x0a /* Public */,
+       3,    1,   25,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QImage,    4,
-    QMetaType::Void, QMetaType::Bool,    6,
 
        0        // eod
 };
@@ -84,7 +80,6 @@ void VideoWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         switch (_id) {
         case 0: _t->stopVideo(); break;
         case 1: _t->paint_image((*reinterpret_cast< QImage(*)>(_a[1]))); break;
-        case 2: _t->show_cross_line((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -130,13 +125,13 @@ int VideoWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 2)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 2;
     }
     return _id;
 }

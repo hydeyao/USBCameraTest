@@ -19,7 +19,6 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "VideoWidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -35,7 +34,6 @@ public:
     QAction *actionCrossLine;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
-    VideoWidget *openGLWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuDevices;
@@ -73,6 +71,7 @@ public:
         actionCPUDecode->setCheckable(true);
         actionCrossLine = new QAction(USBCameraTestClass);
         actionCrossLine->setObjectName(QString::fromUtf8("actionCrossLine"));
+        actionCrossLine->setCheckable(true);
         QIcon icon2;
         icon2.addFile(QString::fromUtf8(":/USBCameraTest/Resourses/cross-line.svg"), QSize(), QIcon::Normal, QIcon::Off);
         actionCrossLine->setIcon(icon2);
@@ -82,11 +81,6 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        openGLWidget = new VideoWidget(centralWidget);
-        openGLWidget->setObjectName(QString::fromUtf8("openGLWidget"));
-
-        verticalLayout->addWidget(openGLWidget);
-
         USBCameraTestClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(USBCameraTestClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));

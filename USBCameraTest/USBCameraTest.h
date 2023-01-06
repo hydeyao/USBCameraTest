@@ -25,7 +25,7 @@ public:
     virtual void keyPressEvent(QKeyEvent* e) override;
     virtual void timerEvent(QTimerEvent* e) override;
 
-    
+
 private:
     Ui::USBCameraTestClass ui;
     void initCameraList();
@@ -37,6 +37,8 @@ private:
 
     void initSettingActions();
 
+    void initVideoWidget();
+
 private:
 
     QList<QCameraInfo> mCamList;
@@ -47,13 +49,14 @@ private:
     QString mstrCurResolution;
     std::shared_ptr<VideoPropDia> mspVideoPropDia = nullptr;
     std::shared_ptr<VideoProp> mspVideoProp = nullptr;
+    std::shared_ptr<VideoWidget> msp_videoWidget = nullptr;
     QLabel* mleftStatLable = nullptr;
     QLabel* mleft2StatLable = nullptr;
     QLabel* mrightStatLable = nullptr;
     std::shared_ptr<ReadThread> mspThRead = nullptr;
 
     bool mb_isPlay;
-
+    bool mb_drawCrossLine = false;
 private slots:
     void slt_actionVideoPropTrigged();
     void slt_actionPlayTrigged();

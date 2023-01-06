@@ -8,7 +8,7 @@ extern "C" {
 }
 
 VideoWidget::VideoWidget(QWidget* parent, Qt::WindowFlags f)
-	: QOpenGLWidget(parent,f)
+	: QOpenGLWidget(parent,f), mDrawType(0)
 {
 	m_pos = QPointF(0, 0);
 	m_zoomSize = QSize(0, 0);
@@ -117,11 +117,10 @@ void VideoWidget::repaint(AVFrame * frame)
     this->update();
 }
 
-void VideoWidget::use_GL(bool use)
+void VideoWidget::setDrawType(int type)
 {
-    _useGL = use;
+    mDrawType = type;
 }
-
 
 
 static GLfloat vertices[] = {  // 前三列点坐标，后两列为纹理坐标
@@ -142,14 +141,8 @@ void VideoWidget::initializeGL()
     initializeOpenGLFunctions();
     // 加载shader脚本程序
     m_shaderProg = new QOpenGLShaderProgram(this);
-#if 1
     m_shaderProg->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/USBCameraTest/Resourses/vertex.vsh");
     m_shaderProg->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/USBCameraTest/Resourses/fragment.fsh");
-
-#else
-    m_shaderProg->addShaderFromSourceFile(QOpenGLShader::Vertex, "E:\\QtProject\\USBCameraTest\\USBCameraTest\\Resourses\\vertex.vsh");
-    m_shaderProg->addShaderFromSourceFile(QOpenGLShader::Fragment, "E:\\QtProject\\USBCameraTest\\USBCameraTest\\Resourses\\fragment.fsh");
-#endif
 
     initDrawShader();
 
@@ -265,28 +258,56 @@ void VideoWidget::paintGL()
 
 }
 
-#if 1
 void VideoWidget::paintEvent(QPaintEvent* e)
 {
-    QPainter painter(this);
-    if (!_useGL)
-    {  
-        painter.drawImage(0, 0, mShowImg);
-        painter.setPen(QPen(Qt::red));
-        painter.drawLine(this->rect().left(), this->rect().height() / 2, this->rect().right(), this->rect().height() / 2);
-        painter.drawLine(this->rect().width() / 2, this->rect().top(), this->rect().width() / 2, this->rect().bottom());
-    }
-    else
+    if (_useGL)
     {
-        QOpenGLWidget::paintEvent(e);
-    }   
+        QOpenGLWidget::paintEvent(e);;
+        return;
+    }
+
+    QPainter painter(this); 
+    painter.drawImage(0, 0, mShowImg);
+    drawVideo();
 
 }
 
-#endif
 
-void VideoWidget::show_cross_line(bool show)
+void VideoWidget::show_cross_line(QPainter & painter)
+{   
+    painter.setPen(QPen(Qt::red));
+    painter.drawLine(this->rect().left(), this->rect().height() / 2, this->rect().right(), this->rect().height() / 2);
+    painter.drawLine(this->rect().width() / 2, this->rect().top(), this->rect().width() / 2, this->rect().bottom());
+}
+
+void VideoWidget::show_cross_line()
 {
+    m_shaderProg->bind();
+    glBindVertexArray(PAINT_VAO);
+    glPolygonMode(GL_BACK, GL_LINE);
+    glDrawArrays(GL_LINES, 0, 4);
+
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    m_shaderProg->release();
+}
+
+void VideoWidget::drawVideo()
+{
+    QPainter drawPainter(this);
+
+    switch (mDrawType)
+    {
+    case DRAW_CLEAR:
+        break;
+    case DRAW_CROSS_LINE:
+
+        show_cross_line(drawPainter);
+        break;
+    case DRAW_RECTS:
+        break;
+    default:
+        break;
+    }
 
 
 }
@@ -303,15 +324,23 @@ void VideoWidget::initDrawShader()
 
     m_paintProg->link();
 
-
+    
+#if 0
     float rect[] = {
         0.25f, 0.25f, 0.0f,   // 右上角
         0.25f, -0.25f, 0.0f,  // 右下角
         -0.25f, -0.25f, 0.0f, // 左下角
         -0.25f, 0.25f, 0.0f  // 左上角
     };
- 
-#if 1
+#endif
+    float lines[] = {
+    -1.0f, 0.0f, 0.0f,   // 右上角
+    1.0f, 0.0f, 0.0f,  // 右下角
+    0.0f, 1.0f, 0.0f, // 左下角
+    0.0f, -1.0f, 0.0f  // 左上角
+    };
+
+
     glGenVertexArrays(1, &PAINT_VAO);
     glBindVertexArray(PAINT_VAO);
 
@@ -319,33 +348,32 @@ void VideoWidget::initDrawShader()
     glBindBuffer(GL_ARRAY_BUFFER, PAINT_VBO);
 
     glBindBuffer(GL_ARRAY_BUFFER, PAINT_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(rect), rect, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(lines), lines, GL_STATIC_DRAW);
 
     m_paintProg->bind();
 
     GLuint attr = m_paintProg->attributeLocation("dPos");
-    m_paintProg->setAttributeValue("dFragColor", QColor(255, 0, 0,255));
-
     glVertexAttribPointer(attr, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     
     m_paintProg->enableAttributeArray(attr);
     m_paintProg->release();
-#endif
-
 
 }
 
 void VideoWidget::paint_with_shader()
 {
-    m_shaderProg->bind();
-    glBindVertexArray(PAINT_VAO);
-
-    glPolygonMode(GL_BACK, GL_LINE);
-    glDrawArrays(GL_LINE_LOOP, 0, 4);
-
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-    m_shaderProg->release();
+    switch (mDrawType)
+    {
+    case DRAW_CLEAR:
+        break;
+    case DRAW_CROSS_LINE:
+        show_cross_line();
+        break;
+    case DRAW_RECTS:
+        break;
+    default:
+        break;
+    }
 }
 
 

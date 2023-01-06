@@ -14,11 +14,7 @@
    <string>USBCameraTest</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="VideoWidget" name="openGLWidget"/>
-    </item>
-   </layout>
+   <layout class="QVBoxLayout" name="verticalLayout"/>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -132,6 +128,9 @@
    </property>
   </action>
   <action name="actionCrossLine">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="USBCameraTest.qrc">
      <normaloff>:/USBCameraTest/Resourses/cross-line.svg</normaloff>:/USBCameraTest/Resourses/cross-line.svg</iconset>
@@ -145,13 +144,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>VideoWidget</class>
-   <extends>QOpenGLWidget</extends>
-   <header>VideoWidget.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="USBCameraTest.qrc"/>
  </resources>

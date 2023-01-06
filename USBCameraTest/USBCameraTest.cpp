@@ -6,6 +6,9 @@
 #include <qtimer.h>
 #include "VideoPropDia.h"
 #include <qmessagebox.h>
+#include <qpainter.h>
+#include "ConfigParser.h"
+
 
 extern "C" {        // 用C规则编译指定的代码
 #include "libavcodec/avcodec.h"
@@ -24,18 +27,11 @@ USBCameraTest::USBCameraTest(QWidget *parent)
 	initSettingActions();
 
 	mspThRead.reset(new ReadThread());
-	
-
-	connect(mspThRead.get(), &ReadThread::repaint, ui.openGLWidget, &VideoWidget::repaint, Qt::BlockingQueuedConnection);
-	connect(mspThRead.get(), &ReadThread::send_img, ui.openGLWidget, &VideoWidget::paint_image);
+	initVideoWidget();
 
 	connect(mspThRead.get(), &ReadThread::play_stat, this, &USBCameraTest::on_play_stat);
-	connect(ui.actionplayVideo, &QAction::triggered, this, &USBCameraTest::slt_actionPlayTrigged);
 
-	connect(ui.openGLWidget, &VideoWidget::stopVideo, this, [=]() {
-		playVideo(false);
-		QMessageBox::warning(this, "Waring", "Decode Err: Try CPU Decode");
-		});
+
 
 }
 
@@ -43,7 +39,8 @@ USBCameraTest::~USBCameraTest()
 {
 	if (mspThRead)
 	{
-		disconnect(mspThRead.get(), &ReadThread::repaint, ui.openGLWidget, &VideoWidget::repaint);
+		//disconnect(mspThRead.get(), &ReadThread::repaint, ui.openGLWidget, &VideoWidget::repaint);
+		disconnect(mspThRead.get(), &ReadThread::repaint, msp_videoWidget.get(), &VideoWidget::repaint);
 		mspThRead->close();
 		mspThRead->wait();
 	}
@@ -55,6 +52,8 @@ void USBCameraTest::keyPressEvent(QKeyEvent * e)
 
 	AVFrame* tmpFrame;
 
+	ConfigParser* cfgParse = new JsonConfigParser("D:\\mtf_roi.json", "220168");
+
 	switch (e->key())
 	{
 	case Qt::Key_1:
@@ -63,10 +62,11 @@ void USBCameraTest::keyPressEvent(QKeyEvent * e)
 	case Qt::Key_2:
 		tmpFrame = vDecode->read();
 		break;
-
 	case Qt::Key_3:
-		ui.openGLWidget->show_cross_line(1);
-		break;
+	{
+		ConfigParser* cfgParse = new JsonConfigParser("D:\\mtf_roi.json", "220168");
+	}
+	break;
 	default:
 		break;
 	}
@@ -77,6 +77,7 @@ void USBCameraTest::timerEvent(QTimerEvent* e)
 {
 	initCameraList();
 }
+
 
 void USBCameraTest::initCameraList()
 {
@@ -195,26 +196,46 @@ void USBCameraTest::initSettingActions()
 	ui.actionCPUDecode->setChecked(true);
 	connect(ui.actionCPUDecode, &QAction::triggered, this, [=]() {
 		mspThRead->useGL(false);
+		initVideoWidget();
 		restartVideo();	
 		});
 
 	connect(ui.actionOpenGLDecode, &QAction::triggered, this, [=]() {
 		mspThRead->useGL(true);
+		initVideoWidget();
 		restartVideo();
 		});
+
+	connect(ui.actionplayVideo, &QAction::triggered, this, &USBCameraTest::slt_actionPlayTrigged);
+	connect(ui.actionCrossLine, &QAction::triggered, this, [=]() {
+		if (!ui.actionCrossLine->isChecked())
+		{
+			msp_videoWidget->setDrawType(DRAW_CLEAR);
+			return;
+		}
+		msp_videoWidget->setDrawType(DRAW_CROSS_LINE); });
+
+}
+
+void USBCameraTest::initVideoWidget()
+{
+	msp_videoWidget.reset(new VideoWidget(this), [](VideoWidget* p) {delete p; });
+	ui.verticalLayout->addWidget(msp_videoWidget.get());
+	connect(mspThRead.get(), &ReadThread::repaint, msp_videoWidget.get(), &VideoWidget::repaint);
+	connect(mspThRead.get(), &ReadThread::send_img, msp_videoWidget.get(), &VideoWidget::paint_image);
+	connect(msp_videoWidget.get(), &VideoWidget::stopVideo, this, [=]() {
+		playVideo(false);
+		QMessageBox::warning(this, "Waring", "Decode Err: Try CPU Decode");
+		});
+
 }
 
 void USBCameraTest::slt_actionPlayTrigged()
 {
 	if (!mb_isPlay)
 	{
-
-		//mspThRead->open(mCurCamDevice, mspVideoProp->video_resolution);
-		//ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/stop.svg"));
-
 		playVideo(true);
 		setStatInfos("20", mspVideoProp->video_resolution);
-
 	}
 	else
 	{
@@ -236,6 +257,7 @@ void USBCameraTest::on_play_stat(int stat)
 		mb_isPlay = false;
 	}
 }
+
 
 void USBCameraTest::slt_actionVideoPropTrigged()
 {
