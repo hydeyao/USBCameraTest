@@ -39,8 +39,7 @@ USBCameraTest::~USBCameraTest()
 {
 	if (mspThRead)
 	{
-		//disconnect(mspThRead.get(), &ReadThread::repaint, ui.openGLWidget, &VideoWidget::repaint);
-		disconnect(mspThRead.get(), &ReadThread::repaint, msp_videoWidget.get(), &VideoWidget::repaint);
+		disconnect(mspThRead.get(), &ReadThread::repaint, msp_videoFrame.get(), &VideoWidgetFrame::repaint);
 		mspThRead->close();
 		mspThRead->wait();
 	}
@@ -67,6 +66,28 @@ void USBCameraTest::keyPressEvent(QKeyEvent * e)
 		ConfigParser* cfgParse = new JsonConfigParser("D:\\mtf_roi.json", "220168");
 	}
 	break;
+	case Qt::Key_4:
+		msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_RECTS);
+		break;
+
+	case Qt::Key_5:
+	{
+		Draw_ROI* roi = new Draw_ROI(0.1,0.1,0.2,0.2);
+		Draw_ROI* roi1 = new Draw_ROI(0.5,0.5,0.2,0.2);
+		Draw_ROI* roi2 = new Draw_ROI(0.5,0.7,0.2,0.2);
+		Draw_ROI* roi3 = new Draw_ROI(0.5,0.6,0.2,0.2);
+		Draw_ROI* roi4 = new Draw_ROI(0.5,0.5,0.2,0.2);
+	
+		std::map<string, Draw_ROI*> tmpMap;
+		tmpMap["ROI1"] = roi;
+		tmpMap["ROI2"] = roi1;
+		tmpMap["ROI3"] = roi2;
+		tmpMap["ROI4"] = roi3;
+		tmpMap["ROI5"] = roi4;
+
+		ConfigParser::write("D:\\220168.json", "220168", "1920x1080", tmpMap);
+		break;
+	}
 	default:
 		break;
 	}
@@ -202,33 +223,45 @@ void USBCameraTest::initSettingActions()
 
 	connect(ui.actionOpenGLDecode, &QAction::triggered, this, [=]() {
 		mspThRead->useGL(true);
-		initVideoWidget();
+		initVideoWidget(true);
 		restartVideo();
 		});
 
 	connect(ui.actionplayVideo, &QAction::triggered, this, &USBCameraTest::slt_actionPlayTrigged);
+
 	connect(ui.actionCrossLine, &QAction::triggered, this, [=]() {
 		if (!ui.actionCrossLine->isChecked())
 		{
-			msp_videoWidget->setDrawType(DRAW_CLEAR);
+			msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CLEAR);
 			return;
 		}
-		msp_videoWidget->setDrawType(DRAW_CROSS_LINE); });
+		msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CROSS_LINE); });
 
 }
 
 void USBCameraTest::initVideoWidget()
 {
-	msp_videoWidget.reset(new VideoWidget(this), [](VideoWidget* p) {delete p; });
-	ui.verticalLayout->addWidget(msp_videoWidget.get());
-	connect(mspThRead.get(), &ReadThread::repaint, msp_videoWidget.get(), &VideoWidget::repaint);
-	connect(mspThRead.get(), &ReadThread::send_img, msp_videoWidget.get(), &VideoWidget::paint_image);
-	connect(msp_videoWidget.get(), &VideoWidget::stopVideo, this, [=]() {
+	msp_videoFrame.reset(new NormalVideoWidget(this), [](NormalVideoWidget * p) {delete p; });
+	ui.verticalLayout->addWidget(msp_videoFrame.get());
+	connect(mspThRead.get(), &ReadThread::send_img, msp_videoFrame.get(), &VideoWidgetFrame::paint_image,Qt::BlockingQueuedConnection);
+	connect(msp_videoFrame.get(), &VideoWidgetFrame::stopVideo, this, [=]() {
 		playVideo(false);
 		QMessageBox::warning(this, "Waring", "Decode Err: Try CPU Decode");
 		});
 
 }
+
+void USBCameraTest::initVideoWidget(bool useGL)
+{
+	msp_videoFrame.reset(new GLVideoWidget(this), [](GLVideoWidget* p) {delete p; });
+	ui.verticalLayout->addWidget(msp_videoFrame.get());
+	connect(mspThRead.get(), &ReadThread::repaint, msp_videoFrame.get(), &VideoWidgetFrame::repaint);
+	connect(msp_videoFrame.get(), &VideoWidgetFrame::stopVideo, this, [=]() {
+		playVideo(false);
+		QMessageBox::warning(this, "Waring", "Decode Err: Try CPU Decode");
+		});
+}
+
 
 void USBCameraTest::slt_actionPlayTrigged()
 {

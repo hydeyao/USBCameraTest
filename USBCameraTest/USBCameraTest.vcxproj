@@ -109,11 +109,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConfigParser.cpp" />
+    <ClCompile Include="ConfigWidget.cpp" />
     <ClCompile Include="ReadThread.cpp" />
     <ClCompile Include="VideoDecode.cpp" />
     <ClCompile Include="VideoPropDia.cpp" />
     <ClCompile Include="VideoWidget.cpp" />
+    <ClCompile Include="VideoWidgetFrame.cpp" />
     <QtRcc Include="USBCameraTest.qrc" />
+    <QtUic Include="ConfigWidget.ui" />
     <QtUic Include="USBCameraTest.ui" />
     <QtMoc Include="USBCameraTest.h" />
     <ClCompile Include="USBCameraTest.cpp" />
@@ -121,10 +124,12 @@
     <QtUic Include="VideoPropDia.ui" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="VideoWidgetFrame.h" />
     <QtMoc Include="VideoWidget.h" />
     <QtMoc Include="VideoPropDia.h" />
     <QtMoc Include="ReadThread.h" />
     <ClInclude Include="ConfigParser.h" />
+    <QtMoc Include="ConfigWidget.h" />
     <ClInclude Include="VideoDecode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

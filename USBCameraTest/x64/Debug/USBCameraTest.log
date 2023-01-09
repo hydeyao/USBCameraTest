@@ -1,2 +1,9 @@
 ﻿  ConfigParser.cpp
+  ConfigWidget.cpp
+  USBCameraTest.cpp
+  VideoWidgetFrame.cpp
+  main.cpp
+  moc_ConfigWidget.cpp
+  moc_USBCameraTest.cpp
+  moc_VideoWidgetFrame.cpp
   USBCameraTest.vcxproj -> D:\QtProjecs\USBCameraTest\x64\Debug\USBCameraTest.exe

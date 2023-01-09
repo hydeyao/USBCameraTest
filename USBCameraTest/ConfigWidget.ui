@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfigWidgetClass</class>
+ <widget class="QWidget" name="ConfigWidgetClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>721</width>
+    <height>548</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ConfigWidget</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="mtf_tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="mtf_tab">
+      <property name="font">
+       <font>
+        <family>等线</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <attribute name="title">
+       <string>MTF</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,10,1">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_46" stretch="1,1,1">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1,1">
+           <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>ConfigFile</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="configFile_lineEdit"/>
+           </item>
+           <item>
+            <widget class="QToolButton" name="file_toolButton">
+             <property name="text">
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Project</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="project_comboBox"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QRadioButton" name="radioButton">
+             <property name="text">
+              <string>Database</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_2">
+             <property name="text">
+              <string>Json</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>MTF</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_45">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,1,1,1,1">
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_10">
+                <property name="text">
+                 <string>X</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string>Y</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_12">
+                <property name="text">
+                 <string>Width</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_13">
+                <property name="text">
+                 <string>Height</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_27" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r0">
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_0"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_0"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_0"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_0"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_26" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r1">
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_1"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_1"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_1"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_1"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_31" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r2">
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_2"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_2"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_2"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_2"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_30" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r3">
+                <property name="text">
+                 <string>3</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_3"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_3"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_3"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_3"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_24" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r4">
+                <property name="text">
+                 <string>4</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_4"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_4"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_4"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_4"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_25" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r5">
+                <property name="text">
+                 <string>5</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_5"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_5"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_5"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_5"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r6">
+                <property name="text">
+                 <string>6</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_6"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_6"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_6"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_6"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_28" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r7">
+                <property name="text">
+                 <string>7</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_7"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_7"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_7"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_7"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_33" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r8">
+                <property name="text">
+                 <string>8</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_8"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_8"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_8"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_8"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_29" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r9">
+                <property name="text">
+                 <string>9</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_9"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_9"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_9"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_9"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_34" stretch="1,1,1,1,1">
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_14">
+                <property name="text">
+                 <string>X</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_15">
+                <property name="text">
+                 <string>Y</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_16">
+                <property name="text">
+                 <string>Width</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_17">
+                <property name="text">
+                 <string>Height</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_35" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r10">
+                <property name="text">
+                 <string>10</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_10"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_10"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_10"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_10"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_36" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r11">
+                <property name="text">
+                 <string>11</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_11"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_11"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_11"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_11"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_37" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r12">
+                <property name="text">
+                 <string>12</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_12"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_12"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_12"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_12"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_38" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r13">
+                <property name="text">
+                 <string>13</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_13"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_13"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_13"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_13"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_39" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r14">
+                <property name="text">
+                 <string>14</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_14"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="r_doubleSpinBox_14"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_14"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_14"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_40" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r15">
+                <property name="text">
+                 <string>15</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_15"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_15"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_15"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_15"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_41" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r16">
+                <property name="text">
+                 <string>16</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_16"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_16"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_16"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_16"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_42" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r17">
+                <property name="text">
+                 <string>17</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_17"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_17"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_17"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_17"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_43" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r18">
+                <property name="text">
+                 <string>18</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_18"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_18"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_18"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_18"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_44" stretch="1,1,1,1,1">
+              <item>
+               <widget class="QCheckBox" name="checkBox_r19">
+                <property name="text">
+                 <string>19</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rx_doubleSpinBox_19"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="ry_doubleSpinBox_19"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rw_doubleSpinBox_19"/>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="rh_doubleSpinBox_19"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string>Export</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="other_config">
+      <property name="font">
+       <font>
+        <family>等线</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <attribute name="title">
+       <string>Other</string>
+      </attribute>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

@@ -6,7 +6,7 @@
 #include <memory>
 #include "VideoWidget.h"
 #include "ReadThread.h"
-
+#include "VideoWidgetFrame.h"
 
 class QCameraInfo;
 class QCamera;
@@ -38,6 +38,8 @@ private:
     void initSettingActions();
 
     void initVideoWidget();
+    void initVideoWidget(bool useGL);
+
 
 private:
 
@@ -49,7 +51,7 @@ private:
     QString mstrCurResolution;
     std::shared_ptr<VideoPropDia> mspVideoPropDia = nullptr;
     std::shared_ptr<VideoProp> mspVideoProp = nullptr;
-    std::shared_ptr<VideoWidget> msp_videoWidget = nullptr;
+    std::shared_ptr<VideoWidgetFrame> msp_videoFrame = nullptr;
     QLabel* mleftStatLable = nullptr;
     QLabel* mleft2StatLable = nullptr;
     QLabel* mrightStatLable = nullptr;

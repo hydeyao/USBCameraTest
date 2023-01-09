@@ -55,6 +55,12 @@
     <ClCompile Include="ConfigParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ConfigWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoWidgetFrame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VideoDecode.h">
@@ -74,9 +80,18 @@
     <QtMoc Include="VideoWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="VideoWidgetFrame.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ConfigWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="VideoPropDia.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ConfigWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
