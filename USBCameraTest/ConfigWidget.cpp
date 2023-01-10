@@ -12,12 +12,14 @@ ConfigWidget::ConfigWidget(QWidget *parent)
 	ui.setupUi(this);
 	initRoiMap();
 	connect(ui.configFile_lineEdit, &QLineEdit::textChanged, this, &ConfigWidget::slt_config_changed);
-	connect(ui.project_lineEdit, &QLineEdit::editingFinished, this, &ConfigWidget::slt_project_changed);
+	connect(ui.project_lineEdit, &QLineEdit::textChanged, this, &ConfigWidget::slt_project_changed);
+
 	connect(ui.save_pushButton, &QPushButton::pressed, this, &ConfigWidget::slt_saveBtn_pressed);
 	connect(ui.file_toolButton, &QToolButton::pressed, this, [=]() {
 		QString filePath = QFileDialog::getOpenFileName(nullptr, "Open Config File", "D:\\", "*.json");
 		ui.configFile_lineEdit->setText(filePath);
 		});
+
 
 
 }
@@ -37,6 +39,18 @@ void ConfigWidget::setCurResolution(QString res)
 
 	ui.videoWidth_lineEdit->setText(str_width);
 	ui.videoHeight_lineEdit->setText(str_height);
+}
+
+void ConfigWidget::setConfig(QString config, QString project)
+{
+	ui.project_lineEdit->setText(project);
+	ui.configFile_lineEdit->setText(config);
+	slt_project_changed();
+}
+
+void ConfigWidget::setCurTabShow(int idx)
+{
+	ui.mtf_tabWidget->setCurrentIndex(idx);
 }
 
 void ConfigWidget::initRoiMap()
@@ -77,6 +91,7 @@ void ConfigWidget::uiRoiMapClear()
 
 
 }
+
 
 void ConfigWidget::slt_project_changed()
 {
@@ -154,6 +169,7 @@ void ConfigWidget::slt_saveBtn_pressed()
 	}
 
 	QMessageBox::information(nullptr, "Success", "Save To Local OK");
+	emit save(ui.configFile_lineEdit->text(), ui.project_lineEdit->text());
 
 }
 
@@ -170,7 +186,7 @@ void ConfigWidget::slt_config_changed(QString config)
 		return;
 	}
 
-	QComboBox* comple_box = new(std::nothrow) QComboBox(this);
+	QComboBox* comple_box = new(std::nothrow) QComboBox(nullptr);
 	QCompleter* completer = new(std::nothrow) QCompleter();
 
 	QStringListModel* compleModel = new QStringListModel(projects_model);

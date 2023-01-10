@@ -24,6 +24,13 @@ public:
 	~ConfigWidget();
 
 	void setCurResolution(QString res);
+	void setConfig(QString config, QString project);
+	void setCurTabShow(int idx = 0);
+
+signals:
+
+	void save(QString config, QString project);
+
 
 private:
 	Ui::ConfigWidgetClass ui;
@@ -33,7 +40,7 @@ private:
 
 	void initRoiMap();
 	void uiRoiMapClear();
-
+	
 
 private slots:
 

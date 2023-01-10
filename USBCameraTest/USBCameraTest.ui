@@ -29,6 +29,7 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionConfig"/>
    </widget>
    <widget class="QMenu" name="menuDevices">
     <property name="title">
@@ -71,7 +72,10 @@
    <addaction name="actionplayVideo"/>
    <addaction name="separator"/>
    <addaction name="actionToolRectSet"/>
+   <addaction name="separator"/>
    <addaction name="actionCrossLine"/>
+   <addaction name="actionShowMtfRect"/>
+   <addaction name="actionCleanDraw"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionVideoProperty">
@@ -140,6 +144,38 @@
    </property>
    <property name="toolTip">
     <string>show Cross Line in Widget</string>
+   </property>
+  </action>
+  <action name="actionShowMtfRect">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="USBCameraTest.qrc">
+     <normaloff>:/USBCameraTest/Resourses/function-line.svg</normaloff>:/USBCameraTest/Resourses/function-line.svg</iconset>
+   </property>
+   <property name="text">
+    <string>ShowMtfRect</string>
+   </property>
+   <property name="toolTip">
+    <string>show mtf roi</string>
+   </property>
+  </action>
+  <action name="actionCleanDraw">
+   <property name="icon">
+    <iconset resource="USBCameraTest.qrc">
+     <normaloff>:/USBCameraTest/Resourses/eraser-line.svg</normaloff>:/USBCameraTest/Resourses/eraser-line.svg</iconset>
+   </property>
+   <property name="text">
+    <string>CleanDraw</string>
+   </property>
+   <property name="toolTip">
+    <string>Clean All In Video</string>
+   </property>
+  </action>
+  <action name="actionConfig">
+   <property name="text">
+    <string>Config</string>
    </property>
   </action>
  </widget>

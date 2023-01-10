@@ -29,7 +29,7 @@ USBCameraTest::USBCameraTest(QWidget *parent)
 	initSettingActions();
 	mspThRead.reset(new ReadThread());
 	initVideoWidget();
-
+	initConfigWidget();
 	connect(mspThRead.get(), &ReadThread::play_stat, this, &USBCameraTest::on_play_stat);
 
 
@@ -99,7 +99,7 @@ void USBCameraTest::keyPressEvent(QKeyEvent * e)
 	}
 	case Qt::Key_7:
 	{
-		path = ConfigParser::latest_project();
+		//path = ConfigParser::latest_project();
 
 		break;
 	}
@@ -217,17 +217,37 @@ void USBCameraTest::initStatLables()
 void USBCameraTest::initToolBar()
 {
 	QLabel* project = new QLabel();
-	
+	auto [config, strPro] = ConfigParser::latest_project();
 
-	QFont font("Microsoft YaHei", 10, 75);
+	mCurConfigFile = QString::fromStdString(config);
+
+	QFont font("Microsoft YaHei", 10, 50);
 	project->setFont(font);
-	project->setText("project: ");
+	project->setText("CurentProject: ");
+
+	if (!mProjectLineEdit)
+	{
+		mProjectLineEdit = new QLineEdit();
+	}
+
+	mProjectLineEdit->setMaximumWidth(120);
+	mProjectLineEdit->setReadOnly(true);
+	mProjectLineEdit->setFont(font);
+	if (strPro.empty())
+	{
+		mProjectLineEdit->setText("No Project");
+	}
+	else
+	{
+		mProjectLineEdit->setText(QString::fromStdString(strPro));
+	}
 
 	QWidget* spacer = new QWidget(this);
 	spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 	ui.mainToolBar->addWidget(spacer);
 	ui.mainToolBar->addWidget(project);
+	ui.mainToolBar->addWidget(mProjectLineEdit);
 
 }
 
@@ -261,13 +281,21 @@ void USBCameraTest::initSettingActions()
 
 	connect(ui.actionplayVideo, &QAction::triggered, this, &USBCameraTest::slt_actionPlayTrigged);
 
-	connect(ui.actionCrossLine, &QAction::triggered, this, [=]() {
-		if (!ui.actionCrossLine->isChecked())
-		{
-			msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CLEAR);
-			return;
-		}
-		msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CROSS_LINE); });
+	connect(ui.actionCrossLine, &QAction::triggered, this, [=]() {	
+		ui.actionShowMtfRect->isChecked() ? (ui.actionCrossLine->isChecked() ? \
+			msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CROSS_LINE | VideoWidgetFrame::PAINT_RECTS) :\
+			msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_RECTS)) : \
+			(ui.actionCrossLine->isChecked() ? msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CROSS_LINE) : \
+				msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CLEAR));});
+	
+	connect(ui.actionShowMtfRect, &QAction::triggered, this, [=]() {
+
+		msp_videoFrame->initDrawRoiArr(mProjectLineEdit->text(), mCurConfigFile);
+		ui.actionShowMtfRect->isChecked() ? (ui.actionCrossLine->isChecked() ? \
+			msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CROSS_LINE | VideoWidgetFrame::PAINT_RECTS) :\
+			msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_RECTS)) : \
+			(ui.actionCrossLine->isChecked() ? msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CROSS_LINE) : \
+				msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CLEAR)); });
 
 	connect(ui.actionVideoProperty, &QAction::triggered, this, &USBCameraTest::slt_actionVideoPropTrigged);
 }
@@ -293,6 +321,24 @@ void USBCameraTest::initVideoWidget(bool useGL)
 		playVideo(false);
 		QMessageBox::warning(this, "Waring", "Decode Err: Try CPU Decode");
 		});
+}
+
+void USBCameraTest::initConfigWidget()
+{
+	if (!msp_configWidget)
+	{
+		msp_configWidget.reset(new ConfigWidget(), [](ConfigWidget* p) { delete p; });
+	}
+	msp_configWidget->setConfig(mCurConfigFile, mProjectLineEdit->text());
+
+	connect(ui.actionToolRectSet, &QAction::triggered, this, [=]() {
+		msp_configWidget->setCurTabShow(1);
+		msp_configWidget->show();	
+		});
+
+	connect(msp_configWidget.get(), &ConfigWidget::save, this, &USBCameraTest::slt_configWidgetSaved);
+
+
 }
 
 
@@ -322,6 +368,12 @@ void USBCameraTest::on_play_stat(int stat)
 		ui.actionplayVideo->setIcon(QIcon(":/USBCameraTest/Resourses/play.svg"));
 		mb_isPlay = false;
 	}
+}
+
+void USBCameraTest::slt_configWidgetSaved(QString config, QString project)
+{
+	mCurConfigFile = config;
+	mProjectLineEdit->setText(project);
 }
 
 

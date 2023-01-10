@@ -42,6 +42,7 @@ private:
     void initVideoWidget();
     void initVideoWidget(bool useGL);
 
+    void initConfigWidget();
 
 private:
 
@@ -53,12 +54,15 @@ private:
     QString mstrCurResolution;
     QString mSelectedConfig;
     QString mCurProjects;
+    QString mCurConfigFile;
     std::shared_ptr<VideoPropDia> mspVideoPropDia = nullptr;
     std::shared_ptr<VideoProp> mspVideoProp = nullptr;
     std::shared_ptr<VideoWidgetFrame> msp_videoFrame = nullptr;
+    std::shared_ptr<ConfigWidget> msp_configWidget = nullptr;
     QLabel* mleftStatLable = nullptr;
     QLabel* mleft2StatLable = nullptr;
     QLabel* mrightStatLable = nullptr;
+    QLineEdit* mProjectLineEdit = nullptr;
     std::shared_ptr<ReadThread> mspThRead = nullptr;
 
     bool mb_isPlay;
@@ -67,6 +71,6 @@ private slots:
     void slt_actionVideoPropTrigged();
     void slt_actionPlayTrigged();
     void on_play_stat(int stat);
-
+    void slt_configWidgetSaved(QString config, QString project);
 
 };

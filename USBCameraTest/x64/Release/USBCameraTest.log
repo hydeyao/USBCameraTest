@@ -1,2 +1,27 @@
-﻿  VideoWidgetFrame.cpp
-  USBCameraTest.vcxproj -> D:\QtProjecs\USBCameraTest\x64\Release\USBCameraTest.exe
+﻿  uic ConfigWidget.ui
+  uic USBCameraTest.ui
+  uic VideoPropDia.ui
+  rcc USBCameraTest.qrc
+  moc USBCameraTest.h
+  moc VideoWidgetFrame.h
+  moc VideoWidget.h
+  moc VideoPropDia.h
+  moc ReadThread.h
+  moc ConfigWidget.h
+  ConfigParser.cpp
+  ConfigWidget.cpp
+  ReadThread.cpp
+  VideoDecode.cpp
+  VideoPropDia.cpp
+  VideoWidget.cpp
+  VideoWidgetFrame.cpp
+  USBCameraTest.cpp
+  main.cpp
+  qrc_USBCameraTest.cpp
+  moc_USBCameraTest.cpp
+  moc_VideoWidgetFrame.cpp
+  moc_VideoWidget.cpp
+  moc_VideoPropDia.cpp
+  moc_ReadThread.cpp
+  moc_ConfigWidget.cpp
+  USBCameraTest.vcxproj -> E:\QtProject\USBCameraTest\x64\Release\USBCameraTest.exe

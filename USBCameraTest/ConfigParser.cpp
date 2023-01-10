@@ -258,14 +258,14 @@ mf_startX(x), mf_startY(y), mf_wr(w_ratio), mf_hr(h_ratio)
 	mLT_x = mf_startX;
 	mLT_y = mf_startY;
 
-	mRT_x = mf_startX + mf_wr;
+	mRT_x = mf_startX + mf_wr * 2;
 	mRT_y = mf_startY;
 
-	mRB_x = mf_startX + mf_wr;
-	mRB_y = mf_startY - mf_hr;
+	mRB_x = mf_startX + mf_wr * 2;
+	mRB_y = mf_startY - mf_hr * 2;
 
 	mLB_x = mf_startX;
-	mLB_y = mf_startY - mf_hr;
+	mLB_y = mf_startY - mf_hr * 2;
 
 
 }
@@ -297,8 +297,8 @@ mLT_x(LT_x), mLT_y(LT_y), mRT_x(RT_x), mRT_y(RT_y), mRB_x(RB_x), mRB_y(RB_y), mL
 	mf_startX = mLT_x;
 	mf_startY = mLT_y;
 
-	mf_wr = mRT_x - mLT_x;
-	mf_hr = mRT_x - mRB_x;
+	mf_wr = (mRT_x - mLT_x) / 2;
+	mf_hr = (mRT_x - mRB_x) / 2;
 
 }
 

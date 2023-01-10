@@ -8,5 +8,7 @@
         <file>Resourses/cross-line.svg</file>
         <file>Resourses/paint_frag.fsh</file>
         <file>Resourses/paint_vertex.vsh</file>
+        <file>Resourses/function-line.svg</file>
+        <file>Resourses/eraser-line.svg</file>
     </qresource>
 </RCC>

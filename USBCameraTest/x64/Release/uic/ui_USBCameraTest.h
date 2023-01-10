@@ -32,6 +32,8 @@ public:
     QAction *actionOpenGLDecode;
     QAction *actionCPUDecode;
     QAction *actionCrossLine;
+    QAction *actionShowMtfRect;
+    QAction *actionCleanDraw;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QMenuBar *menuBar;
@@ -47,7 +49,7 @@ public:
     {
         if (USBCameraTestClass->objectName().isEmpty())
             USBCameraTestClass->setObjectName(QString::fromUtf8("USBCameraTestClass"));
-        USBCameraTestClass->resize(966, 694);
+        USBCameraTestClass->resize(935, 694);
         actionVideoProperty = new QAction(USBCameraTestClass);
         actionVideoProperty->setObjectName(QString::fromUtf8("actionVideoProperty"));
         actionToolRectSet = new QAction(USBCameraTestClass);
@@ -75,6 +77,16 @@ public:
         QIcon icon2;
         icon2.addFile(QString::fromUtf8(":/USBCameraTest/Resourses/cross-line.svg"), QSize(), QIcon::Normal, QIcon::Off);
         actionCrossLine->setIcon(icon2);
+        actionShowMtfRect = new QAction(USBCameraTestClass);
+        actionShowMtfRect->setObjectName(QString::fromUtf8("actionShowMtfRect"));
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/USBCameraTest/Resourses/function-line.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        actionShowMtfRect->setIcon(icon3);
+        actionCleanDraw = new QAction(USBCameraTestClass);
+        actionCleanDraw->setObjectName(QString::fromUtf8("actionCleanDraw"));
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/USBCameraTest/Resourses/eraser-line.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        actionCleanDraw->setIcon(icon4);
         centralWidget = new QWidget(USBCameraTestClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -84,7 +96,7 @@ public:
         USBCameraTestClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(USBCameraTestClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 966, 22));
+        menuBar->setGeometry(QRect(0, 0, 935, 22));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         menuDevices = new QMenu(menuBar);
@@ -116,7 +128,10 @@ public:
         mainToolBar->addAction(actionplayVideo);
         mainToolBar->addSeparator();
         mainToolBar->addAction(actionToolRectSet);
+        mainToolBar->addSeparator();
         mainToolBar->addAction(actionCrossLine);
+        mainToolBar->addAction(actionShowMtfRect);
+        mainToolBar->addAction(actionCleanDraw);
 
         retranslateUi(USBCameraTestClass);
 
@@ -141,6 +156,14 @@ public:
         actionCrossLine->setText(QCoreApplication::translate("USBCameraTestClass", "CrossLine", nullptr));
 #if QT_CONFIG(tooltip)
         actionCrossLine->setToolTip(QCoreApplication::translate("USBCameraTestClass", "show Cross Line in Widget", nullptr));
+#endif // QT_CONFIG(tooltip)
+        actionShowMtfRect->setText(QCoreApplication::translate("USBCameraTestClass", "ShowMtfRect", nullptr));
+#if QT_CONFIG(tooltip)
+        actionShowMtfRect->setToolTip(QCoreApplication::translate("USBCameraTestClass", "show mtf roi", nullptr));
+#endif // QT_CONFIG(tooltip)
+        actionCleanDraw->setText(QCoreApplication::translate("USBCameraTestClass", "CleanDraw", nullptr));
+#if QT_CONFIG(tooltip)
+        actionCleanDraw->setToolTip(QCoreApplication::translate("USBCameraTestClass", "Clean All In Video", nullptr));
 #endif // QT_CONFIG(tooltip)
         menuFile->setTitle(QCoreApplication::translate("USBCameraTestClass", "File", nullptr));
         menuDevices->setTitle(QCoreApplication::translate("USBCameraTestClass", "Devices", nullptr));
