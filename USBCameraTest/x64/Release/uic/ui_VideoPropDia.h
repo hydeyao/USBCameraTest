@@ -47,13 +47,17 @@ public:
     {
         if (VideoPropDiaClass->objectName().isEmpty())
             VideoPropDiaClass->setObjectName(QString::fromUtf8("VideoPropDiaClass"));
-        VideoPropDiaClass->resize(376, 316);
+        VideoPropDiaClass->resize(408, 322);
         verticalLayout_2 = new QVBoxLayout(VideoPropDiaClass);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         groupBox = new QGroupBox(VideoPropDiaClass);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        QFont font;
+        font.setFamily(QString::fromUtf8("\347\255\211\347\272\277"));
+        font.setPointSize(10);
+        groupBox->setFont(font);
         verticalLayout = new QVBoxLayout(groupBox);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -63,11 +67,13 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         label = new QLabel(groupBox);
         label->setObjectName(QString::fromUtf8("label"));
+        label->setFont(font);
 
         horizontalLayout_3->addWidget(label);
 
         videoSize_comboBox = new QComboBox(groupBox);
         videoSize_comboBox->setObjectName(QString::fromUtf8("videoSize_comboBox"));
+        videoSize_comboBox->setFont(font);
 
         horizontalLayout_3->addWidget(videoSize_comboBox);
 
@@ -79,6 +85,7 @@ public:
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         label_2 = new QLabel(groupBox);
         label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setFont(font);
 
         horizontalLayout_4->addWidget(label_2);
 
@@ -86,6 +93,7 @@ public:
         videoFormat_comboBox->addItem(QString());
         videoFormat_comboBox->addItem(QString());
         videoFormat_comboBox->setObjectName(QString::fromUtf8("videoFormat_comboBox"));
+        videoFormat_comboBox->setFont(font);
 
         horizontalLayout_4->addWidget(videoFormat_comboBox);
 
@@ -97,11 +105,13 @@ public:
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         label_4 = new QLabel(groupBox);
         label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setFont(font);
 
         horizontalLayout_5->addWidget(label_4);
 
         spinBox = new QSpinBox(groupBox);
         spinBox->setObjectName(QString::fromUtf8("spinBox"));
+        spinBox->setFont(font);
 
         horizontalLayout_5->addWidget(spinBox);
 
@@ -120,11 +130,13 @@ public:
 
         confirm_pushButton = new QPushButton(VideoPropDiaClass);
         confirm_pushButton->setObjectName(QString::fromUtf8("confirm_pushButton"));
+        confirm_pushButton->setFont(font);
 
         horizontalLayout->addWidget(confirm_pushButton);
 
         cancle_pushButton = new QPushButton(VideoPropDiaClass);
         cancle_pushButton->setObjectName(QString::fromUtf8("cancle_pushButton"));
+        cancle_pushButton->setFont(font);
 
         horizontalLayout->addWidget(cancle_pushButton);
 

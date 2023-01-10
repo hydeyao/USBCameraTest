@@ -8,6 +8,7 @@
 #include <qimage.h>
 
 
+
 enum DRAW_TYEP
 {
 	DRAW_CLEAR = 0,
@@ -23,6 +24,7 @@ class VideoWidget  : public QOpenGLWidget, public  QOpenGLFunctions_3_3_Core
 
 public:
 	explicit VideoWidget(QWidget* parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
+	explicit VideoWidget(QString path, QString project,QWidget* parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 	~VideoWidget() override;
 
 	void repaint(AVFrame* frame);

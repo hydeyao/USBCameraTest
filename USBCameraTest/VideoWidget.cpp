@@ -14,6 +14,10 @@ VideoWidget::VideoWidget(QWidget* parent, Qt::WindowFlags f)
 	m_zoomSize = QSize(0, 0);
 }
 
+VideoWidget::VideoWidget(QString path, QString project, QWidget* parent, Qt::WindowFlags f) : QOpenGLWidget(parent, f), mDrawType(0)
+{
+}
+
 VideoWidget::~VideoWidget()
 {
     if (!isValid()) return;        // 如果控件和OpenGL资源（如上下文）已成功初始化，则返回true。

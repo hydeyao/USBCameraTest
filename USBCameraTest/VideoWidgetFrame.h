@@ -17,11 +17,14 @@ class VideoWidgetFrame  : public QOpenGLWidget
 
 public:
 	VideoWidgetFrame(QWidget *parent);
+	VideoWidgetFrame(QString path, QString project, QWidget *parent = nullptr);
 	~VideoWidgetFrame();
 
 	virtual void repaint(AVFrame* frame) {};
 	virtual void paint_image(QImage img) {};
+
 	void setDrawType(int type = 0);
+	int initDrawRoiArr(QString project, QString path);
 
 	virtual void paintOnVideo();
 	virtual void draw_cross_line() {};
@@ -34,17 +37,17 @@ public:
 	std::vector<Draw_ROI*> m_vecDrawRoi;
 	std::map<std::string, Draw_ROI*> m_mapDrawRoi;
 
-
-
 protected:
 	int mDrawType;
+	virtual void initializeGL() override;
+	
 
 signals:
 	void stopVideo();
 
 private:
 	std::shared_ptr<ConfigParser> mspConfigParse = nullptr;
-	int initDrawRoiArr(QString project,QString path);
+	int initWidget();
 
 };
 

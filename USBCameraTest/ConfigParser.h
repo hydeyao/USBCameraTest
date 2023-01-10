@@ -61,9 +61,12 @@ public:
 	ConfigParser();
 	~ConfigParser();
 
+	static tuple<string,string> latest_project();
 	static int write(const char* path, const char* project, string resolution, map<string, Draw_ROI*> roiMap);
+	static vector<string> allProjects(const char* path);
 
 
+	int addItem(const char* project, string resolution, map<string, Draw_ROI*> roiMap);
 	int updateItem(const char* key, int val);
 	int updateItem(const char* key, string val);
 	int updateItem(const char* key, double* arr, int size = 4);
@@ -79,6 +82,10 @@ protected:
 	virtual int parse() = 0;
 
 	std::shared_ptr<Draw_ROI> mspRoi = nullptr;
+
+	static string to_string(const wstring& str, const locale& loc = locale());
+
+
 
 public:
 	__inline vector<string> allKeys() { return mVecKeys; };

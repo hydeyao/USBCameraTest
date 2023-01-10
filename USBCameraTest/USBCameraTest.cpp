@@ -10,6 +10,7 @@
 #include "ConfigParser.h"
 
 
+
 extern "C" {        // 用C规则编译指定的代码
 #include "libavcodec/avcodec.h"
 }
@@ -20,12 +21,12 @@ USBCameraTest::USBCameraTest(QWidget *parent)
     : QMainWindow(parent), mCurCamDevice(""), mb_isPlay(false), mstrCurResolution("")
 {
     ui.setupUi(this);
-	connect(ui.actionVideoProperty, &QAction::triggered, this, &USBCameraTest::slt_actionVideoPropTrigged);
+	
 	startTimer(16);
 	initCameraList();
 	initStatLables();
+	initToolBar();
 	initSettingActions();
-
 	mspThRead.reset(new ReadThread());
 	initVideoWidget();
 
@@ -53,6 +54,7 @@ void USBCameraTest::keyPressEvent(QKeyEvent * e)
 
 	ConfigParser* cfgParse = new JsonConfigParser("D:\\mtf_roi.json", "220168");
 
+	string path = "";
 	switch (e->key())
 	{
 	case Qt::Key_1:
@@ -63,7 +65,7 @@ void USBCameraTest::keyPressEvent(QKeyEvent * e)
 		break;
 	case Qt::Key_3:
 	{
-		ConfigParser* cfgParse = new JsonConfigParser("D:\\mtf_roi.json", "220168");
+		ConfigParser* cfgParse = new JsonConfigParser("D:\\mtf_roi.json", "2200168");
 	}
 	break;
 	case Qt::Key_4:
@@ -77,7 +79,7 @@ void USBCameraTest::keyPressEvent(QKeyEvent * e)
 		Draw_ROI* roi2 = new Draw_ROI(0.5,0.7,0.2,0.2);
 		Draw_ROI* roi3 = new Draw_ROI(0.5,0.6,0.2,0.2);
 		Draw_ROI* roi4 = new Draw_ROI(0.5,0.5,0.2,0.2);
-	
+
 		std::map<string, Draw_ROI*> tmpMap;
 		tmpMap["ROI1"] = roi;
 		tmpMap["ROI2"] = roi1;
@@ -86,6 +88,19 @@ void USBCameraTest::keyPressEvent(QKeyEvent * e)
 		tmpMap["ROI5"] = roi4;
 
 		ConfigParser::write("D:\\220168.json", "220168", "1920x1080", tmpMap);
+		break;
+	}
+	case Qt::Key_6:
+	{
+		ConfigWidget* cfg_w = new ConfigWidget(nullptr);
+		cfg_w->setCurResolution(mspVideoProp->video_resolution);
+		cfg_w->show();
+		break;
+	}
+	case Qt::Key_7:
+	{
+		path = ConfigParser::latest_project();
+
 		break;
 	}
 	default:
@@ -199,6 +214,23 @@ void USBCameraTest::initStatLables()
 
 }
 
+void USBCameraTest::initToolBar()
+{
+	QLabel* project = new QLabel();
+	
+
+	QFont font("Microsoft YaHei", 10, 75);
+	project->setFont(font);
+	project->setText("project: ");
+
+	QWidget* spacer = new QWidget(this);
+	spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+	ui.mainToolBar->addWidget(spacer);
+	ui.mainToolBar->addWidget(project);
+
+}
+
 void USBCameraTest::setStatInfos(QString fps, QString outsize)
 {
 	QString fpsInfo = "Frame rate: " % fps % "fps";
@@ -237,13 +269,14 @@ void USBCameraTest::initSettingActions()
 		}
 		msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CROSS_LINE); });
 
+	connect(ui.actionVideoProperty, &QAction::triggered, this, &USBCameraTest::slt_actionVideoPropTrigged);
 }
 
 void USBCameraTest::initVideoWidget()
 {
 	msp_videoFrame.reset(new NormalVideoWidget(this), [](NormalVideoWidget * p) {delete p; });
 	ui.verticalLayout->addWidget(msp_videoFrame.get());
-	connect(mspThRead.get(), &ReadThread::send_img, msp_videoFrame.get(), &VideoWidgetFrame::paint_image,Qt::BlockingQueuedConnection);
+	connect(mspThRead.get(), &ReadThread::send_img, msp_videoFrame.get(), &VideoWidgetFrame::paint_image);
 	connect(msp_videoFrame.get(), &VideoWidgetFrame::stopVideo, this, [=]() {
 		playVideo(false);
 		QMessageBox::warning(this, "Waring", "Decode Err: Try CPU Decode");

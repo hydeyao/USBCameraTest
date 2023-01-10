@@ -31,8 +31,36 @@ QT_BEGIN_NAMESPACE
 class Ui_ConfigWidgetClass
 {
 public:
-    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_15;
     QTabWidget *mtf_tabWidget;
+    QWidget *other_config;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_14;
+    QGroupBox *groupBox_2;
+    QVBoxLayout *verticalLayout_6;
+    QHBoxLayout *horizontalLayout_7;
+    QLabel *label_5;
+    QLineEdit *videoWidth_lineEdit;
+    QHBoxLayout *horizontalLayout_8;
+    QLabel *label_6;
+    QLineEdit *videoHeight_lineEdit;
+    QHBoxLayout *horizontalLayout_9;
+    QLabel *label_7;
+    QLineEdit *videoMaxFps_lineEdit;
+    QHBoxLayout *horizontalLayout_10;
+    QLabel *label_8;
+    QComboBox *fmt_comboBox;
+    QGroupBox *groupBox_3;
+    QVBoxLayout *verticalLayout_7;
+    QHBoxLayout *horizontalLayout_12;
+    QLabel *label_9;
+    QLineEdit *exp_lineEdit;
+    QCheckBox *autoExp_checkBox;
+    QHBoxLayout *horizontalLayout_13;
+    QLabel *label_18;
+    QLineEdit *pos_lineEdit;
+    QCheckBox *autoF_checkBox;
+    QSpacerItem *verticalSpacer_2;
     QWidget *mtf_tab;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_46;
@@ -42,15 +70,16 @@ public:
     QToolButton *file_toolButton;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
-    QComboBox *project_comboBox;
+    QLineEdit *project_lineEdit;
     QHBoxLayout *horizontalLayout_3;
     QRadioButton *radioButton;
     QRadioButton *radioButton_2;
     QGroupBox *groupBox;
-    QHBoxLayout *horizontalLayout_45;
+    QVBoxLayout *verticalLayout_5;
+    QHBoxLayout *horizontalLayout_6;
     QVBoxLayout *verticalLayout_3;
     QHBoxLayout *horizontalLayout_11;
-    QSpacerItem *horizontalSpacer_2;
+    QLabel *label_3;
     QLabel *label_10;
     QLabel *label_11;
     QLabel *label_12;
@@ -117,7 +146,7 @@ public:
     QDoubleSpinBox *rh_doubleSpinBox_9;
     QVBoxLayout *verticalLayout_4;
     QHBoxLayout *horizontalLayout_34;
-    QSpacerItem *horizontalSpacer_3;
+    QLabel *label_4;
     QLabel *label_14;
     QLabel *label_15;
     QLabel *label_16;
@@ -149,7 +178,7 @@ public:
     QHBoxLayout *horizontalLayout_39;
     QCheckBox *checkBox_r14;
     QDoubleSpinBox *rx_doubleSpinBox_14;
-    QDoubleSpinBox *r_doubleSpinBox_14;
+    QDoubleSpinBox *ry_doubleSpinBox_14;
     QDoubleSpinBox *rw_doubleSpinBox_14;
     QDoubleSpinBox *rh_doubleSpinBox_14;
     QHBoxLayout *horizontalLayout_40;
@@ -182,28 +211,184 @@ public:
     QDoubleSpinBox *ry_doubleSpinBox_19;
     QDoubleSpinBox *rw_doubleSpinBox_19;
     QDoubleSpinBox *rh_doubleSpinBox_19;
+    QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_4;
     QSpacerItem *horizontalSpacer;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton;
-    QWidget *other_config;
+    QPushButton *export_pushButton;
+    QPushButton *save_pushButton;
 
     void setupUi(QWidget *ConfigWidgetClass)
     {
         if (ConfigWidgetClass->objectName().isEmpty())
             ConfigWidgetClass->setObjectName(QString::fromUtf8("ConfigWidgetClass"));
-        ConfigWidgetClass->resize(721, 548);
-        verticalLayout = new QVBoxLayout(ConfigWidgetClass);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        ConfigWidgetClass->resize(789, 585);
+        horizontalLayout_15 = new QHBoxLayout(ConfigWidgetClass);
+        horizontalLayout_15->setSpacing(6);
+        horizontalLayout_15->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_15->setObjectName(QString::fromUtf8("horizontalLayout_15"));
         mtf_tabWidget = new QTabWidget(ConfigWidgetClass);
         mtf_tabWidget->setObjectName(QString::fromUtf8("mtf_tabWidget"));
-        mtf_tab = new QWidget();
-        mtf_tab->setObjectName(QString::fromUtf8("mtf_tab"));
+        other_config = new QWidget();
+        other_config->setObjectName(QString::fromUtf8("other_config"));
         QFont font;
         font.setFamily(QString::fromUtf8("\347\255\211\347\272\277"));
         font.setPointSize(10);
+        other_config->setFont(font);
+        verticalLayout = new QVBoxLayout(other_config);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        horizontalLayout_14 = new QHBoxLayout();
+        horizontalLayout_14->setSpacing(6);
+        horizontalLayout_14->setObjectName(QString::fromUtf8("horizontalLayout_14"));
+        groupBox_2 = new QGroupBox(other_config);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        verticalLayout_6 = new QVBoxLayout(groupBox_2);
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
+        label_5 = new QLabel(groupBox_2);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+
+        horizontalLayout_7->addWidget(label_5);
+
+        videoWidth_lineEdit = new QLineEdit(groupBox_2);
+        videoWidth_lineEdit->setObjectName(QString::fromUtf8("videoWidth_lineEdit"));
+
+        horizontalLayout_7->addWidget(videoWidth_lineEdit);
+
+        horizontalLayout_7->setStretch(0, 1);
+        horizontalLayout_7->setStretch(1, 1);
+
+        verticalLayout_6->addLayout(horizontalLayout_7);
+
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
+        label_6 = new QLabel(groupBox_2);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+
+        horizontalLayout_8->addWidget(label_6);
+
+        videoHeight_lineEdit = new QLineEdit(groupBox_2);
+        videoHeight_lineEdit->setObjectName(QString::fromUtf8("videoHeight_lineEdit"));
+
+        horizontalLayout_8->addWidget(videoHeight_lineEdit);
+
+        horizontalLayout_8->setStretch(0, 1);
+        horizontalLayout_8->setStretch(1, 1);
+
+        verticalLayout_6->addLayout(horizontalLayout_8);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
+        label_7 = new QLabel(groupBox_2);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+
+        horizontalLayout_9->addWidget(label_7);
+
+        videoMaxFps_lineEdit = new QLineEdit(groupBox_2);
+        videoMaxFps_lineEdit->setObjectName(QString::fromUtf8("videoMaxFps_lineEdit"));
+
+        horizontalLayout_9->addWidget(videoMaxFps_lineEdit);
+
+        horizontalLayout_9->setStretch(0, 1);
+        horizontalLayout_9->setStretch(1, 1);
+
+        verticalLayout_6->addLayout(horizontalLayout_9);
+
+        horizontalLayout_10 = new QHBoxLayout();
+        horizontalLayout_10->setSpacing(6);
+        horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
+        label_8 = new QLabel(groupBox_2);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+
+        horizontalLayout_10->addWidget(label_8);
+
+        fmt_comboBox = new QComboBox(groupBox_2);
+        fmt_comboBox->addItem(QString());
+        fmt_comboBox->addItem(QString());
+        fmt_comboBox->setObjectName(QString::fromUtf8("fmt_comboBox"));
+
+        horizontalLayout_10->addWidget(fmt_comboBox);
+
+        horizontalLayout_10->setStretch(0, 1);
+        horizontalLayout_10->setStretch(1, 1);
+
+        verticalLayout_6->addLayout(horizontalLayout_10);
+
+
+        horizontalLayout_14->addWidget(groupBox_2);
+
+        groupBox_3 = new QGroupBox(other_config);
+        groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
+        verticalLayout_7 = new QVBoxLayout(groupBox_3);
+        verticalLayout_7->setSpacing(6);
+        verticalLayout_7->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
+        horizontalLayout_12 = new QHBoxLayout();
+        horizontalLayout_12->setSpacing(6);
+        horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
+        label_9 = new QLabel(groupBox_3);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+
+        horizontalLayout_12->addWidget(label_9);
+
+        exp_lineEdit = new QLineEdit(groupBox_3);
+        exp_lineEdit->setObjectName(QString::fromUtf8("exp_lineEdit"));
+
+        horizontalLayout_12->addWidget(exp_lineEdit);
+
+        autoExp_checkBox = new QCheckBox(groupBox_3);
+        autoExp_checkBox->setObjectName(QString::fromUtf8("autoExp_checkBox"));
+
+        horizontalLayout_12->addWidget(autoExp_checkBox);
+
+        horizontalLayout_12->setStretch(0, 1);
+        horizontalLayout_12->setStretch(1, 1);
+
+        verticalLayout_7->addLayout(horizontalLayout_12);
+
+        horizontalLayout_13 = new QHBoxLayout();
+        horizontalLayout_13->setSpacing(6);
+        horizontalLayout_13->setObjectName(QString::fromUtf8("horizontalLayout_13"));
+        label_18 = new QLabel(groupBox_3);
+        label_18->setObjectName(QString::fromUtf8("label_18"));
+
+        horizontalLayout_13->addWidget(label_18);
+
+        pos_lineEdit = new QLineEdit(groupBox_3);
+        pos_lineEdit->setObjectName(QString::fromUtf8("pos_lineEdit"));
+
+        horizontalLayout_13->addWidget(pos_lineEdit);
+
+        autoF_checkBox = new QCheckBox(groupBox_3);
+        autoF_checkBox->setObjectName(QString::fromUtf8("autoF_checkBox"));
+
+        horizontalLayout_13->addWidget(autoF_checkBox);
+
+        horizontalLayout_13->setStretch(0, 1);
+        horizontalLayout_13->setStretch(1, 1);
+
+        verticalLayout_7->addLayout(horizontalLayout_13);
+
+
+        horizontalLayout_14->addWidget(groupBox_3);
+
+
+        verticalLayout->addLayout(horizontalLayout_14);
+
+        verticalSpacer_2 = new QSpacerItem(17, 373, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_2);
+
+        mtf_tabWidget->addTab(other_config, QString());
+        mtf_tab = new QWidget();
+        mtf_tab->setObjectName(QString::fromUtf8("mtf_tab"));
         mtf_tab->setFont(font);
         verticalLayout_2 = new QVBoxLayout(mtf_tab);
         verticalLayout_2->setSpacing(6);
@@ -244,11 +429,13 @@ public:
 
         horizontalLayout->addWidget(label);
 
-        project_comboBox = new QComboBox(mtf_tab);
-        project_comboBox->setObjectName(QString::fromUtf8("project_comboBox"));
+        project_lineEdit = new QLineEdit(mtf_tab);
+        project_lineEdit->setObjectName(QString::fromUtf8("project_lineEdit"));
 
-        horizontalLayout->addWidget(project_comboBox);
+        horizontalLayout->addWidget(project_lineEdit);
 
+        horizontalLayout->setStretch(0, 1);
+        horizontalLayout->setStretch(1, 2);
 
         horizontalLayout_46->addLayout(horizontalLayout);
 
@@ -277,37 +464,46 @@ public:
 
         groupBox = new QGroupBox(mtf_tab);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        horizontalLayout_45 = new QHBoxLayout(groupBox);
-        horizontalLayout_45->setSpacing(6);
-        horizontalLayout_45->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_45->setObjectName(QString::fromUtf8("horizontalLayout_45"));
+        verticalLayout_5 = new QVBoxLayout(groupBox);
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         horizontalLayout_11 = new QHBoxLayout();
         horizontalLayout_11->setSpacing(6);
         horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        label_3 = new QLabel(groupBox);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setMaximumSize(QSize(62, 29));
 
-        horizontalLayout_11->addItem(horizontalSpacer_2);
+        horizontalLayout_11->addWidget(label_3);
 
         label_10 = new QLabel(groupBox);
         label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setMaximumSize(QSize(62, 29));
 
         horizontalLayout_11->addWidget(label_10);
 
         label_11 = new QLabel(groupBox);
         label_11->setObjectName(QString::fromUtf8("label_11"));
+        label_11->setMaximumSize(QSize(61, 29));
 
         horizontalLayout_11->addWidget(label_11);
 
         label_12 = new QLabel(groupBox);
         label_12->setObjectName(QString::fromUtf8("label_12"));
+        label_12->setMaximumSize(QSize(62, 29));
 
         horizontalLayout_11->addWidget(label_12);
 
         label_13 = new QLabel(groupBox);
         label_13->setObjectName(QString::fromUtf8("label_13"));
+        label_13->setMaximumSize(QSize(62, 29));
 
         horizontalLayout_11->addWidget(label_13);
 
@@ -329,21 +525,41 @@ public:
 
         rx_doubleSpinBox_0 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_0->setObjectName(QString::fromUtf8("rx_doubleSpinBox_0"));
+        rx_doubleSpinBox_0->setDecimals(3);
+        rx_doubleSpinBox_0->setMinimum(-1.000000000000000);
+        rx_doubleSpinBox_0->setMaximum(1.000000000000000);
+        rx_doubleSpinBox_0->setSingleStep(0.100000000000000);
+        rx_doubleSpinBox_0->setValue(0.000000000000000);
 
         horizontalLayout_27->addWidget(rx_doubleSpinBox_0);
 
         ry_doubleSpinBox_0 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_0->setObjectName(QString::fromUtf8("ry_doubleSpinBox_0"));
+        ry_doubleSpinBox_0->setDecimals(3);
+        ry_doubleSpinBox_0->setMinimum(-1.000000000000000);
+        ry_doubleSpinBox_0->setMaximum(1.000000000000000);
+        ry_doubleSpinBox_0->setSingleStep(0.100000000000000);
+        ry_doubleSpinBox_0->setValue(0.000000000000000);
 
         horizontalLayout_27->addWidget(ry_doubleSpinBox_0);
 
         rw_doubleSpinBox_0 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_0->setObjectName(QString::fromUtf8("rw_doubleSpinBox_0"));
+        rw_doubleSpinBox_0->setDecimals(3);
+        rw_doubleSpinBox_0->setMinimum(-1.000000000000000);
+        rw_doubleSpinBox_0->setMaximum(1.000000000000000);
+        rw_doubleSpinBox_0->setSingleStep(0.100000000000000);
+        rw_doubleSpinBox_0->setValue(0.000000000000000);
 
         horizontalLayout_27->addWidget(rw_doubleSpinBox_0);
 
         rh_doubleSpinBox_0 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_0->setObjectName(QString::fromUtf8("rh_doubleSpinBox_0"));
+        rh_doubleSpinBox_0->setDecimals(3);
+        rh_doubleSpinBox_0->setMinimum(-1.000000000000000);
+        rh_doubleSpinBox_0->setMaximum(1.000000000000000);
+        rh_doubleSpinBox_0->setSingleStep(0.100000000000000);
+        rh_doubleSpinBox_0->setValue(0.000000000000000);
 
         horizontalLayout_27->addWidget(rh_doubleSpinBox_0);
 
@@ -365,21 +581,41 @@ public:
 
         rx_doubleSpinBox_1 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_1->setObjectName(QString::fromUtf8("rx_doubleSpinBox_1"));
+        rx_doubleSpinBox_1->setDecimals(3);
+        rx_doubleSpinBox_1->setMinimum(-1.000000000000000);
+        rx_doubleSpinBox_1->setMaximum(1.000000000000000);
+        rx_doubleSpinBox_1->setSingleStep(0.100000000000000);
+        rx_doubleSpinBox_1->setValue(0.000000000000000);
 
         horizontalLayout_26->addWidget(rx_doubleSpinBox_1);
 
         ry_doubleSpinBox_1 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_1->setObjectName(QString::fromUtf8("ry_doubleSpinBox_1"));
+        ry_doubleSpinBox_1->setDecimals(3);
+        ry_doubleSpinBox_1->setMinimum(-1.000000000000000);
+        ry_doubleSpinBox_1->setMaximum(1.000000000000000);
+        ry_doubleSpinBox_1->setSingleStep(0.100000000000000);
+        ry_doubleSpinBox_1->setValue(0.000000000000000);
 
         horizontalLayout_26->addWidget(ry_doubleSpinBox_1);
 
         rw_doubleSpinBox_1 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_1->setObjectName(QString::fromUtf8("rw_doubleSpinBox_1"));
+        rw_doubleSpinBox_1->setDecimals(3);
+        rw_doubleSpinBox_1->setMinimum(-1.000000000000000);
+        rw_doubleSpinBox_1->setMaximum(1.000000000000000);
+        rw_doubleSpinBox_1->setSingleStep(0.100000000000000);
+        rw_doubleSpinBox_1->setValue(0.000000000000000);
 
         horizontalLayout_26->addWidget(rw_doubleSpinBox_1);
 
         rh_doubleSpinBox_1 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_1->setObjectName(QString::fromUtf8("rh_doubleSpinBox_1"));
+        rh_doubleSpinBox_1->setDecimals(3);
+        rh_doubleSpinBox_1->setMinimum(-1.000000000000000);
+        rh_doubleSpinBox_1->setMaximum(1.000000000000000);
+        rh_doubleSpinBox_1->setSingleStep(0.100000000000000);
+        rh_doubleSpinBox_1->setValue(0.000000000000000);
 
         horizontalLayout_26->addWidget(rh_doubleSpinBox_1);
 
@@ -401,21 +637,41 @@ public:
 
         rx_doubleSpinBox_2 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_2->setObjectName(QString::fromUtf8("rx_doubleSpinBox_2"));
+        rx_doubleSpinBox_2->setDecimals(3);
+        rx_doubleSpinBox_2->setMinimum(-1.000000000000000);
+        rx_doubleSpinBox_2->setMaximum(1.000000000000000);
+        rx_doubleSpinBox_2->setSingleStep(0.100000000000000);
+        rx_doubleSpinBox_2->setValue(0.000000000000000);
 
         horizontalLayout_31->addWidget(rx_doubleSpinBox_2);
 
         ry_doubleSpinBox_2 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_2->setObjectName(QString::fromUtf8("ry_doubleSpinBox_2"));
+        ry_doubleSpinBox_2->setDecimals(3);
+        ry_doubleSpinBox_2->setMinimum(-1.000000000000000);
+        ry_doubleSpinBox_2->setMaximum(1.000000000000000);
+        ry_doubleSpinBox_2->setSingleStep(0.100000000000000);
+        ry_doubleSpinBox_2->setValue(0.000000000000000);
 
         horizontalLayout_31->addWidget(ry_doubleSpinBox_2);
 
         rw_doubleSpinBox_2 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_2->setObjectName(QString::fromUtf8("rw_doubleSpinBox_2"));
+        rw_doubleSpinBox_2->setDecimals(3);
+        rw_doubleSpinBox_2->setMinimum(-1.000000000000000);
+        rw_doubleSpinBox_2->setMaximum(1.000000000000000);
+        rw_doubleSpinBox_2->setSingleStep(0.100000000000000);
+        rw_doubleSpinBox_2->setValue(0.000000000000000);
 
         horizontalLayout_31->addWidget(rw_doubleSpinBox_2);
 
         rh_doubleSpinBox_2 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_2->setObjectName(QString::fromUtf8("rh_doubleSpinBox_2"));
+        rh_doubleSpinBox_2->setDecimals(3);
+        rh_doubleSpinBox_2->setMinimum(-1.000000000000000);
+        rh_doubleSpinBox_2->setMaximum(1.000000000000000);
+        rh_doubleSpinBox_2->setSingleStep(0.100000000000000);
+        rh_doubleSpinBox_2->setValue(0.000000000000000);
 
         horizontalLayout_31->addWidget(rh_doubleSpinBox_2);
 
@@ -437,21 +693,41 @@ public:
 
         rx_doubleSpinBox_3 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_3->setObjectName(QString::fromUtf8("rx_doubleSpinBox_3"));
+        rx_doubleSpinBox_3->setDecimals(3);
+        rx_doubleSpinBox_3->setMinimum(-1.000000000000000);
+        rx_doubleSpinBox_3->setMaximum(1.000000000000000);
+        rx_doubleSpinBox_3->setSingleStep(0.100000000000000);
+        rx_doubleSpinBox_3->setValue(0.000000000000000);
 
         horizontalLayout_30->addWidget(rx_doubleSpinBox_3);
 
         ry_doubleSpinBox_3 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_3->setObjectName(QString::fromUtf8("ry_doubleSpinBox_3"));
+        ry_doubleSpinBox_3->setDecimals(3);
+        ry_doubleSpinBox_3->setMinimum(-1.000000000000000);
+        ry_doubleSpinBox_3->setMaximum(1.000000000000000);
+        ry_doubleSpinBox_3->setSingleStep(0.100000000000000);
+        ry_doubleSpinBox_3->setValue(0.000000000000000);
 
         horizontalLayout_30->addWidget(ry_doubleSpinBox_3);
 
         rw_doubleSpinBox_3 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_3->setObjectName(QString::fromUtf8("rw_doubleSpinBox_3"));
+        rw_doubleSpinBox_3->setDecimals(3);
+        rw_doubleSpinBox_3->setMinimum(-1.000000000000000);
+        rw_doubleSpinBox_3->setMaximum(1.000000000000000);
+        rw_doubleSpinBox_3->setSingleStep(0.100000000000000);
+        rw_doubleSpinBox_3->setValue(0.000000000000000);
 
         horizontalLayout_30->addWidget(rw_doubleSpinBox_3);
 
         rh_doubleSpinBox_3 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_3->setObjectName(QString::fromUtf8("rh_doubleSpinBox_3"));
+        rh_doubleSpinBox_3->setDecimals(3);
+        rh_doubleSpinBox_3->setMinimum(-1.000000000000000);
+        rh_doubleSpinBox_3->setMaximum(1.000000000000000);
+        rh_doubleSpinBox_3->setSingleStep(0.100000000000000);
+        rh_doubleSpinBox_3->setValue(0.000000000000000);
 
         horizontalLayout_30->addWidget(rh_doubleSpinBox_3);
 
@@ -473,21 +749,41 @@ public:
 
         rx_doubleSpinBox_4 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_4->setObjectName(QString::fromUtf8("rx_doubleSpinBox_4"));
+        rx_doubleSpinBox_4->setDecimals(3);
+        rx_doubleSpinBox_4->setMinimum(-1.000000000000000);
+        rx_doubleSpinBox_4->setMaximum(1.000000000000000);
+        rx_doubleSpinBox_4->setSingleStep(0.100000000000000);
+        rx_doubleSpinBox_4->setValue(0.000000000000000);
 
         horizontalLayout_24->addWidget(rx_doubleSpinBox_4);
 
         ry_doubleSpinBox_4 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_4->setObjectName(QString::fromUtf8("ry_doubleSpinBox_4"));
+        ry_doubleSpinBox_4->setDecimals(3);
+        ry_doubleSpinBox_4->setMinimum(-1.000000000000000);
+        ry_doubleSpinBox_4->setMaximum(1.000000000000000);
+        ry_doubleSpinBox_4->setSingleStep(0.100000000000000);
+        ry_doubleSpinBox_4->setValue(0.000000000000000);
 
         horizontalLayout_24->addWidget(ry_doubleSpinBox_4);
 
         rw_doubleSpinBox_4 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_4->setObjectName(QString::fromUtf8("rw_doubleSpinBox_4"));
+        rw_doubleSpinBox_4->setDecimals(3);
+        rw_doubleSpinBox_4->setMinimum(-1.000000000000000);
+        rw_doubleSpinBox_4->setMaximum(1.000000000000000);
+        rw_doubleSpinBox_4->setSingleStep(0.100000000000000);
+        rw_doubleSpinBox_4->setValue(0.000000000000000);
 
         horizontalLayout_24->addWidget(rw_doubleSpinBox_4);
 
         rh_doubleSpinBox_4 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_4->setObjectName(QString::fromUtf8("rh_doubleSpinBox_4"));
+        rh_doubleSpinBox_4->setDecimals(3);
+        rh_doubleSpinBox_4->setMinimum(-1.000000000000000);
+        rh_doubleSpinBox_4->setMaximum(1.000000000000000);
+        rh_doubleSpinBox_4->setSingleStep(0.100000000000000);
+        rh_doubleSpinBox_4->setValue(0.000000000000000);
 
         horizontalLayout_24->addWidget(rh_doubleSpinBox_4);
 
@@ -509,21 +805,41 @@ public:
 
         rx_doubleSpinBox_5 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_5->setObjectName(QString::fromUtf8("rx_doubleSpinBox_5"));
+        rx_doubleSpinBox_5->setDecimals(3);
+        rx_doubleSpinBox_5->setMinimum(-1.000000000000000);
+        rx_doubleSpinBox_5->setMaximum(1.000000000000000);
+        rx_doubleSpinBox_5->setSingleStep(0.100000000000000);
+        rx_doubleSpinBox_5->setValue(0.000000000000000);
 
         horizontalLayout_25->addWidget(rx_doubleSpinBox_5);
 
         ry_doubleSpinBox_5 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_5->setObjectName(QString::fromUtf8("ry_doubleSpinBox_5"));
+        ry_doubleSpinBox_5->setDecimals(3);
+        ry_doubleSpinBox_5->setMinimum(-1.000000000000000);
+        ry_doubleSpinBox_5->setMaximum(1.000000000000000);
+        ry_doubleSpinBox_5->setSingleStep(0.100000000000000);
+        ry_doubleSpinBox_5->setValue(0.000000000000000);
 
         horizontalLayout_25->addWidget(ry_doubleSpinBox_5);
 
         rw_doubleSpinBox_5 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_5->setObjectName(QString::fromUtf8("rw_doubleSpinBox_5"));
+        rw_doubleSpinBox_5->setDecimals(3);
+        rw_doubleSpinBox_5->setMinimum(-1.000000000000000);
+        rw_doubleSpinBox_5->setMaximum(1.000000000000000);
+        rw_doubleSpinBox_5->setSingleStep(0.100000000000000);
+        rw_doubleSpinBox_5->setValue(0.000000000000000);
 
         horizontalLayout_25->addWidget(rw_doubleSpinBox_5);
 
         rh_doubleSpinBox_5 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_5->setObjectName(QString::fromUtf8("rh_doubleSpinBox_5"));
+        rh_doubleSpinBox_5->setDecimals(3);
+        rh_doubleSpinBox_5->setMinimum(-1.000000000000000);
+        rh_doubleSpinBox_5->setMaximum(1.000000000000000);
+        rh_doubleSpinBox_5->setSingleStep(0.100000000000000);
+        rh_doubleSpinBox_5->setValue(0.000000000000000);
 
         horizontalLayout_25->addWidget(rh_doubleSpinBox_5);
 
@@ -545,21 +861,41 @@ public:
 
         rx_doubleSpinBox_6 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_6->setObjectName(QString::fromUtf8("rx_doubleSpinBox_6"));
+        rx_doubleSpinBox_6->setDecimals(3);
+        rx_doubleSpinBox_6->setMinimum(-1.000000000000000);
+        rx_doubleSpinBox_6->setMaximum(1.000000000000000);
+        rx_doubleSpinBox_6->setSingleStep(0.100000000000000);
+        rx_doubleSpinBox_6->setValue(0.000000000000000);
 
         horizontalLayout_5->addWidget(rx_doubleSpinBox_6);
 
         ry_doubleSpinBox_6 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_6->setObjectName(QString::fromUtf8("ry_doubleSpinBox_6"));
+        ry_doubleSpinBox_6->setDecimals(3);
+        ry_doubleSpinBox_6->setMinimum(-1.000000000000000);
+        ry_doubleSpinBox_6->setMaximum(1.000000000000000);
+        ry_doubleSpinBox_6->setSingleStep(0.100000000000000);
+        ry_doubleSpinBox_6->setValue(0.000000000000000);
 
         horizontalLayout_5->addWidget(ry_doubleSpinBox_6);
 
         rw_doubleSpinBox_6 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_6->setObjectName(QString::fromUtf8("rw_doubleSpinBox_6"));
+        rw_doubleSpinBox_6->setDecimals(3);
+        rw_doubleSpinBox_6->setMinimum(-1.000000000000000);
+        rw_doubleSpinBox_6->setMaximum(1.000000000000000);
+        rw_doubleSpinBox_6->setSingleStep(0.100000000000000);
+        rw_doubleSpinBox_6->setValue(0.000000000000000);
 
         horizontalLayout_5->addWidget(rw_doubleSpinBox_6);
 
         rh_doubleSpinBox_6 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_6->setObjectName(QString::fromUtf8("rh_doubleSpinBox_6"));
+        rh_doubleSpinBox_6->setDecimals(3);
+        rh_doubleSpinBox_6->setMinimum(-1.000000000000000);
+        rh_doubleSpinBox_6->setMaximum(1.000000000000000);
+        rh_doubleSpinBox_6->setSingleStep(0.100000000000000);
+        rh_doubleSpinBox_6->setValue(0.000000000000000);
 
         horizontalLayout_5->addWidget(rh_doubleSpinBox_6);
 
@@ -581,21 +917,41 @@ public:
 
         rx_doubleSpinBox_7 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_7->setObjectName(QString::fromUtf8("rx_doubleSpinBox_7"));
+        rx_doubleSpinBox_7->setDecimals(3);
+        rx_doubleSpinBox_7->setMinimum(-1.000000000000000);
+        rx_doubleSpinBox_7->setMaximum(1.000000000000000);
+        rx_doubleSpinBox_7->setSingleStep(0.100000000000000);
+        rx_doubleSpinBox_7->setValue(0.000000000000000);
 
         horizontalLayout_28->addWidget(rx_doubleSpinBox_7);
 
         ry_doubleSpinBox_7 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_7->setObjectName(QString::fromUtf8("ry_doubleSpinBox_7"));
+        ry_doubleSpinBox_7->setDecimals(3);
+        ry_doubleSpinBox_7->setMinimum(-1.000000000000000);
+        ry_doubleSpinBox_7->setMaximum(1.000000000000000);
+        ry_doubleSpinBox_7->setSingleStep(0.100000000000000);
+        ry_doubleSpinBox_7->setValue(0.000000000000000);
 
         horizontalLayout_28->addWidget(ry_doubleSpinBox_7);
 
         rw_doubleSpinBox_7 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_7->setObjectName(QString::fromUtf8("rw_doubleSpinBox_7"));
+        rw_doubleSpinBox_7->setDecimals(3);
+        rw_doubleSpinBox_7->setMinimum(-1.000000000000000);
+        rw_doubleSpinBox_7->setMaximum(1.000000000000000);
+        rw_doubleSpinBox_7->setSingleStep(0.100000000000000);
+        rw_doubleSpinBox_7->setValue(0.000000000000000);
 
         horizontalLayout_28->addWidget(rw_doubleSpinBox_7);
 
         rh_doubleSpinBox_7 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_7->setObjectName(QString::fromUtf8("rh_doubleSpinBox_7"));
+        rh_doubleSpinBox_7->setDecimals(3);
+        rh_doubleSpinBox_7->setMinimum(-1.000000000000000);
+        rh_doubleSpinBox_7->setMaximum(1.000000000000000);
+        rh_doubleSpinBox_7->setSingleStep(0.100000000000000);
+        rh_doubleSpinBox_7->setValue(0.000000000000000);
 
         horizontalLayout_28->addWidget(rh_doubleSpinBox_7);
 
@@ -617,21 +973,41 @@ public:
 
         rx_doubleSpinBox_8 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_8->setObjectName(QString::fromUtf8("rx_doubleSpinBox_8"));
+        rx_doubleSpinBox_8->setDecimals(3);
+        rx_doubleSpinBox_8->setMinimum(-1.000000000000000);
+        rx_doubleSpinBox_8->setMaximum(1.000000000000000);
+        rx_doubleSpinBox_8->setSingleStep(0.100000000000000);
+        rx_doubleSpinBox_8->setValue(0.000000000000000);
 
         horizontalLayout_33->addWidget(rx_doubleSpinBox_8);
 
         ry_doubleSpinBox_8 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_8->setObjectName(QString::fromUtf8("ry_doubleSpinBox_8"));
+        ry_doubleSpinBox_8->setDecimals(3);
+        ry_doubleSpinBox_8->setMinimum(-1.000000000000000);
+        ry_doubleSpinBox_8->setMaximum(1.000000000000000);
+        ry_doubleSpinBox_8->setSingleStep(0.100000000000000);
+        ry_doubleSpinBox_8->setValue(0.000000000000000);
 
         horizontalLayout_33->addWidget(ry_doubleSpinBox_8);
 
         rw_doubleSpinBox_8 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_8->setObjectName(QString::fromUtf8("rw_doubleSpinBox_8"));
+        rw_doubleSpinBox_8->setDecimals(3);
+        rw_doubleSpinBox_8->setMinimum(-1.000000000000000);
+        rw_doubleSpinBox_8->setMaximum(1.000000000000000);
+        rw_doubleSpinBox_8->setSingleStep(0.100000000000000);
+        rw_doubleSpinBox_8->setValue(0.000000000000000);
 
         horizontalLayout_33->addWidget(rw_doubleSpinBox_8);
 
         rh_doubleSpinBox_8 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_8->setObjectName(QString::fromUtf8("rh_doubleSpinBox_8"));
+        rh_doubleSpinBox_8->setDecimals(3);
+        rh_doubleSpinBox_8->setMinimum(-1.000000000000000);
+        rh_doubleSpinBox_8->setMaximum(1.000000000000000);
+        rh_doubleSpinBox_8->setSingleStep(0.100000000000000);
+        rh_doubleSpinBox_8->setValue(0.000000000000000);
 
         horizontalLayout_33->addWidget(rh_doubleSpinBox_8);
 
@@ -653,21 +1029,41 @@ public:
 
         rx_doubleSpinBox_9 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_9->setObjectName(QString::fromUtf8("rx_doubleSpinBox_9"));
+        rx_doubleSpinBox_9->setDecimals(3);
+        rx_doubleSpinBox_9->setMinimum(-1.000000000000000);
+        rx_doubleSpinBox_9->setMaximum(1.000000000000000);
+        rx_doubleSpinBox_9->setSingleStep(0.100000000000000);
+        rx_doubleSpinBox_9->setValue(0.000000000000000);
 
         horizontalLayout_29->addWidget(rx_doubleSpinBox_9);
 
         ry_doubleSpinBox_9 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_9->setObjectName(QString::fromUtf8("ry_doubleSpinBox_9"));
+        ry_doubleSpinBox_9->setDecimals(3);
+        ry_doubleSpinBox_9->setMinimum(-1.000000000000000);
+        ry_doubleSpinBox_9->setMaximum(1.000000000000000);
+        ry_doubleSpinBox_9->setSingleStep(0.100000000000000);
+        ry_doubleSpinBox_9->setValue(0.000000000000000);
 
         horizontalLayout_29->addWidget(ry_doubleSpinBox_9);
 
         rw_doubleSpinBox_9 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_9->setObjectName(QString::fromUtf8("rw_doubleSpinBox_9"));
+        rw_doubleSpinBox_9->setDecimals(3);
+        rw_doubleSpinBox_9->setMinimum(-1.000000000000000);
+        rw_doubleSpinBox_9->setMaximum(1.000000000000000);
+        rw_doubleSpinBox_9->setSingleStep(0.100000000000000);
+        rw_doubleSpinBox_9->setValue(0.000000000000000);
 
         horizontalLayout_29->addWidget(rw_doubleSpinBox_9);
 
         rh_doubleSpinBox_9 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_9->setObjectName(QString::fromUtf8("rh_doubleSpinBox_9"));
+        rh_doubleSpinBox_9->setDecimals(3);
+        rh_doubleSpinBox_9->setMinimum(-1.000000000000000);
+        rh_doubleSpinBox_9->setMaximum(1.000000000000000);
+        rh_doubleSpinBox_9->setSingleStep(0.100000000000000);
+        rh_doubleSpinBox_9->setValue(0.000000000000000);
 
         horizontalLayout_29->addWidget(rh_doubleSpinBox_9);
 
@@ -679,8 +1075,19 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_29);
 
+        verticalLayout_3->setStretch(0, 1);
+        verticalLayout_3->setStretch(1, 1);
+        verticalLayout_3->setStretch(2, 1);
+        verticalLayout_3->setStretch(3, 1);
+        verticalLayout_3->setStretch(4, 1);
+        verticalLayout_3->setStretch(5, 1);
+        verticalLayout_3->setStretch(6, 1);
+        verticalLayout_3->setStretch(7, 1);
+        verticalLayout_3->setStretch(8, 1);
+        verticalLayout_3->setStretch(9, 1);
+        verticalLayout_3->setStretch(10, 1);
 
-        horizontalLayout_45->addLayout(verticalLayout_3);
+        horizontalLayout_6->addLayout(verticalLayout_3);
 
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setSpacing(6);
@@ -688,27 +1095,33 @@ public:
         horizontalLayout_34 = new QHBoxLayout();
         horizontalLayout_34->setSpacing(6);
         horizontalLayout_34->setObjectName(QString::fromUtf8("horizontalLayout_34"));
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setMaximumSize(QSize(62, 29));
 
-        horizontalLayout_34->addItem(horizontalSpacer_3);
+        horizontalLayout_34->addWidget(label_4);
 
         label_14 = new QLabel(groupBox);
         label_14->setObjectName(QString::fromUtf8("label_14"));
+        label_14->setMaximumSize(QSize(62, 29));
 
         horizontalLayout_34->addWidget(label_14);
 
         label_15 = new QLabel(groupBox);
         label_15->setObjectName(QString::fromUtf8("label_15"));
+        label_15->setMaximumSize(QSize(61, 29));
 
         horizontalLayout_34->addWidget(label_15);
 
         label_16 = new QLabel(groupBox);
         label_16->setObjectName(QString::fromUtf8("label_16"));
+        label_16->setMaximumSize(QSize(62, 29));
 
         horizontalLayout_34->addWidget(label_16);
 
         label_17 = new QLabel(groupBox);
         label_17->setObjectName(QString::fromUtf8("label_17"));
+        label_17->setMaximumSize(QSize(62, 29));
 
         horizontalLayout_34->addWidget(label_17);
 
@@ -730,21 +1143,29 @@ public:
 
         rx_doubleSpinBox_10 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_10->setObjectName(QString::fromUtf8("rx_doubleSpinBox_10"));
+        rx_doubleSpinBox_10->setDecimals(3);
+        rx_doubleSpinBox_10->setValue(0.000000000000000);
 
         horizontalLayout_35->addWidget(rx_doubleSpinBox_10);
 
         ry_doubleSpinBox_10 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_10->setObjectName(QString::fromUtf8("ry_doubleSpinBox_10"));
+        ry_doubleSpinBox_10->setDecimals(3);
+        ry_doubleSpinBox_10->setValue(0.000000000000000);
 
         horizontalLayout_35->addWidget(ry_doubleSpinBox_10);
 
         rw_doubleSpinBox_10 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_10->setObjectName(QString::fromUtf8("rw_doubleSpinBox_10"));
+        rw_doubleSpinBox_10->setDecimals(3);
+        rw_doubleSpinBox_10->setValue(0.000000000000000);
 
         horizontalLayout_35->addWidget(rw_doubleSpinBox_10);
 
         rh_doubleSpinBox_10 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_10->setObjectName(QString::fromUtf8("rh_doubleSpinBox_10"));
+        rh_doubleSpinBox_10->setDecimals(3);
+        rh_doubleSpinBox_10->setValue(0.000000000000000);
 
         horizontalLayout_35->addWidget(rh_doubleSpinBox_10);
 
@@ -766,21 +1187,29 @@ public:
 
         rx_doubleSpinBox_11 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_11->setObjectName(QString::fromUtf8("rx_doubleSpinBox_11"));
+        rx_doubleSpinBox_11->setDecimals(3);
+        rx_doubleSpinBox_11->setValue(0.000000000000000);
 
         horizontalLayout_36->addWidget(rx_doubleSpinBox_11);
 
         ry_doubleSpinBox_11 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_11->setObjectName(QString::fromUtf8("ry_doubleSpinBox_11"));
+        ry_doubleSpinBox_11->setDecimals(3);
+        ry_doubleSpinBox_11->setValue(0.000000000000000);
 
         horizontalLayout_36->addWidget(ry_doubleSpinBox_11);
 
         rw_doubleSpinBox_11 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_11->setObjectName(QString::fromUtf8("rw_doubleSpinBox_11"));
+        rw_doubleSpinBox_11->setDecimals(3);
+        rw_doubleSpinBox_11->setValue(0.000000000000000);
 
         horizontalLayout_36->addWidget(rw_doubleSpinBox_11);
 
         rh_doubleSpinBox_11 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_11->setObjectName(QString::fromUtf8("rh_doubleSpinBox_11"));
+        rh_doubleSpinBox_11->setDecimals(3);
+        rh_doubleSpinBox_11->setValue(0.000000000000000);
 
         horizontalLayout_36->addWidget(rh_doubleSpinBox_11);
 
@@ -802,21 +1231,29 @@ public:
 
         rx_doubleSpinBox_12 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_12->setObjectName(QString::fromUtf8("rx_doubleSpinBox_12"));
+        rx_doubleSpinBox_12->setDecimals(3);
+        rx_doubleSpinBox_12->setValue(0.000000000000000);
 
         horizontalLayout_37->addWidget(rx_doubleSpinBox_12);
 
         ry_doubleSpinBox_12 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_12->setObjectName(QString::fromUtf8("ry_doubleSpinBox_12"));
+        ry_doubleSpinBox_12->setDecimals(3);
+        ry_doubleSpinBox_12->setValue(0.000000000000000);
 
         horizontalLayout_37->addWidget(ry_doubleSpinBox_12);
 
         rw_doubleSpinBox_12 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_12->setObjectName(QString::fromUtf8("rw_doubleSpinBox_12"));
+        rw_doubleSpinBox_12->setDecimals(3);
+        rw_doubleSpinBox_12->setValue(0.000000000000000);
 
         horizontalLayout_37->addWidget(rw_doubleSpinBox_12);
 
         rh_doubleSpinBox_12 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_12->setObjectName(QString::fromUtf8("rh_doubleSpinBox_12"));
+        rh_doubleSpinBox_12->setDecimals(3);
+        rh_doubleSpinBox_12->setValue(0.000000000000000);
 
         horizontalLayout_37->addWidget(rh_doubleSpinBox_12);
 
@@ -838,21 +1275,29 @@ public:
 
         rx_doubleSpinBox_13 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_13->setObjectName(QString::fromUtf8("rx_doubleSpinBox_13"));
+        rx_doubleSpinBox_13->setDecimals(3);
+        rx_doubleSpinBox_13->setValue(0.000000000000000);
 
         horizontalLayout_38->addWidget(rx_doubleSpinBox_13);
 
         ry_doubleSpinBox_13 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_13->setObjectName(QString::fromUtf8("ry_doubleSpinBox_13"));
+        ry_doubleSpinBox_13->setDecimals(3);
+        ry_doubleSpinBox_13->setValue(0.000000000000000);
 
         horizontalLayout_38->addWidget(ry_doubleSpinBox_13);
 
         rw_doubleSpinBox_13 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_13->setObjectName(QString::fromUtf8("rw_doubleSpinBox_13"));
+        rw_doubleSpinBox_13->setDecimals(3);
+        rw_doubleSpinBox_13->setValue(0.000000000000000);
 
         horizontalLayout_38->addWidget(rw_doubleSpinBox_13);
 
         rh_doubleSpinBox_13 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_13->setObjectName(QString::fromUtf8("rh_doubleSpinBox_13"));
+        rh_doubleSpinBox_13->setDecimals(3);
+        rh_doubleSpinBox_13->setValue(0.000000000000000);
 
         horizontalLayout_38->addWidget(rh_doubleSpinBox_13);
 
@@ -874,21 +1319,29 @@ public:
 
         rx_doubleSpinBox_14 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_14->setObjectName(QString::fromUtf8("rx_doubleSpinBox_14"));
+        rx_doubleSpinBox_14->setDecimals(3);
+        rx_doubleSpinBox_14->setValue(0.000000000000000);
 
         horizontalLayout_39->addWidget(rx_doubleSpinBox_14);
 
-        r_doubleSpinBox_14 = new QDoubleSpinBox(groupBox);
-        r_doubleSpinBox_14->setObjectName(QString::fromUtf8("r_doubleSpinBox_14"));
+        ry_doubleSpinBox_14 = new QDoubleSpinBox(groupBox);
+        ry_doubleSpinBox_14->setObjectName(QString::fromUtf8("ry_doubleSpinBox_14"));
+        ry_doubleSpinBox_14->setDecimals(3);
+        ry_doubleSpinBox_14->setValue(0.000000000000000);
 
-        horizontalLayout_39->addWidget(r_doubleSpinBox_14);
+        horizontalLayout_39->addWidget(ry_doubleSpinBox_14);
 
         rw_doubleSpinBox_14 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_14->setObjectName(QString::fromUtf8("rw_doubleSpinBox_14"));
+        rw_doubleSpinBox_14->setDecimals(3);
+        rw_doubleSpinBox_14->setValue(0.000000000000000);
 
         horizontalLayout_39->addWidget(rw_doubleSpinBox_14);
 
         rh_doubleSpinBox_14 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_14->setObjectName(QString::fromUtf8("rh_doubleSpinBox_14"));
+        rh_doubleSpinBox_14->setDecimals(3);
+        rh_doubleSpinBox_14->setValue(0.000000000000000);
 
         horizontalLayout_39->addWidget(rh_doubleSpinBox_14);
 
@@ -910,21 +1363,29 @@ public:
 
         rx_doubleSpinBox_15 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_15->setObjectName(QString::fromUtf8("rx_doubleSpinBox_15"));
+        rx_doubleSpinBox_15->setDecimals(3);
+        rx_doubleSpinBox_15->setValue(0.000000000000000);
 
         horizontalLayout_40->addWidget(rx_doubleSpinBox_15);
 
         ry_doubleSpinBox_15 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_15->setObjectName(QString::fromUtf8("ry_doubleSpinBox_15"));
+        ry_doubleSpinBox_15->setDecimals(3);
+        ry_doubleSpinBox_15->setValue(0.000000000000000);
 
         horizontalLayout_40->addWidget(ry_doubleSpinBox_15);
 
         rw_doubleSpinBox_15 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_15->setObjectName(QString::fromUtf8("rw_doubleSpinBox_15"));
+        rw_doubleSpinBox_15->setDecimals(3);
+        rw_doubleSpinBox_15->setValue(0.000000000000000);
 
         horizontalLayout_40->addWidget(rw_doubleSpinBox_15);
 
         rh_doubleSpinBox_15 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_15->setObjectName(QString::fromUtf8("rh_doubleSpinBox_15"));
+        rh_doubleSpinBox_15->setDecimals(3);
+        rh_doubleSpinBox_15->setValue(0.000000000000000);
 
         horizontalLayout_40->addWidget(rh_doubleSpinBox_15);
 
@@ -946,21 +1407,29 @@ public:
 
         rx_doubleSpinBox_16 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_16->setObjectName(QString::fromUtf8("rx_doubleSpinBox_16"));
+        rx_doubleSpinBox_16->setDecimals(3);
+        rx_doubleSpinBox_16->setValue(0.000000000000000);
 
         horizontalLayout_41->addWidget(rx_doubleSpinBox_16);
 
         ry_doubleSpinBox_16 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_16->setObjectName(QString::fromUtf8("ry_doubleSpinBox_16"));
+        ry_doubleSpinBox_16->setDecimals(3);
+        ry_doubleSpinBox_16->setValue(0.000000000000000);
 
         horizontalLayout_41->addWidget(ry_doubleSpinBox_16);
 
         rw_doubleSpinBox_16 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_16->setObjectName(QString::fromUtf8("rw_doubleSpinBox_16"));
+        rw_doubleSpinBox_16->setDecimals(3);
+        rw_doubleSpinBox_16->setValue(0.000000000000000);
 
         horizontalLayout_41->addWidget(rw_doubleSpinBox_16);
 
         rh_doubleSpinBox_16 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_16->setObjectName(QString::fromUtf8("rh_doubleSpinBox_16"));
+        rh_doubleSpinBox_16->setDecimals(3);
+        rh_doubleSpinBox_16->setValue(0.000000000000000);
 
         horizontalLayout_41->addWidget(rh_doubleSpinBox_16);
 
@@ -982,21 +1451,29 @@ public:
 
         rx_doubleSpinBox_17 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_17->setObjectName(QString::fromUtf8("rx_doubleSpinBox_17"));
+        rx_doubleSpinBox_17->setDecimals(3);
+        rx_doubleSpinBox_17->setValue(0.000000000000000);
 
         horizontalLayout_42->addWidget(rx_doubleSpinBox_17);
 
         ry_doubleSpinBox_17 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_17->setObjectName(QString::fromUtf8("ry_doubleSpinBox_17"));
+        ry_doubleSpinBox_17->setDecimals(3);
+        ry_doubleSpinBox_17->setValue(0.000000000000000);
 
         horizontalLayout_42->addWidget(ry_doubleSpinBox_17);
 
         rw_doubleSpinBox_17 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_17->setObjectName(QString::fromUtf8("rw_doubleSpinBox_17"));
+        rw_doubleSpinBox_17->setDecimals(3);
+        rw_doubleSpinBox_17->setValue(0.000000000000000);
 
         horizontalLayout_42->addWidget(rw_doubleSpinBox_17);
 
         rh_doubleSpinBox_17 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_17->setObjectName(QString::fromUtf8("rh_doubleSpinBox_17"));
+        rh_doubleSpinBox_17->setDecimals(3);
+        rh_doubleSpinBox_17->setValue(0.000000000000000);
 
         horizontalLayout_42->addWidget(rh_doubleSpinBox_17);
 
@@ -1018,21 +1495,29 @@ public:
 
         rx_doubleSpinBox_18 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_18->setObjectName(QString::fromUtf8("rx_doubleSpinBox_18"));
+        rx_doubleSpinBox_18->setDecimals(3);
+        rx_doubleSpinBox_18->setValue(0.000000000000000);
 
         horizontalLayout_43->addWidget(rx_doubleSpinBox_18);
 
         ry_doubleSpinBox_18 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_18->setObjectName(QString::fromUtf8("ry_doubleSpinBox_18"));
+        ry_doubleSpinBox_18->setDecimals(3);
+        ry_doubleSpinBox_18->setValue(0.000000000000000);
 
         horizontalLayout_43->addWidget(ry_doubleSpinBox_18);
 
         rw_doubleSpinBox_18 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_18->setObjectName(QString::fromUtf8("rw_doubleSpinBox_18"));
+        rw_doubleSpinBox_18->setDecimals(3);
+        rw_doubleSpinBox_18->setValue(0.000000000000000);
 
         horizontalLayout_43->addWidget(rw_doubleSpinBox_18);
 
         rh_doubleSpinBox_18 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_18->setObjectName(QString::fromUtf8("rh_doubleSpinBox_18"));
+        rh_doubleSpinBox_18->setDecimals(3);
+        rh_doubleSpinBox_18->setValue(0.000000000000000);
 
         horizontalLayout_43->addWidget(rh_doubleSpinBox_18);
 
@@ -1054,21 +1539,29 @@ public:
 
         rx_doubleSpinBox_19 = new QDoubleSpinBox(groupBox);
         rx_doubleSpinBox_19->setObjectName(QString::fromUtf8("rx_doubleSpinBox_19"));
+        rx_doubleSpinBox_19->setDecimals(3);
+        rx_doubleSpinBox_19->setValue(0.000000000000000);
 
         horizontalLayout_44->addWidget(rx_doubleSpinBox_19);
 
         ry_doubleSpinBox_19 = new QDoubleSpinBox(groupBox);
         ry_doubleSpinBox_19->setObjectName(QString::fromUtf8("ry_doubleSpinBox_19"));
+        ry_doubleSpinBox_19->setDecimals(3);
+        ry_doubleSpinBox_19->setValue(0.000000000000000);
 
         horizontalLayout_44->addWidget(ry_doubleSpinBox_19);
 
         rw_doubleSpinBox_19 = new QDoubleSpinBox(groupBox);
         rw_doubleSpinBox_19->setObjectName(QString::fromUtf8("rw_doubleSpinBox_19"));
+        rw_doubleSpinBox_19->setDecimals(3);
+        rw_doubleSpinBox_19->setValue(0.000000000000000);
 
         horizontalLayout_44->addWidget(rw_doubleSpinBox_19);
 
         rh_doubleSpinBox_19 = new QDoubleSpinBox(groupBox);
         rh_doubleSpinBox_19->setObjectName(QString::fromUtf8("rh_doubleSpinBox_19"));
+        rh_doubleSpinBox_19->setDecimals(3);
+        rh_doubleSpinBox_19->setValue(0.000000000000000);
 
         horizontalLayout_44->addWidget(rh_doubleSpinBox_19);
 
@@ -1080,8 +1573,26 @@ public:
 
         verticalLayout_4->addLayout(horizontalLayout_44);
 
+        verticalLayout_4->setStretch(0, 1);
+        verticalLayout_4->setStretch(1, 1);
+        verticalLayout_4->setStretch(2, 1);
+        verticalLayout_4->setStretch(3, 1);
+        verticalLayout_4->setStretch(4, 1);
+        verticalLayout_4->setStretch(5, 1);
+        verticalLayout_4->setStretch(6, 1);
+        verticalLayout_4->setStretch(7, 1);
+        verticalLayout_4->setStretch(8, 1);
+        verticalLayout_4->setStretch(9, 1);
+        verticalLayout_4->setStretch(10, 1);
 
-        horizontalLayout_45->addLayout(verticalLayout_4);
+        horizontalLayout_6->addLayout(verticalLayout_4);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_6);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer);
 
 
         verticalLayout_2->addWidget(groupBox);
@@ -1093,15 +1604,15 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer);
 
-        pushButton_2 = new QPushButton(mtf_tab);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        export_pushButton = new QPushButton(mtf_tab);
+        export_pushButton->setObjectName(QString::fromUtf8("export_pushButton"));
 
-        horizontalLayout_4->addWidget(pushButton_2);
+        horizontalLayout_4->addWidget(export_pushButton);
 
-        pushButton = new QPushButton(mtf_tab);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        save_pushButton = new QPushButton(mtf_tab);
+        save_pushButton->setObjectName(QString::fromUtf8("save_pushButton"));
 
-        horizontalLayout_4->addWidget(pushButton);
+        horizontalLayout_4->addWidget(save_pushButton);
 
 
         verticalLayout_2->addLayout(horizontalLayout_4);
@@ -1110,17 +1621,13 @@ public:
         verticalLayout_2->setStretch(1, 10);
         verticalLayout_2->setStretch(2, 1);
         mtf_tabWidget->addTab(mtf_tab, QString());
-        other_config = new QWidget();
-        other_config->setObjectName(QString::fromUtf8("other_config"));
-        other_config->setFont(font);
-        mtf_tabWidget->addTab(other_config, QString());
 
-        verticalLayout->addWidget(mtf_tabWidget);
+        horizontalLayout_15->addWidget(mtf_tabWidget);
 
 
         retranslateUi(ConfigWidgetClass);
 
-        mtf_tabWidget->setCurrentIndex(0);
+        mtf_tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(ConfigWidgetClass);
@@ -1129,12 +1636,27 @@ public:
     void retranslateUi(QWidget *ConfigWidgetClass)
     {
         ConfigWidgetClass->setWindowTitle(QCoreApplication::translate("ConfigWidgetClass", "ConfigWidget", nullptr));
+        groupBox_2->setTitle(QCoreApplication::translate("ConfigWidgetClass", "VdieoProperty", nullptr));
+        label_5->setText(QCoreApplication::translate("ConfigWidgetClass", "Width", nullptr));
+        label_6->setText(QCoreApplication::translate("ConfigWidgetClass", "Height", nullptr));
+        label_7->setText(QCoreApplication::translate("ConfigWidgetClass", "MaxFrameRate", nullptr));
+        label_8->setText(QCoreApplication::translate("ConfigWidgetClass", "OutFormat", nullptr));
+        fmt_comboBox->setItemText(0, QCoreApplication::translate("ConfigWidgetClass", "mjpg", nullptr));
+        fmt_comboBox->setItemText(1, QCoreApplication::translate("ConfigWidgetClass", "yuv", nullptr));
+
+        groupBox_3->setTitle(QCoreApplication::translate("ConfigWidgetClass", "CameraControl", nullptr));
+        label_9->setText(QCoreApplication::translate("ConfigWidgetClass", "Exposure", nullptr));
+        autoExp_checkBox->setText(QCoreApplication::translate("ConfigWidgetClass", "Auto", nullptr));
+        label_18->setText(QCoreApplication::translate("ConfigWidgetClass", "Postion", nullptr));
+        autoF_checkBox->setText(QCoreApplication::translate("ConfigWidgetClass", "Auto", nullptr));
+        mtf_tabWidget->setTabText(mtf_tabWidget->indexOf(other_config), QCoreApplication::translate("ConfigWidgetClass", "Init", nullptr));
         label_2->setText(QCoreApplication::translate("ConfigWidgetClass", "ConfigFile", nullptr));
         file_toolButton->setText(QCoreApplication::translate("ConfigWidgetClass", "...", nullptr));
         label->setText(QCoreApplication::translate("ConfigWidgetClass", "Project", nullptr));
         radioButton->setText(QCoreApplication::translate("ConfigWidgetClass", "Database", nullptr));
         radioButton_2->setText(QCoreApplication::translate("ConfigWidgetClass", "Json", nullptr));
         groupBox->setTitle(QCoreApplication::translate("ConfigWidgetClass", "MTF", nullptr));
+        label_3->setText(QString());
         label_10->setText(QCoreApplication::translate("ConfigWidgetClass", "X", nullptr));
         label_11->setText(QCoreApplication::translate("ConfigWidgetClass", "Y", nullptr));
         label_12->setText(QCoreApplication::translate("ConfigWidgetClass", "Width", nullptr));
@@ -1149,6 +1671,7 @@ public:
         checkBox_r7->setText(QCoreApplication::translate("ConfigWidgetClass", "7", nullptr));
         checkBox_r8->setText(QCoreApplication::translate("ConfigWidgetClass", "8", nullptr));
         checkBox_r9->setText(QCoreApplication::translate("ConfigWidgetClass", "9", nullptr));
+        label_4->setText(QString());
         label_14->setText(QCoreApplication::translate("ConfigWidgetClass", "X", nullptr));
         label_15->setText(QCoreApplication::translate("ConfigWidgetClass", "Y", nullptr));
         label_16->setText(QCoreApplication::translate("ConfigWidgetClass", "Width", nullptr));
@@ -1163,10 +1686,9 @@ public:
         checkBox_r17->setText(QCoreApplication::translate("ConfigWidgetClass", "17", nullptr));
         checkBox_r18->setText(QCoreApplication::translate("ConfigWidgetClass", "18", nullptr));
         checkBox_r19->setText(QCoreApplication::translate("ConfigWidgetClass", "19", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("ConfigWidgetClass", "Export", nullptr));
-        pushButton->setText(QCoreApplication::translate("ConfigWidgetClass", "Save", nullptr));
+        export_pushButton->setText(QCoreApplication::translate("ConfigWidgetClass", "Export", nullptr));
+        save_pushButton->setText(QCoreApplication::translate("ConfigWidgetClass", "Save", nullptr));
         mtf_tabWidget->setTabText(mtf_tabWidget->indexOf(mtf_tab), QCoreApplication::translate("ConfigWidgetClass", "MTF", nullptr));
-        mtf_tabWidget->setTabText(mtf_tabWidget->indexOf(other_config), QCoreApplication::translate("ConfigWidgetClass", "Other", nullptr));
     } // retranslateUi
 
 };

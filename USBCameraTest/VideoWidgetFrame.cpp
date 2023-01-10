@@ -10,7 +10,11 @@ extern "C" {
 VideoWidgetFrame::VideoWidgetFrame(QWidget *parent)
 	: QOpenGLWidget(parent),mDrawType(PAINT_CLEAR)
 {
-    initDrawRoiArr("220168", "D:\\mtf_roi.json");
+}
+
+VideoWidgetFrame::VideoWidgetFrame(QString path, QString project, QWidget* parent) : QOpenGLWidget(parent), mDrawType(PAINT_CLEAR)
+{
+    initDrawRoiArr(project, path);
 }
 
 VideoWidgetFrame::~VideoWidgetFrame()
@@ -40,6 +44,13 @@ void VideoWidgetFrame::paintOnVideo()
 	}
 }
 
+void VideoWidgetFrame::initializeGL()
+{
+    glEnable(GL_LIGHTING); glEnable(GL_LIGHT0);
+    glClearColor(0.7, 0.7, 0.7, 1); //sets a red background
+    glEnable(GL_DEPTH_TEST);
+}
+
 int VideoWidgetFrame::initDrawRoiArr(QString project, QString path)
 {
     mspConfigParse.reset(new JsonConfigParser(path.toStdString().c_str(), project.toStdString().c_str()), \
@@ -48,6 +59,11 @@ int VideoWidgetFrame::initDrawRoiArr(QString project, QString path)
     m_vecDrawRoi = mspConfigParse->roiList();
     m_mapDrawRoi = mspConfigParse->roiMap();
    
+    return 0;
+}
+
+int VideoWidgetFrame::initWidget()
+{
     return 0;
 }
 
@@ -225,7 +241,7 @@ void GLVideoWidget::initializeGL()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);                        // 设置为零以破坏现有的顶点数组对象绑定
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);        // 指定颜色缓冲区的清除值(背景色)
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);        // 指定颜色缓冲区的清除值(背景色)
 }
 
 void GLVideoWidget::resizeGL(int w, int h)
@@ -282,16 +298,6 @@ void GLVideoWidget::paintGL()
 
 void GLVideoWidget::draw_cross_line()
 {
-#if  0
-    m_paintProg->bind();
-    glBindVertexArray(PAINT_VAO);
-    glPolygonMode(GL_BACK, GL_LINE);
-    glDrawArrays(GL_LINES, 0, 4);
-
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    m_paintProg->release();
-#endif //  0
-
     glPolygonMode(GL_FRONT, GL_FILL);
     // 设置反面为线形模式
     glPolygonMode(GL_BACK, GL_LINE);
@@ -379,7 +385,7 @@ NormalVideoWidget::~NormalVideoWidget()
 
 void NormalVideoWidget::paint_image(QImage img)
 {
-    mShowImg = img.scaled(this->size());
+    mShowImg = img.scaled(this->size(),Qt::KeepAspectRatioByExpanding);
     update();
 }
 

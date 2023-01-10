@@ -2,6 +2,7 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 #include <iomanip>
+//#include <Windows.h>
 
 using json = nlohmann::json;
 
@@ -15,6 +16,22 @@ ConfigParser::ConfigParser()
 
 ConfigParser::~ConfigParser()
 {
+}
+
+tuple<string,string> ConfigParser::latest_project()
+{
+	wchar_t pathBuff[512];
+	wchar_t *rz = _wgetcwd(pathBuff, 512 - 1);
+	wstring path(pathBuff);
+
+	path += L"\\mtf_roi.json";
+	
+	ifstream ifs(path);
+	if (!ifs.is_open()) return { "" ,""};
+	json json_data = json::parse(ifs);
+	ifs.close();
+	string project = json_data.items().begin().key();
+	return { to_string(path),project };
 }
 
 int ConfigParser::write(const char* path, const char* project, string resolution, map<string, Draw_ROI*> roiMap)
@@ -49,6 +66,70 @@ int ConfigParser::write(const char* path, const char* project, string resolution
 
 	out << setw(4) << setprecision(3) << j << endl;
 	out.close();
+	return 0;
+}
+
+vector<string> ConfigParser::allProjects(const char* path)
+{
+	vector<string> keysVec;
+
+	fstream ifs(path);
+	if (!ifs.is_open()) return vector<string>();
+	json json_data = json::parse(ifs);
+	ifs.close();
+
+	try
+	{
+		for each (auto item in json_data.items())
+		{
+			keysVec.push_back(item.key());
+		}
+	}
+	catch (const std::exception&)
+	{
+		return vector<string>();
+	}
+
+
+	return keysVec;
+}
+
+int ConfigParser::addItem(const char* project, string resolution, map<string, Draw_ROI*> roiMap)
+{
+	fstream ifs(mstrPath);
+	if (!ifs.is_open()) return -1;
+	json json_data = json::parse(ifs);
+	ifs.close();
+
+	unsigned int width = stoi(stringSplit(resolution, "x")[0].c_str());
+	unsigned int height = stoi(stringSplit(resolution, "x")[1].c_str());
+
+	json_data[project]["width"] = width;
+	json_data[project]["height"] = height;
+
+	for each (auto var in roiMap)
+	{
+		auto [x, y, w, h] = var.second->rect();
+
+
+		json_data[project][var.first.c_str()][0] = x;
+		json_data[project][var.first.c_str()][1] = y;
+		json_data[project][var.first.c_str()][2] = w;
+		json_data[project][var.first.c_str()][3] = h;
+
+	}
+
+	ofstream out(mstrPath);
+
+	if (!out.is_open())
+	{
+		return -1;
+	}
+
+	out << setw(4) << json_data << endl;
+	out.close();
+
+
 	return 0;
 }
 
@@ -118,6 +199,12 @@ int ConfigParser::updateItem(const char* key, double* arr, int size)
 	return 0;
 }
 
+string ConfigParser::to_string(const wstring& str, const locale& loc)
+{
+	vector<char>buf(str.size());
+	use_facet<ctype<wchar_t>>(loc).narrow(str.data(), str.data() + str.size(), '*', buf.data());
+	return string(buf.data(), buf.size());
+}
 
 
 JsonConfigParser::JsonConfigParser(const char* path, const char* project) : ConfigParser(path, project)
@@ -154,7 +241,7 @@ int JsonConfigParser::parse()
 				mVecRoi.push_back(roi);
 				mRoiMap[curKey] = roi;
 			}
-
+			mVecKeys.push_back(curKey);
 		}
 	}
 	catch (const std::exception&)

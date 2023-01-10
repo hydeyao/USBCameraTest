@@ -7,6 +7,7 @@
 #include "VideoWidget.h"
 #include "ReadThread.h"
 #include "VideoWidgetFrame.h"
+#include "ConfigWidget.h"
 
 class QCameraInfo;
 class QCamera;
@@ -33,6 +34,7 @@ private:
     void restartVideo();
 
     void initStatLables();
+    void initToolBar();
     void setStatInfos(QString fps, QString outsize);
 
     void initSettingActions();
@@ -49,6 +51,8 @@ private:
     std::shared_ptr<QCamera> msp_selCam = nullptr;
     QString mCurCamDevice;
     QString mstrCurResolution;
+    QString mSelectedConfig;
+    QString mCurProjects;
     std::shared_ptr<VideoPropDia> mspVideoPropDia = nullptr;
     std::shared_ptr<VideoProp> mspVideoProp = nullptr;
     std::shared_ptr<VideoWidgetFrame> msp_videoFrame = nullptr;
