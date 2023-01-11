@@ -289,8 +289,8 @@ void USBCameraTest::initSettingActions()
 				msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CLEAR));});
 	
 	connect(ui.actionShowMtfRect, &QAction::triggered, this, [=]() {
-
 		msp_videoFrame->initDrawRoiArr(mProjectLineEdit->text(), mCurConfigFile);
+
 		ui.actionShowMtfRect->isChecked() ? (ui.actionCrossLine->isChecked() ? \
 			msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CROSS_LINE | VideoWidgetFrame::PAINT_RECTS) :\
 			msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_RECTS)) : \
@@ -298,6 +298,11 @@ void USBCameraTest::initSettingActions()
 				msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CLEAR)); });
 
 	connect(ui.actionVideoProperty, &QAction::triggered, this, &USBCameraTest::slt_actionVideoPropTrigged);
+	connect(ui.actionCleanDraw, &QAction::triggered, this, [=]() {
+		msp_videoFrame->setDrawType(VideoWidgetFrame::PAINT_CLEAR);
+		ui.actionCrossLine->setChecked(false);
+		ui.actionShowMtfRect->setChecked(false);
+		});
 }
 
 void USBCameraTest::initVideoWidget()
@@ -336,8 +341,12 @@ void USBCameraTest::initConfigWidget()
 		msp_configWidget->show();	
 		});
 
-	connect(msp_configWidget.get(), &ConfigWidget::save, this, &USBCameraTest::slt_configWidgetSaved);
+	connect(ui.actionConfig, &QAction::triggered, this, [=]() {
+		msp_configWidget->setCurTabShow(0);
+		msp_configWidget->show();
+		});
 
+	connect(msp_configWidget.get(), &ConfigWidget::save, this, &USBCameraTest::slt_configWidgetSaved);
 
 }
 

@@ -1627,7 +1627,7 @@ public:
 
         retranslateUi(ConfigWidgetClass);
 
-        mtf_tabWidget->setCurrentIndex(1);
+        mtf_tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(ConfigWidgetClass);

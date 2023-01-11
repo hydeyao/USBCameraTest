@@ -270,6 +270,29 @@ mf_startX(x), mf_startY(y), mf_wr(w_ratio), mf_hr(h_ratio)
 
 }
 
+Draw_ROI::Draw_ROI(double x, double y, double w_ratio, double h_ratio, bool bQrectFmt)
+{
+	mf_startY = (1 - y) / 2;
+	mf_startY = (x - 1) / 2;
+
+	mf_wr = w_ratio / 2;
+	mf_hr = h_ratio / 2;
+
+	mLT_x = mf_startX;
+	mLT_y = mf_startY;
+
+	mRT_x = mf_startX + mf_wr * 2;
+	mRT_y = mf_startY;
+
+	mRB_x = mf_startX + mf_wr * 2;
+	mRB_y = mf_startY - mf_hr * 2;
+
+	mLB_x = mf_startX;
+	mLB_y = mf_startY - mf_hr * 2;
+
+
+}
+
 Draw_ROI::Draw_ROI(double x, double y, int roi_w, double roi_h, int width, int height) :\
 mf_startX(x), mf_startY(y), muiRectWidth(roi_w), muiRectHeight(roi_h), muiWidth(width), muiHeight(height)
 {
@@ -314,4 +337,14 @@ TUPLE_POS Draw_ROI::pos()
 TUPLE_RECT Draw_ROI::rect()
 {
 	return {mf_startX, mf_startY, mf_wr, mf_hr};
+}
+
+TUPLE_RECT Draw_ROI::toQRect(int width, int height)
+{
+	double startX = ((mf_startX + 1.0f) / 2 * width);
+	double startY = (abs(1.0f - mf_startY) / 2 * height);
+	double roiWidth = width * mf_wr ;
+	double roiHeight = height * mf_hr;
+
+	return TUPLE_QRECT(startX, startY, roiWidth, roiHeight);
 }

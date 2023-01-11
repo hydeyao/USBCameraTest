@@ -406,4 +406,16 @@ void NormalVideoWidget::draw_cross_line()
 
 void NormalVideoWidget::draw_rects()
 {
+    QPainter painter(this);
+    painter.setPen(QPen(Qt::red));
+
+    QVector<QRectF> drawRecs;
+
+    for each (auto roi in m_vecDrawRoi)
+    {
+        auto [x,y,w,h] = roi->toQRect(this->rect().width(),this->rect().height());
+        drawRecs.push_back(QRectF(x, y, w, h));
+    }
+
+    painter.drawRects(drawRecs);
 }

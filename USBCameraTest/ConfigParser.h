@@ -12,18 +12,21 @@ using namespace std;
 
 using TUPLE_POS = tuple<double, double, double, double, double, double, double, double>;
 using TUPLE_RECT = tuple<double, double, double, double>;
+using TUPLE_QRECT = tuple<int, int, int, int>;
+
 
 class Draw_ROI
 {
 public:
 	Draw_ROI(double x, double y, double w_ratio, double h_ratio);
+	Draw_ROI(double x, double y, double w_ratio, double h_ratio,bool bQrectFmt);
 	Draw_ROI(double x,double y,int roi_w, double roi_h,int width,int height);
 	Draw_ROI(double LT_x, double LT_y, double RT_x, double RT_y, double RB_x, double RB_y, double LB_x, double LB_y);
 	~Draw_ROI();
 
 	TUPLE_POS pos();
 	TUPLE_RECT rect();
-
+	TUPLE_RECT toQRect(int width,int height);
 	const static int ROI_POS = 8;
 	const static int ROI_RECT = 4;
 
