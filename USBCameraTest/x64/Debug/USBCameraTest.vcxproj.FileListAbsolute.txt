@@ -1,0 +1,2 @@
+D:\QtProjecs\USBCameraTest\x64\Debug\USBCameraTest.exe.lastcodeanalysissucceeded
+D:\QtProjecs\USBCameraTest\USBCameraTest\x64\Debug\NativeCodeAnalysis.read.1.tlog

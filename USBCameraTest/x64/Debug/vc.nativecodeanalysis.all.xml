@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>D:\QtProjecs\USBCameraTest\include\nlohmann\detail\output\</FILEPATH>
+      <FILENAME>serializer.hpp</FILENAME>
+      <LINE>923</LINE>
+      <COLUMN>27</COLUMN>
+    </SFA>
+    <DEFECTCODE>28020</DEFECTCODE>
+    <DESCRIPTION>表达式“0&lt;=_Param_(1)&amp;&amp;_Param_(1)&lt;=400-1”对此调用无效。</DESCRIPTION>
+    <FUNCTION>nlohmann::json_abi_v3_11_2::detail::serializer&lt;nlohmann::json_abi_v3_11_2::basic_json&lt;std::map,std::vector,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector&lt;unsigned char,std::allocator&lt;unsigned char&gt; &gt;,void&gt; &gt;::decode</FUNCTION>
+    <DECORATED>?decode@?$serializer@V?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@json_abi_v3_11_2@nlohmann@@V?$vector@EV?$allocator@E@std@@@2@X@json_abi_v3_11_2@nlohmann@@@detail@json_abi_v3_11_2@nlohmann@@CAEAEAEAEAIE@Z</DECORATED>
+    <FUNCLINE>900</FUNCLINE>
+    <PATH>
+      <SFA>
+        <FILEPATH>d:\qtprojecs\usbcameratest\include\nlohmann\detail\output\</FILEPATH>
+        <FILENAME>serializer.hpp</FILENAME>
+        <LINE>902</LINE>
+        <COLUMN>51</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\qtprojecs\usbcameratest\include\nlohmann\detail\output\</FILEPATH>
+        <FILENAME>serializer.hpp</FILENAME>
+        <LINE>922</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>d:\qtprojecs\usbcameratest\include\nlohmann\detail\output\</FILEPATH>
+        <FILENAME>serializer.hpp</FILENAME>
+        <LINE>923</LINE>
+        <COLUMN>27</COLUMN>
+      </SFA>
+    </PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>D:\QtProjecs\USBCameraTest\include\nlohmann\detail\input\</FILEPATH>
+      <FILENAME>lexer.hpp</FILENAME>
+      <LINE>868</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26819</DEFECTCODE>
+    <DESCRIPTION>switch 标签之间的尾随 fallthrough (es.78)。</DESCRIPTION>
+    <FUNCTION>nlohmann::json_abi_v3_11_2::detail::lexer&lt;nlohmann::json_abi_v3_11_2::basic_json&lt;std::map,std::vector,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector&lt;unsigned char,std::allocator&lt;unsigned char&gt; &gt;,void&gt;,nlohmann::json_abi_v3_11_2::detail::input_stream_adapter&gt;::scan_comment</FUNCTION>
+    <DECORATED>?scan_comment@?$lexer@V?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@json_abi_v3_11_2@nlohmann@@V?$vector@EV?$allocator@E@std@@@2@X@json_abi_v3_11_2@nlohmann@@Vinput_stream_adapter@detail@23@@detail@json_abi_v3_11_2@nlohmann@@AEAA_NXZ</DECORATED>
+    <FUNCLINE>844</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>D:\QtProjecs\USBCameraTest\include\nlohmann\detail\input\</FILEPATH>
+      <FILENAME>lexer.hpp</FILENAME>
+      <LINE>905</LINE>
+      <COLUMN>30</COLUMN>
+    </SFA>
+    <DEFECTCODE>26819</DEFECTCODE>
+    <DESCRIPTION>switch 标签之间的尾随 fallthrough (es.78)。</DESCRIPTION>
+    <FUNCTION>nlohmann::json_abi_v3_11_2::detail::lexer&lt;nlohmann::json_abi_v3_11_2::basic_json&lt;std::map,std::vector,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector&lt;unsigned char,std::allocator&lt;unsigned char&gt; &gt;,void&gt;,nlohmann::json_abi_v3_11_2::detail::input_stream_adapter&gt;::scan_comment</FUNCTION>
+    <DECORATED>?scan_comment@?$lexer@V?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@json_abi_v3_11_2@nlohmann@@V?$vector@EV?$allocator@E@std@@@2@X@json_abi_v3_11_2@nlohmann@@Vinput_stream_adapter@detail@23@@detail@json_abi_v3_11_2@nlohmann@@AEAA_NXZ</DECORATED>
+    <FUNCLINE>844</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>D:\QtProjecs\USBCameraTest\USBCameraTest\</FILEPATH>
+      <FILENAME>VideoDecode.cpp</FILENAME>
+      <LINE>83</LINE>
+      <COLUMN>44</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>枚举类型“AVCodecID”未设定范围。相比于 "enum"，首选 "enum class" (Enum.3)。</DESCRIPTION>
+    <FUNCTION>VideoDecode::open</FUNCTION>
+    <DECORATED>?open@VideoDecode@@QEAA_NAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z</DECORATED>
+    <FUNCLINE>39</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>D:\QtProjecs\USBCameraTest\USBCameraTest\</FILEPATH>
+      <FILENAME>VideoDecode.cpp</FILENAME>
+      <LINE>140</LINE>
+      <COLUMN>26</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>枚举类型“AVPixelFormat”未设定范围。相比于 "enum"，首选 "enum class" (Enum.3)。</DESCRIPTION>
+    <FUNCTION>VideoDecode::open</FUNCTION>
+    <DECORATED>?open@VideoDecode@@QEAA_NAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z</DECORATED>
+    <FUNCLINE>39</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>D:\QtProjecs\USBCameraTest\USBCameraTest\</FILEPATH>
+      <FILENAME>VideoPropDia.h</FILENAME>
+      <LINE>13</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>未初始化变量 VideoProp::video_frame_rate。始终初始化成员变量(type.6)。</DESCRIPTION>
+    <FUNCTION>VideoProp::{ctor}</FUNCTION>
+    <DECORATED>??0VideoProp@@QEAA@XZ</DECORATED>
+    <FUNCLINE>13</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>VideoProp::video_frame_rate</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>

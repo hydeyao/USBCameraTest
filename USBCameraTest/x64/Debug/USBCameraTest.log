@@ -1,2 +1,78 @@
-﻿  USBCameraTest.cpp
+﻿  uic ConfigWidget.ui
+  uic USBCameraTest.ui
+  uic VideoPropDia.ui
+  rcc USBCameraTest.qrc
+  moc USBCameraTest.h
+  moc VideoWidgetFrame.h
+  moc VideoWidget.h
+  moc VideoPropDia.h
+  moc ReadThread.h
+  moc ConfigWidget.h
+  ConfigParser.cpp
+  ConfigWidget.cpp
+  ReadThread.cpp
+  VideoDecode.cpp
+  VideoPropDia.cpp
+  VideoWidget.cpp
+  VideoWidgetFrame.cpp
+  USBCameraTest.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\tuple(158,47): warning C4244: “初始化”: 从“_This”转换到“_Ty”，可能丢失数据
+          with
+          [
+              _This=double
+          ]
+          and
+          [
+              _Ty=int
+          ] (编译源文件 ConfigParser.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\tuple(245): message : 查看对正在编译的函数 模板 实例化“std::_Tuple_val<_This>::_Tuple_val<double&>(_Other)”的引用
+          with
+          [
+              _This=int,
+              _Other=double &
+          ] (编译源文件 ConfigParser.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\tuple(245): message : 查看对正在编译的函数 模板 实例化“std::_Tuple_val<_This>::_Tuple_val<double&>(_Other)”的引用
+          with
+          [
+              _This=int,
+              _Other=double &
+          ] (编译源文件 ConfigParser.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\tuple(327): message : 查看对正在编译的函数 模板 实例化“std::tuple<int,int,int,int>::tuple<std::_Exact_args_t,_This&,_This&,_This&,_This&,0>(_Tag,_This2,_This &,_This &,_This &)”的引用
+          with
+          [
+              _This=double,
+              _Tag=std::_Exact_args_t,
+              _This2=double &
+          ] (编译源文件 ConfigParser.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\tuple(327): message : 查看对正在编译的函数 模板 实例化“std::tuple<int,int,int,int>::tuple<std::_Exact_args_t,_This&,_This&,_This&,_This&,0>(_Tag,_This2,_This &,_This &,_This &)”的引用
+          with
+          [
+              _This=double,
+              _Tag=std::_Exact_args_t,
+              _This2=double &
+          ] (编译源文件 ConfigParser.cpp)
+D:\QtProjecs\USBCameraTest\USBCameraTest\ConfigParser.cpp(349): message : 查看对正在编译的函数 模板 实例化“std::tuple<int,int,int,int>::tuple<double&,double&,double&,double&,0>(_This2,double &,double &,double &) noexcept”的引用
+          with
+          [
+              _This2=double &
+          ]
+D:\QtProjecs\USBCameraTest\USBCameraTest\ConfigParser.cpp(349): message : 查看对正在编译的函数 模板 实例化“std::tuple<int,int,int,int>::tuple<double&,double&,double&,double&,0>(_This2,double &,double &,double &) noexcept”的引用
+          with
+          [
+              _This2=double &
+          ]
+  main.cpp
+  qrc_USBCameraTest.cpp
+  moc_USBCameraTest.cpp
+  moc_VideoWidgetFrame.cpp
+  moc_VideoWidget.cpp
+  moc_VideoPropDia.cpp
+  moc_ReadThread.cpp
+  moc_ConfigWidget.cpp
   USBCameraTest.vcxproj -> D:\QtProjecs\USBCameraTest\x64\Debug\USBCameraTest.exe
+D:\QtProjecs\USBCameraTest\include\nlohmann\detail\output\serializer.hpp(923): warning C28020: 表达式“0<=_Param_(1)&&_Param_(1)<=400-1”对此调用无效。
+D:\QtProjecs\USBCameraTest\include\nlohmann\detail\input\lexer.hpp(868): warning C26819: switch 标签之间的尾随 fallthrough (es.78)。
+D:\QtProjecs\USBCameraTest\include\nlohmann\detail\input\lexer.hpp(905): warning C26819: switch 标签之间的尾随 fallthrough (es.78)。
+D:\QtProjecs\USBCameraTest\USBCameraTest\VideoDecode.cpp(83): warning C26812: 枚举类型“AVCodecID”未设定范围。相比于 "enum"，首选 "enum class" (Enum.3)。
+D:\QtProjecs\USBCameraTest\USBCameraTest\VideoDecode.cpp(140): warning C26812: 枚举类型“AVPixelFormat”未设定范围。相比于 "enum"，首选 "enum class" (Enum.3)。
+D:\QtProjecs\USBCameraTest\USBCameraTest\VideoPropDia.h(13): warning C26495: 未初始化变量 VideoProp::video_frame_rate。始终初始化成员变量(type.6)。
