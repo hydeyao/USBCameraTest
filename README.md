@@ -3,8 +3,9 @@
 #### 光阵光电 USB Camera Test 源码
 
 #### 编译环境
-VS2019 + Qt5.14 
-C++ Flag: C++ 17
+VS2019 + Qt5.14; 
+C++ Flag: C++ 17;
+
 #####  依赖
 ffmpeg 5.12
 nlohmann json
